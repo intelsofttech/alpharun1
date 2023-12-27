@@ -1,0 +1,491 @@
+
+<ion-header >
+    <ion-grid style="background-color:#ffffff; color: padding:5px;">
+   <ion-row  style="background-color:#ffffff; color:#; margin-top:30px;">
+   <ion-col size="1" style="padding:0px; font-size:20px;">
+      <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+      </ion-col>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Mon compte
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+  <div  *ngIf="firstPage" align="left" >
+	
+  <div style="">
+  
+	<swiper-container
+		#swiper
+		(afterinit)="swiperReady()"
+		(slidechange)="swiperSlideChanged($event)"
+		[loop]="true"
+		[autoplay]="true"
+		[pagination]="true"
+		[zoom]="true" >
+		<swiper-slide *ngFor="let image of images">
+		  <div class="swiper-zoom-container">
+			<img [src]="image" />
+		  </div>
+		</swiper-slide>
+	  </swiper-container>
+	  <ion-card >
+		  <ion-card-content>
+			<div style="font-size:18px;color:#187ad1;">EvenApp</div>
+			<p>
+			Votre application dédié à l'évangile (Enseignements, chants de louange et adoration, témoignages), les églises évangeliques, les entreprises et professionnels évangeliques.
+			</p>
+		  </ion-card-content>
+       </ion-card>
+	   <ion-button style="margin-left:15px;margin-right:15px;"   (click)="changePage('login')"  expand="block">Connexion</ion-button>
+	   <ion-button style="margin-left:15px;margin-right:15px;"  fill="outline"  (click)="changePage('register')" expand="block" >Créer mon compte</ion-button>
+	
+  </div>
+  
+  <div style='display:none; padding:0px; background-image: url("assets/images/arr.png"); background-repeat: no-repeat; background-size: cover; margin-top:0px;'>
+	<video style=" width:100%;  height:100%;" autoplay muted loop id="myVideo">
+  <source src="assets/video4.mp4" type="video/mp4" >
+</video>
+   <ion-row style="margin-bottom:120px;margin-top:40px;" >
+   
+    <ion-col  style="font-size:16px;color:#ffffff;">
+       <ion-title style="font-size:20px;margin-top:3px;">
+		   
+		</ion-title>
+    </ion-col>
+	 <ion-col size="2" style="padding:0px; font-size:20px;">
+      
+    </ion-col>
+  </ion-row>
+  
+   <ion-row  >
+    <ion-col size="6" style="font-size:20px;color:#ffffff; font-family: 'Cooper Black', serif;">
+      Bienvenue chez Coopec
+    </ion-col>
+    <ion-col size="6">
+       <div class="input-field col-md-12" style=" padding:0px;" >
+		  <a class=" btn waves-effect waves-light green darken-1"   style="width:100%; padding:0px; height:40px; color:#ffffff;padding-top:px;">
+		  <span style="margin-right:4px; font-size:12px;">CONNEXION</span><span style="padding-top:5px;padding-bottom:-3px; "> <i class="material-icons"  style="color:#ffffff;font-size:12px;">lock</i></span>
+		  </a>
+	   </div>
+    </ion-col>
+   </ion-row>
+   
+   
+<div  class="row" style="position: fixed; bottom: 0; left:0 ; margin-bottom:20px; margin-left:10px; ">
+<ion-row  >
+    <ion-col size="6" >
+      <div style="height:120px; padding:10px; border-bottom:3px solid #08af4a;  background-color: rgba(255, 255,255, 0.5);">
+		  <div style="font-size:20px;">Créer un profil</div>
+		  <div>Pour souscrire ou consulter nos produits</div>
+	   </div>
+    </ion-col>
+    <ion-col size="3">
+        <div align="center" routerLink="/assistance" style="height:90px; padding:10px; margin-top:30px; background-color: rgba(255, 255,255, 0.3);  border-bottom:3px solid #08af4a;">
+		  <div style=""><i class="material-icons"  style="color:#000000;font-size:25px;">help</i></div>
+		  <div style="color:#000000;font-size:12px;">Aide</div>
+	   </div>
+    </ion-col>
+    <ion-col size="3">
+        <div align="center"  routerLink="/agence" style="height:90px; padding:10px; margin-top:30px;background-color: rgba(255, 255,255, 0.3); border-bottom:3px solid #08af4a; ">
+		  <div style=""><img src="/assets/images/coopec.jpg" style="width:30px; padding:4px;" /></div>
+		  <div style="color:#000000;font-size:12px;">Nos agences</div>
+	   </div>
+    </ion-col>
+   </ion-row>
+   
+</div>
+
+  
+  </div>
+  </div>
+ 
+ 
+
+ 
+ <form [formGroup]="loginForm" (ngSubmit)="onLogin()" *ngIf="loginPage">
+  
+   <ion-card  *ngIf="createsuccessfull">
+	  <ion-card-header>
+		<ion-card-subtitle color="">Compte</ion-card-subtitle>
+		<ion-card-title color="">Création de compte</ion-card-title>
+	  </ion-card-header>
+
+	  <ion-card-content>
+		Votre compte a été créé avec succès. veuillez vous connecter pour continuer
+	  </ion-card-content>
+
+   </ion-card>
+  
+<ion-card>
+  <ion-card-header>
+  
+   <div align="center" style="margin-bottom:20px;">
+		<ion-card-title>Connexion</ion-card-title>
+		<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+	</div> 
+    
+  </ion-card-header>
+
+  <ion-card-content>
+   
+	<ion-input label="Telephone ou Email" formControlName="username" label-placement="floating" required  type="text" fill="solid" placeholder="Telephone ou Email"></ion-input>
+
+	<br />
+	<ion-input label="Mot de passe" formControlName="password" label-placement="floating" required type="password" fill="solid" placeholder="Mot de passe"></ion-input>
+	
+	<br />
+	<ion-button fill="clear" (click)="changePage('forget')">Mot de passe oublié?</ion-button>
+	<br />
+	<ion-button  *ngIf="isEmpty" type="submit" expand="block">Connexion</ion-button>
+	<ion-button  *ngIf="!isEmpty" expand="block">Connexion en cour ...</ion-button>
+	<br />
+	<ion-button fill="outline" expand="block"  (click)="changePage('register')">Créer mon compte</ion-button>
+	
+  </ion-card-content>
+  </ion-card>
+  </form>
+  
+  
+  
+ 
+ 
+ <form [formGroup]="forgetForm" (ngSubmit)="onForget()" *ngIf="forgetPage">
+
+  <ion-card>
+  <ion-card-header>
+  
+   <div align="center" style="margin-bottom:20px;">
+		<ion-card-title>Mot de passe oublié</ion-card-title>
+		<ion-card-subtitle>{{Message}}</ion-card-subtitle>
+	</div>
+    
+  </ion-card-header>
+
+  <ion-card-content>
+   
+	<ion-input label="Telephone ou Email" formControlName="username" label-placement="floating" required  type="text" fill="solid" placeholder="Telephone ou Email"></ion-input>
+
+	<br />
+	<ion-button  type="submit" expand="block">Réinitialiser</ion-button>
+	<br />
+	<ion-button fill="outline" expand="block"  (click)="changePage('login')">Connexion</ion-button>
+	
+  </ion-card-content>
+  </ion-card>
+  </form>
+  
+  
+  
+  
+  
+  
+  
+ <form [formGroup]="registerForm" (ngSubmit)="onRegister()" *ngIf="registerPage">
+
+  <ion-card>
+  <ion-card-header>
+  
+   <div align="center" style="margin-bottom:20px;">
+		<ion-card-title>Création de compte</ion-card-title>
+		<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+	</div>
+    
+  </ion-card-header>
+  <ion-card-content>
+    <div  *ngIf="ShowAppSelect">
+    <ion-select label="Type" formControlName="usertype"  (ionChange)="triggerEvent()" [(ngModel)]="usertype" label-placement="floating" interface="popover" placeholder="Type"  fill="solid">
+		 <ion-select-option  *ngFor="let lineedu of listtype;" value="{{lineedu.id}}"  >{{lineedu.label}}</ion-select-option>
+	</ion-select>
+	<br />
+	</div>
+    <div  *ngIf="ShowAppSelect" >
+		<div  *ngIf="ShowSelect">
+			<ion-input label="{{LibUnderSelect}}"  [(ngModel)]="configlabel"  formControlName="configlabel" label-placement="floating"  (click)="presentModalConfig()" type="text" fill="solid" placeholder="{{LibUnderSelect}}"></ion-input>
+			<div   style="display:none;">
+				<ion-input label="{{LibUnderSelect}}"  [(ngModel)]="configid" formControlName="configid" label-placement="floating"    type="text" fill="solid" placeholder="{{LibUnderSelect}}"></ion-input>
+			</div>
+		<br />
+		</div>
+	</div>
+	<ion-input label="Nom complet" formControlName="firstName" label-placement="floating"  type="text" fill="solid" placeholder="Nom complet"></ion-input>
+	<br />
+	<ion-input label="Téléphone" formControlName="phone" label-placement="floating"  type="text" fill="solid" placeholder="Téléphone"></ion-input>
+	<br />
+	<ion-input label="Ville, commune" formControlName="city" label-placement="floating"  type="text" fill="solid" placeholder="Ville, commune"></ion-input>
+	<br />
+	<ion-input label="Pays"  [(ngModel)]="countrylabel"  formControlName="countrylabel" label-placement="floating"  (click)="presentModalCountry()" type="text" fill="solid" placeholder="Pays"></ion-input>
+	<div style="display:none;">
+	<ion-input label="Pays"  [(ngModel)]="country" formControlName="country" label-placement="floating"   type="text" fill="solid" placeholder="Pays"></ion-input>
+	</div>
+	<br />
+	<ion-input label="Email" formControlName="email" label-placement="floating"  type="text" fill="solid" placeholder="Email"></ion-input>
+	<br />
+	<ion-input label="Mot de passe" formControlName="password" label-placement="floating" type="password" fill="solid" placeholder="Mot de passe"></ion-input>
+	<br />
+	<ion-input label="Confirmerot de passe" formControlName="password2" label-placement="floating" type="password" fill="solid" placeholder="Confirmerot de passe"></ion-input>
+	<br />
+	<div  *ngIf="gpsLocation">
+		<div  style="display:none1;">
+			<ion-button fill="clear" (click)="getCurrentCoordinate()">Activer ma position GPS</ion-button>
+			<br />
+		</div>
+		<div >
+			<div  style="display:none;" >
+			   <p>Lat: {{coordinate?.latitude }}
+			  Long:{{ coordinate?.longitude }}
+			  </p>
+			</div>
+			<div  *ngIf="gpsLocationCord">
+				<ion-input label="latitude" [(ngModel)]="posLatitude"  formControlName="posLatitude" label-placement="floating"  type="hidden" fill="solid" placeholder=""></ion-input>
+				<ion-input label="longitude" [(ngModel)]="posLongitude"  formControlName="posLongitude" label-placement="floating"  type="hidden" fill="solid" placeholder=""></ion-input>
+			</div>
+		</div>
+	</div>
+	<ion-button  *ngIf="isEmpty2" type="submit" expand="block">Valider</ion-button>
+	<ion-button  *ngIf="!isEmpty2" expand="block">Validation en cours ...</ion-button>
+	<br />
+	<ion-button fill="outline" expand="block" (click)="changePage('login')">Connexion</ion-button>
+	
+  </ion-card-content>
+  </ion-card>
+  </form>
+
+
+<div  *ngIf="homePage">
+	<div   style="display:none1;">
+
+	<swiper-container
+		#swiper
+		(afterinit)="swiperReady()"
+		(slidechange)="swiperSlideChanged($event)"
+		[loop]="true"
+		[autoplay]="true"
+		[pagination]="true"
+		[zoom]="true" >
+		<swiper-slide *ngFor="let image of images">
+		  <div class="swiper-zoom-container">
+			<img [src]="image" />
+		  </div>
+		</swiper-slide>
+	  </swiper-container>
+	<div >
+	   <h5  style="font-size:14px; margin-left:15px; color:#474847;">MEMBRES ET ACTIVITES</h5>
+	   <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/params/1/Bureaux">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/produit.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Bureaux</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/partner/membre/Membres">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/membres.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Membres</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" >
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/parametre1.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Activités</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  
+	   <h5  style="font-size:14px; margin-left:15px; color:#474847;">ENREGISTREMENTS SIMPLES</h5>
+	   <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/bill/1/1/Recette">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/produit.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Recettes</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/bill/2/1/Charge">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/charge.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Charges</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/parametre">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/parametre1.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Configurer</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  <h5 style="font-size:14px; margin-left:15px; color:#474847;">ENREGISTREMENTS DETAILLES</h5>
+	   <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/bill/1/2/Ventes">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;" routerLink="/bill/1/2/Ventes">
+					<ion-img src="assets/icon/vente.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Ventes</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/bill/2/2/Achat">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/achat.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Achats</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/product">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/article.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Produits</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	   <div>
+	   <h5 style="font-size:14px; margin-left:15px; color:#474847;">OPERATIONS</h5>
+	   <ion-row>
+	   
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/operation/1/Encaissements">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/cashin.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Encaissem.</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/operation/2/Décaissements">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/cashout.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Décaiss.</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" >
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/banque.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Comptes</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  </div >
+	  <div style="display:none;">
+	  <h5 style="font-size:14px; margin-left:15px; color:#474847;">OPERATIONS</h5>
+	   <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/carte">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/goin.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Entées</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" routerLink="/projet">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/goout.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Sorties</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;" >
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/banque.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Comptes</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  </div>
+	  <h5  style="font-size:14px; margin-left:15px; color:#474847;">PARAMETRES</h5>
+	   <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/partner/fournisseur/Fournisseurs">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/fournisseur.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Fourniss.</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/partner/client/Clients">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/client.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Clients</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/etablissement">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/icon/parametre.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:12px;">Paramètres</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  
+	  </div>
+		
+	</div>
+</div>
+ 
+</ion-content>

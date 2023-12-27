@@ -1,0 +1,123 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border" >
+<form [formGroup]="pageForm"  >
+  <ion-row>
+	<ion-searchbar   [(ngModel)]="word" formControlName="word"    (keyup)="applyFilter()"></ion-searchbar>
+  </ion-row>
+</form>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div *ngIf="group != '0' ">  
+      <div *ngFor="let result of results; let i = index" >
+      <ion-card  *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group " >
+		 <ion-row >
+			<ion-col size="5">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Nom</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{ result.id }} | {{ result.firstName }} {{ result.lastName }}</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Remi</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{ result.accountAmount }} XOF</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Sur</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{amount}} XOF</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Reste</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span> {{amount-result.accountAmount}} XOF</span></span>
+				</p>
+			</ion-col>
+		  </ion-row>
+		  
+			<p style="margin:0px;">
+			   <ion-button  fill="clear"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon style="font-size:14px;" name="person"></ion-icon> </ion-button>
+			   <ion-button  fill="clear"  (click)="operationModal(result.id, param4)"> <ion-icon name="wallet"  style="font-size:14px;"></ion-icon> </ion-button>
+			   <ion-button  fill="clear"  (click)="operationModal(result.id, param4)"> <ion-icon name="list"  style="font-size:14px;"></ion-icon> </ion-button>
+			</p>
+	   </ion-card>
+	    </div>
+  </div> 
+  <div *ngIf="group == '0' ">  
+      <div *ngFor="let result of results; let i = index" >
+      <ion-card  style="padding:7px;">
+		  <ion-row >
+			<ion-col size="5">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Nom</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{ result.id }} | {{ result.firstName }} {{ result.lastName }}</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Remi</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{ result.accountAmount }} XOF</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Sur</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span>{{amount}} XOF</span></span>
+				</p>
+			</ion-col>
+			<ion-col size="2">
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:1px;">
+				<strong>Reste</strong>
+				</p>
+			   <p style="margin:0px; font-size:12px; color:#; margin-bottom:5px;">
+				<span><span> {{amount-result.accountAmount}} XOF</span></span>
+				</p>
+			</ion-col>
+		  </ion-row>
+		  
+			<p style="margin:0px;">
+			   <ion-button  fill="clear"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon style="font-size:14px;" name="person"></ion-icon> </ion-button>
+			   <ion-button  fill="clear"  (click)="operationModal(result.id, param4)"> <ion-icon name="wallet"  style="font-size:14px;"></ion-icon> </ion-button>
+			   <ion-button  fill="clear"  (click)="operationModal(result.id, param4)"> <ion-icon name="list"  style="font-size:14px;"></ion-icon> </ion-button>
+			</p>
+	    </ion-card>
+	    </div>
+  </div> 
+   <div  style="margin-bottom:80px;">
+	  </div>
+	   <ion-card  color="default"   style="margin-bottom:10px; padding:10px; color:#000000; position:fixed; bottom:0; width:100%; left:0;">Total: {{amountTotal}} F - Remi: {{payamountTotal}} F - Reste: {{stayamountTotal}} F</ion-card>
+     
+</ion-content>

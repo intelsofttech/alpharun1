@@ -1,0 +1,54 @@
+
+<ion-header >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+      <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+      </ion-col>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Mon compte
+		</ion-title>
+    </ion-col>
+    <ion-col size="2">
+       <ion-button fill="clear" style="color:#ffffff;"  routerLink="/login">
+	   <ion-icon name="person" style="font-size:18 px;color:#ffffff; margin-right:5px;"></ion-icon>
+	   </ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+
+  <div style="">
+  
+	<swiper-container
+		#swiper
+		(afterinit)="swiperReady()"
+		(slidechange)="swiperSlideChanged($event)"
+		[loop]="true"
+		[autoplay]="true"
+		[pagination]="true"
+		[zoom]="true" >
+		<swiper-slide *ngFor="let image of images">
+		  <div class="swiper-zoom-container">
+			<img [src]="image" />
+		  </div>
+		</swiper-slide>
+	  </swiper-container>
+	  <ion-card >
+		  <ion-card-content>
+			<div style="font-size:18px;color:#187ad1;">EvenApp</div>
+			<p>
+			Votre application dédié à l'évangile (Enseignements, chants de louange et adoration, témoignages), les églises évangeliques, les entreprises et professionnels évangeliques.
+			</p>
+		  </ion-card-content>
+       </ion-card>
+	  
+  </div>
+ 
+</ion-content>

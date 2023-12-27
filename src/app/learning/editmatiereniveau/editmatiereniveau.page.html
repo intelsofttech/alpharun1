@@ -1,0 +1,74 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+  
+  
+  
+ <div style="padding:10px;"  *ngIf="!addForm">
+<ion-row  style="margin-top:20px;">
+    <ion-col size="12"  *ngIf="param2!='0'">
+        <form [formGroup]="pageForm">
+			<ion-select label="Sélectionnez un niveau" (ionChange)="onList()" [(ngModel)]="level" formControlName="level"  label-placement="floating"   interface="popover" placeholder="Sélectionnez un niveau"  fill="outline">
+				<ion-select-option  *ngFor="let line of parents;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+		</form>
+    </ion-col>
+  </ion-row>
+ <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td style="width:50%;">Libellé</td>
+			<td>Coef</td>
+			<td>Hrs/semaine</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.label }}</td>
+			<td>{{ result.coef }}</td>
+			<td>{{ result.value}}</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+	  <div  *ngIf="gridmode">
+			<div class="row">
+			<div class="col-md-4"  *ngFor="let result of results">
+			 <ion-item href="#"   routerLink="/typeprogram/{{result.code}}/{{result.label}}">
+				<ion-icon slot="start"  name="arrow-down-circle"></ion-icon>
+				<ion-label style=" color:#505152;">{{result.label}}</ion-label>
+				<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+			</ion-item>
+			</div>
+			</div>
+			
+		  
+	  </div>
+  </div>
+
+ 
+</ion-content>

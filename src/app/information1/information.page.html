@@ -1,0 +1,172 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Informations
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<div *ngIf="!isEdit" style="margin-top:20px;">
+		<ion-item>
+			<ion-label>
+			  <h3>Logo/Image</h3>
+			  <div style="display:none1;">
+				<ion-img class="map"  src="{{imageurl}}"  (click)="onSelectImage('image')" style="width:180px;height:auto;"></ion-img>
+			  </div>
+			  <div style="display:none;">	
+				<form [formGroup]="infoForm">
+				<ion-input label="Image" [(ngModel)]="image" formControlName="image" label-placement="floating"   type="text" fill="outline" placeholder="Image"></ion-input>
+			    </form>
+			  </div>
+			  <ion-button  id="open-action-sheet" fill="clear"  style="display:none; text-transform:capitalize;">Ajouter un fichier</ion-button>
+			  <ion-action-sheet
+					trigger="open-action-sheet"
+					header="Dépuis"
+					[buttons]="actionSheetButtons"
+					(didDismiss)="setResult($event)">
+			  </ion-action-sheet>
+			</ion-label>
+		</ion-item>
+		<div class="row">
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-card  style="padding:17px; margin-bottom:0px;">
+					<ion-item>
+						<ion-label>
+						  <h3>Nom</h3>
+						  <p>{{firstName}}</p>
+						</ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>Code contribuable</h3>
+						<p>{{numb}}</p>
+					  </ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>RCCM</h3>
+						<p>{{code}}</p>
+					  </ion-label>
+					</ion-item>	
+					</ion-card>	
+					
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-card  style="padding:17px; margin-bottom:0px;">
+					<ion-item>
+					  <ion-label>
+						<h3>Téléphone</h3>
+						<p>{{phone}}</p>
+					  </ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>Email</h3>
+						<p>{{email}}</p>
+					  </ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>Site web</h3>
+						<p>{{other}}</p>
+					  </ion-label>
+					</ion-item>		
+					</ion-card>
+					
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-card  style="padding:17px; margin-bottom:0px;">
+					
+					<ion-item>
+					  <ion-label>
+						<h3>Adresse</h3>
+						<p>{{address}}</p>
+					  </ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>Ville</h3>
+						<p>{{city}}</p>
+					  </ion-label>
+					</ion-item>	
+					</ion-card>	
+					
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-card  style="padding:17px; margin-bottom:0px;">
+					<ion-item>
+					  <ion-label>
+						<h3>Lien map</h3>
+						<p>{{locateurl}}</p>
+					  </ion-label>
+					</ion-item>
+					<ion-item>
+					  <ion-label>
+						<h3>Activité</h3>
+						<p>{{description}}</p>
+					  </ion-label>
+					</ion-item>	
+					</ion-card>	
+					
+				</div>
+		</div>		
+		
+		
+		<ion-item>
+		  <ion-label>
+			<ion-button  fill="clear"  (click)="onModifyForm()" >Modifier</ion-button>
+		  </ion-label>
+		</ion-item>
+	</div>
+	<form [formGroup]="infoForm" (ngSubmit)="onUpdate()"  *ngIf="isEdit">
+		<ion-card  style="padding:17px; margin-bottom:0px;">
+			<h5>INFORMATIONS</h5>
+			<div class="row">
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Nom" [(ngModel)]="firstName" formControlName="firstName" label-placement="floating"  type="text" fill="outline" placeholder="Nom"></ion-input>					
+				</div>
+				<div class="col-md-3" style="margin-bottom:15px;">
+					<ion-input label="RCCM" [(ngModel)]="code" formControlName="code" label-placement="floating"  type="text" fill="outline" placeholder="RCCM"></ion-input>					
+				</div>
+				<div class="col-md-3" style="margin-bottom:15px;">
+					<ion-input label="N° Compte contribuable" [(ngModel)]="numb" formControlName="numb" label-placement="floating"  type="text" fill="outline" placeholder="N° Compte contribuable"></ion-input>					
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Adresse" [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" fill="outline" placeholder="Adresse"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Ville" [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" fill="outline" placeholder="Ville"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Téléphone" [(ngModel)]="phone" formControlName="phone" label-placement="floating" type="text" fill="outline" placeholder="Téléphone"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Email" [(ngModel)]="email" formControlName="email" label-placement="floating"  type="text" fill="outline" placeholder="Email"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Site web" [(ngModel)]="other" formControlName="other" label-placement="floating"  type="text" fill="outline" placeholder="Site web"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Site web" [(ngModel)]="locateurl" formControlName="locateurl" label-placement="floating"  type="text" fill="outline" placeholder="Site web"></ion-input>
+				</div>
+				<div class="col-md-12" style="margin-bottom:15px;">
+					<ion-textarea label="Activité" [autoGrow]="true" [(ngModel)]="description" formControlName="description" labelPlacement="floating" fill="outline" placeholder="Activité"></ion-textarea>
+				</div>
+				<div class="col-md-12" style="margin-bottom:15px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+					<br />
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		</ion-card>
+	</form>
+</ion-content>

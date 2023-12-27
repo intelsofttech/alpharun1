@@ -1,0 +1,75 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import '@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+@import "bootstrap";
+
+body.scanner-active {
+  --background: transparent;
+  --ion-background-color: transparent;
+}
+
+table {
+	border-collapse: collapse;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+table {
+	padding: 12px;
+}
+td {
+	padding: 12px;
+	font-size: 14px;
+}
+table thead td {
+	background-color: #f9fafb;
+	
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #e6e8ea;
+}
+table tfoot td {
+	background-color: #f9fafb;
+	
+	font-weight: bold;
+	font-size: 13px;
+	border: 1px solid #e6e8ea;
+}
+table tbody td {
+	color: #636363;
+	border: 1px solid #dddfe1;
+}
+table tbody tr {
+	background-color: #f9fafb;
+}
+table tbody tr:nth-child(odd) {
+	background-color: #ffffff;
+}
+.ion-input{
+    --padding-top:5px;
+    --padding-bottom:5px;
+     --border:1px solid #ffffff;
+	--max-height:30px;
+}

@@ -1,0 +1,1837 @@
+<ion-app>
+<ion-content [fullscreen]="true"   style="width:100%; height:100%; padding:0px; background-color:#0d557a;" *ngIf="!_homePage">
+<div class="" style="padding:0px; background-color:#0d557a;">
+
+<div class="row" >
+	<div class="col-md-4">
+
+	</div>
+	<div class="col-md-4">
+		<form   *ngIf="_firstPage"  style="margin-top:60px;">
+  
+		<ion-card>
+		  <ion-card-header>
+		    
+		   <div align="right"  style="margin-top:20px; margin-bottom:20px;">
+			<ion-button fill="clear" (click)="onClose()" style="text-transform:none; font-size:12px;"><ion-icon aria-hidden="true" name="close"></ion-icon> Fermer</ion-button>
+		   </div> 
+		   <div align="center"  style="margin-top:40px; margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				
+			</div> 
+			
+		  </ion-card-header>
+
+		  <ion-card-content>
+			<ion-button style="background-color:#48c9b0; margin-bottom:20px;"  routerLink="/home"    (click)="changePage('home')"  type="button" expand="block">Continuer</ion-button>
+			<ion-button style="background-color:#48c9b0; margin-bottom:20px;"  (click)="changePage('login')" type="button" expand="block">Connexion</ion-button>
+			<ion-button style="background-color:#48c9b0; margin-bottom:20px;"  (click)="changePage('register')" type="button" expand="block">Créer un compte</ion-button>
+			
+		  </ion-card-content>
+		  </ion-card>
+		</form>
+		  
+		<form   *ngIf="_loginPage"   style="margin-top:60px;margin-bottom:100px;">
+  
+		<ion-card>
+		  <ion-card-header>
+		    
+		   <div align="right" >
+			<ion-button fill="clear" (click)="onClose()" style="text-transform:none; font-size:12px;"><ion-icon aria-hidden="true" name="close"></ion-icon> Fermer</ion-button>
+		   </div> 
+		   <div align="center"  style="margin-top:0px; margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Connexion</ion-card-title>
+				<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+			</div> 
+			
+		  </ion-card-header>
+
+		  <ion-card-content>
+		   <ion-list>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value="" type="text"  id="username">
+				  <div slot="label">Email</div>
+				</ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value=""  type="number" id="password" type="password">
+				  <div slot="label">Mot de passe</div>
+				</ion-input>
+			  </ion-item>
+			</ion-list>
+			<ion-button style="background-color:#48c9b0;"  *ngIf="isEmpty" (click)="onLogin()" type="button" expand="block">Connexion</ion-button>
+			<ion-button style="background-color:#48c9b0;" *ngIf="!isEmpty" type="button" expand="block">Connexion en cour ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="changePage('forget')" style="text-transform:none1; font-size:12px;">Mot de passe oublié?</ion-button>
+			<ion-row  style="display:none1;">
+				<ion-col size="6">
+					<p style="margin-top:10px; font-size:12px;">Vous n'avez pas de compte?</p>
+				</ion-col>
+				<ion-col size="6">
+					<ion-button fill="clear" expand="block"  style="text-transform:none; font-size:12px;" (click)="changePage('register')"> Créer maintenant</ion-button>
+				</ion-col>
+			</ion-row>
+		  </ion-card-content>
+		  </ion-card>
+		</form>
+		  
+		<form   *ngIf="_createsuccessfull"  style="margin-top:60px;">
+  
+		<ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center"  style="margin-top:40px; margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Création de compte terminé</ion-card-title>
+			</div> 
+			
+		  </ion-card-header>
+
+		  <ion-card-content style="margin-bottom:30px;">
+		   
+				<p style="padding:30px;">Votre compte a été créé avec succès. veuillez vous connecter pour continuer</p>
+			
+			<ion-button  *ngIf="isEmpty"  (click)="changePage('login')" type="button" expand="block">Connexion</ion-button>
+			<br />
+		  </ion-card-content>
+		  </ion-card>
+		</form>
+		  
+		  
+		  <form  (ngSubmit)="onForget()" *ngIf="_forgetPage"  style="margin-top:60px;">
+
+		  <ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Mot de passe oublié</ion-card-title>
+				<ion-card-subtitle>{{Message}}</ion-card-subtitle>
+			</div>
+			
+		  </ion-card-header>
+
+		  <ion-card-content>
+		    <ion-list>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value="" type="text"  id="_user_name">
+				  <div slot="label">Email</div>
+				</ion-input>
+			  </ion-item>
+			</ion-list>
+			<br />
+			<ion-button  type="submit" expand="block">Réinitialiser</ion-button>
+			<br />
+			<ion-row>
+				<ion-col size="5">
+					<ion-button fill="clear" expand="block"  style="text-transform:none; font-size:12px;" (click)="changePage('login')">  Me connecter</ion-button>
+				</ion-col>
+			</ion-row>
+		  </ion-card-content>
+		  </ion-card>
+		  </form>
+		  
+		  		  
+		 <form  [formGroup]="registerForm" (ngSubmit)="onRegister()" *ngIf="_registerPage"  style="margin-top:60px;margin-bottom:100px;">
+
+		  <ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Création de compte</ion-card-title>
+				<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+			</div>
+			
+		  </ion-card-header>
+		  <ion-card-content>
+			<ion-list>
+			  <ion-item style="display:none;">
+				<ion-select labelPlacement="floating" interface="popover"  >
+					 <ion-select-option value="immobilier">Agence immobilière</ion-select-option>
+					 <ion-select-option value="ecole">Ecole</ion-select-option>
+					 <ion-select-option value="hotel">Hotel et restaurant</ion-select-option>
+					 <ion-select-option value="restataurant">Restaurant</ion-select-option>
+					 <ion-select-option value="entreprise">Entreprise</ion-select-option>
+					 <ion-select-option value="eglise">Eglise</ion-select-option>
+					 <ion-select-option value="clinique">Clinique</ion-select-option>
+					 <ion-select-option value="stock">Stock et facturation</ion-select-option>
+				     <div slot="label">Type de compte</div>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+				<ion-select labelPlacement="floating" interface="popover"  formControlName="etabType" [(ngModel)]="etabType" >
+					 <ion-select-option value="immobilier">Agence et promotion immobilière</ion-select-option>
+				     <div slot="label">Type de compte</div>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value=""  formControlName="firstName" [(ngModel)]="firstName">
+				  <div slot="label">Nom</div>
+				</ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-select labelPlacement="floating"  [(ngModel)]="country" formControlName="country"  interface="popover" >
+					 <ion-select-option  *ngFor="let result of countries"  value="{{ result.id }}" >{{ result.name }}</ion-select-option>
+				     <div slot="label">Pays</div>
+				</ion-select>
+			  </ion-item>
+			  <ion-item  *ngIf="showcity">
+				<ion-input labelPlacement="floating" value=""   formControlName="city" [(ngModel)]="city">
+				  <div slot="label">Ville, commune</div>
+				</ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value="" type="text"  formControlName="phone" [(ngModel)]="phone" >
+				  <div slot="label">Téléphone</div>
+				</ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value="" type="email"  formControlName="email" [(ngModel)]="email">
+				  <div slot="label">Email</div>
+				</ion-input>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value=""   (keyup)="onVerifypassword()"  formControlName="password" [(ngModel)]="password" [type]="Typeinput" id="_showpassword">
+				  <div slot="label">Mot de passe</div>
+				</ion-input>
+				<ion-button fill="clear" slot="end" (click)="showPassword()">
+					<ion-icon slot="icon-only" *ngIf="isShow" name="eye" ></ion-icon>
+					<ion-icon slot="icon-only" *ngIf="!isShow" name="eye-off"></ion-icon>
+				</ion-button>
+			  </ion-item>
+			  <ion-item>
+				<ion-input labelPlacement="floating" value=""   formControlName="password2" [(ngModel)]="password2" [type]="Typeinput" id="_showpassword2">
+				  <div slot="label">Mot de passe</div>
+				</ion-input>
+				<ion-button fill="clear" slot="end" (click)="showPassword()">
+					<ion-icon slot="icon-only" *ngIf="isShow" name="eye" ></ion-icon>
+					<ion-icon slot="icon-only" *ngIf="!isShow" name="eye-off"></ion-icon>
+				</ion-button>
+			  </ion-item>
+			  <ion-progress-bar  style="margin-left:15px;margin-top:5px;" color="success" [value]="tauxsecure" buffer="100"></ion-progress-bar>
+			  <div style="margin-left:15px; background-color:#;">Minimum 8 carcatères (Au moins une lettre majuscule, minuscule et chiffres)</div>
+			</ion-list>
+			
+			  <div style="padding:20px;">
+				<p><ion-checkbox   (ionChange)="onCondition()" formControlName="condition" id="_condition" labelPlacement="end">J'accepte les conditions</ion-checkbox></p>
+				<p><a href="https://oz-ci.com/conditions/application.html" target="_blank" style="margin-left:30px;">Lire les conditions  d'utlisation</a></p>
+			  </div>
+			  
+			<ion-button style="margin-top:20px;" *ngIf="isEmpty2" (click)="onRegister()" type="button" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="!isEmpty2" type="button" expand="block">En cour ...</ion-button>
+			<br />
+			<ion-row>
+				<ion-col size="7">
+					<p style="margin-top:10px; font-size:12px;">Vous avez déjà un compte?</p>
+				</ion-col>
+				<ion-col size="5">
+					<ion-button fill="clear" expand="block"  style="text-transform:none; font-size:12px;" (click)="changePage('login')">Me connecter</ion-button>
+				</ion-col>
+			</ion-row>
+		
+		  </ion-card-content>
+		  </ion-card>
+		  </form>
+
+
+		 <div  *ngIf="_accounts">
+		 <ion-card >
+		  <ion-card-header  style=" margin-top:30px;">
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Sélectionner un compte</ion-card-title>
+			</div>
+			
+		  </ion-card-header>
+		  <ion-card-content>
+			   <ion-list>
+				  <ion-item button (click)="goMyAccount()" >
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>Mon compte</p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+				  <ion-item button  *ngFor="let result of list1; let i = index" (click)="goSelectAccount(result.numb, result.locate)">
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>{{result.ifu}} </p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+				  <ion-item button  *ngFor="let result of list2; let i = index" (click)="goSelectAccount(result.numb, result.locate)">
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>{{result.ifu}}</p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+			  </ion-list>
+
+			
+		  </ion-card-content>
+		  </ion-card>
+		  </div>
+ 
+	</div>
+	<div class="col-md-4">
+
+	</div>
+</div>
+
+  
+   
+	
+                      
+</div>
+</ion-content>
+
+<ion-content [fullscreen]="true"  *ngIf="_homePage">
+		<div class="row" *ngIf="!mobile" style="height:{{height}}px;">
+			<div class="col-md-12" style=" background-color:{{backcolor2}};  color:{{textcolor2}}; padding:5px; ">
+				<ion-card style="margin:0px;">
+				   <ion-grid style="padding-bottom:0px;">
+				   <ion-row   style="background-color:{color}; color:#ffffff padding:5px; ">
+					<ion-col size="2" align="right" style="padding:0px; font-size:20px;">
+					   <ion-img class="map" [src]="imgbaseUrl" style="margin-left:20px; width:90px;height:auto;"></ion-img>
+					</ion-col>
+					<ion-col style="padding:10px; padding-left:0px;">
+					   <ion-title style="font-size:16px;margin-top:3px;">
+						   Bienvenue sur votre application de gestion et promotion immobilière KHEOPX
+						</ion-title>
+					</ion-col>
+					<ion-col  size="2">
+						<button  (click)="goMenu('left')"  style="margin-right:10px; padding-top:10px; background-color:{{backcolor2}}; color:{{textcolor2}};" >
+							<ion-icon name="grid"></ion-icon>
+						</button>
+						<button (click)="goMenu('top')" style="padding-top:10px; background-color:{{backcolor2}}; color:{{textcolor2}}; margin-right:10px;" >
+							<ion-icon name="list"></ion-icon>
+						</button>
+						<button (click)="goOut()" style="padding-top:10px; background-color:{{backcolor2}}; color:{{textcolor2}};" >
+							<ion-icon name="lock-closed"></ion-icon>
+						</button>
+					</ion-col>
+				  </ion-row>
+				 <ion-row  *ngIf="webtop"   style=" background-color:{{backcolor3}}; color:{{textcolor3}}; padding:px; ">
+					<ion-col  size="12" >
+						<ion-button (click)="goSelect('gestionimmo')" fill="clear"  style="color:{{textcolor3}};font-size:12px;">
+													<ion-icon name="business-outline" style="font-size:12px;color:{{textcolor3}};font-size:12px; padding-right:7px;"></ion-icon>  Gestion immobilière</ion-button>
+													  
+													 <ion-button (click)="goSelect('promotion')" fill="clear" style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="home-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Promotion immobilière</ion-button>
+													 
+													 
+													<ion-button  (click)="goSelect('parcauto')" fill="clear" style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="car-sport-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Gestion parc auto</ion-button>
+													
+													
+													 
+													<ion-button (click)="goSelect('gestioncom')" fill="clear" style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="diamond-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Gestion commerciale</ion-button>
+													
+													<ion-button (click)="goSelect('statut')" fill="clear" style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="diamond-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Gestion financière</ion-button>
+													
+													
+													<ion-button (click)="goSelect('configschool')" fill="clear" style="display:none; color:{{textcolor3}};font-size:12px;"> <ion-icon name="school-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Gestion école</ion-button>
+													
+													
+													 
+													 
+													 <ion-button (click)="goSelect('config')" fill="clear" style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="construct-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Configuration</ion-button>
+													 
+													
+													
+													 <ion-button (click)="goSelect('admin')" fill="clear"style="color:{{textcolor3}};font-size:12px;"> <ion-icon name="settings-outline" style="font-size:12px;color:{{textcolor3}}; padding-right:7px;"></ion-icon> Admin</ion-button>
+													
+					</ion-col>
+				 </ion-row>
+				 </ion-grid>
+				</ion-card>
+			</div> 
+			<div class="col-md-12"  *ngIf="webleft">
+				<div class="row">
+						<ion-row>
+							<ion-col size="3" style="padding:10;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+									<ion-row style=" background-color:{{backcolor2}}; color:{{textcolor2}};">
+										<ion-col size="2.5" style="  padding:0;height:640px; width:60px;">
+											<ion-header style="background-color:{{backcolor3}}; height:640px; width:60px;" >
+											   <ion-grid >
+											   <ion-row   style=" background-color:{{backcolor3}}; color:{{textcolor3}}; padding:px; ">
+													<ion-col size="12" style="padding:0px; font-size:20px;">
+													 <ion-button (click)="goSelect('gestionimmo')" fill="clear"> <ion-icon name="business-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('promotion')" fill="clear"> <ion-icon name="home-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('parcauto')" fill="clear"> <ion-icon name="car-sport-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													<ion-button (click)="goSelect('recette')" fill="clear"> <ion-icon name="diamond-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													  <ion-button (click)="goSelect('charge')" fill="clear"> <ion-icon name="cart-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('caisse')" fill="clear"> <ion-icon name="wallet-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('event')" fill="clear"> <ion-icon name="calendar-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('config')" fill="clear"> <ion-icon name="construct-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('eglise')" fill="clear" style="display:none"> <ion-icon name="person-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('editschool')" fill="clear" style="display:none"><ion-icon name="disc-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon></ion-button>
+													  <ion-button (click)="goSelect('configschool')" fill="clear" style="display:none"> <ion-icon name="school-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('hebergement')" fill="clear" style="display:none"> <ion-icon name="bed-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													 <ion-button (click)="goSelect('admin')" fill="clear"> <ion-icon name="settings-outline" style="font-size:24px;color:{{textcolor3}};"></ion-icon> </ion-button>
+													</ion-col>
+											   </ion-row>
+											 </ion-grid>
+											</ion-header>
+										</ion-col>
+										<ion-col size="9.5" style=" width:150px;  background-color:{{backcolor2}}; color:{{textcolor2}}; max-height: 450px; overflow-y: scroll;">
+										
+											<div style="margin-top:15px; "  *ngIf="promotion"   >
+											<p><strong style=" "  style="margin:15px;">PROMOTION IMMOBILIERE</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+											
+												<ion-item href="#" routerLink="/categorie/exploitation/Type d'explotation">
+												  <ion-label style=" ">Type d'explotation</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/logement/Type de logement">
+												  <ion-label style=" ">Type de logement</ion-label>
+												</ion-item>
+												
+												
+												<ion-item  routerLink="/promotion/property/promotion/Programmes">
+												  <ion-label style=" ">Programmes</ion-label>
+												</ion-item>
+												
+												
+												<ion-item routerLink="/societe/societe/Sociétés">
+												  <ion-label style=" ">Sociétés</ion-label>
+												</ion-item>
+												
+												<ion-item routerLink="/souscripteur/souscripteur/Souscripteurs">
+												  <ion-label style=" ">Souscripteurs</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/souscription/0/0/Souscriptions">
+												  <ion-label style=" ">Souscriptions</ion-label>
+												</ion-item>
+												
+												
+												<ion-item   routerLink="/lotstatut/0/Tous les lots">
+												  <ion-label style=" ">Tous les lots</ion-label>
+												</ion-item>
+												
+												
+												<ion-item   routerLink="/lotstatut/1/Lots disponibles disponibles">
+												  <ion-label style=" ">Lots disponibles</ion-label>
+												</ion-item>
+												
+												<ion-item   routerLink="/lotstatut/2/Lots vendus">
+												  <ion-label style=" ">Lots vendus</ion-label>
+												</ion-item>
+												
+												
+												<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">CHARGES</strong></p>
+												<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+												<ion-item href="#"   routerLink="/billreport/2/CHARGE/3/Bons de sortie/0/0/0/1">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/CHARGE-PRODUIT/3/Factures fournisseurs/0/0/0/1">
+												  <ion-label style=" ">Factures fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/COMMANDE/2/Commande de produits/0/0/0/1">
+												  <ion-label style=" ">Commande de produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/COUNTED/2/Edition de toutes les factures/0/0/0/1">
+												  <ion-label style=" ">Edition de toutes les factures</ion-label>
+												</ion-item>
+												
+												<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">PRODUITS</strong></p>
+												<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+												<ion-item href="#"  routerLink="/billreport/1/DEVIS/3/Dévis/0/0/0/1">
+												  <ion-label style=" ">Dévis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/1/PROFORMA/4/Proformas/0/0/0/1">
+												  <ion-label style=" ">Proformas</ion-label>
+												</ion-item>
+												
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="parcauto">
+											<p><strong style=" "  style="margin:15px;">PARC AUTO</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+												<ion-item   routerLink="/conducteur/proprietaireauto/proprietaires">
+												  <ion-label style=" ">Propriétaires</ion-label>
+												</ion-item>
+												
+												
+												<ion-item  routerLink="/conducteur/conducteur/Conducteurs" >
+												  <ion-label style=" ">Conducteurs</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/car/0/Automobiles">
+												  <ion-label style=" ">Automobiles</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/chargeauto/Types de charge">
+												  <ion-label style=" ">Types de charge</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/recetteauto/Types de récette">
+												  <ion-label style=" ">Types de récette</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/chargefixe/11/CHARGE-AUTO/3/Charges liées">
+												  <ion-label style=" ">Charges d'exploitation</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/chiffredaffaire/12/RECETTE/1/Récettes d'exploitation">
+												  <ion-label style=" ">Récettes d'exploitation</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/rapport/0/Rapport" >
+												  <ion-label style=" ">Bilan d'exploitation</ion-label>
+												</ion-item>
+												
+												
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="gestionimmo">
+											<p><strong style=" "  style="margin:15px;">GESTION IMMOBILIERE</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+												<ion-item href="#"   routerLink="/gestion/partner/locataire/Locataires">
+												  <ion-label style=" ">Locataires</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/gestion/property/gestion/Propriétés">
+												  <ion-label style=" ">Propriétés</ion-label>
+												</ion-item>
+												
+												<ion-item href="#"  routerLink="/gestion/apartment/0/0/Biens immobiliers">
+												  <ion-label style=" ">Biens immobiliers</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/location/0/0/Gestions des baux">
+												  <ion-label style=" ">Gestions des baux </ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/editquittance/1/LOYER/1/Quittances">
+												  <ion-label style=" ">Gestions des quittances </ion-label>
+												</ion-item>
+												
+												<ion-item href="#"   routerLink="/commission/1/LOYER/1/Commissions et charges">
+												  <ion-label style=" ">Commissions et charges </ion-label>
+												</ion-item>
+												
+											</div>
+											
+											
+												<div >
+													<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">CHARGES</strong></p>
+													<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+													<ion-item href="#"   routerLink="/billreport/2/CHARGE/3/Bons de sortie/0/0/0/2">
+													  <ion-label style=" color:;">Bons de sortie</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/CHARGE-PRODUIT/3/Factures fournisseurs/0/0/0/2">
+													  <ion-label style=" ">Factures fournisseurs</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/COMMANDE/2/Commande de produits/0/0/0/2">
+													  <ion-label style=" ">Commande de produits</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/COUNTED/2/Edition de toutes les factures/0/0/0/2">
+													  <ion-label style=" ">Edition de toutes les factures</ion-label>
+													</ion-item>
+													
+													<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">PRODUITS</strong></p>
+													<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+													<ion-item href="#"  routerLink="/billreport/1/DEVIS/3/Dévis/0/0/0/2">
+													  <ion-label style=" ">Dévis</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/1/PROFORMA/4/Proformas/0/0/0/2">
+													  <ion-label style=" ">Proformas</ion-label>
+													</ion-item>
+												</div>
+											</div>
+											
+												
+											<div style="margin-top:15px;"  *ngIf="gestioncom">
+											
+											<div style="   background-color:{{backcolor2}}; color:{{textcolor2}}; margin-top:20px;">
+												<div><strong style=" "  style="margin-left:15px; margin-top:20px;">COMMUNICATION MULTI CANAL</strong></div>
+												
+												
+												<ion-item href="#"   routerLink="/notificationsms/SMS/Envoyer SMS">
+												  <ion-label style=" ">Envoyer SMS</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/notificationmail/Email/Envoyer mail">
+												  <ion-label style=" ">Envoyer mail</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/notificationwhatsapp/SMS/Envoyer message Whatsapp">
+												  <ion-label style=" ">Envoyer message Whatsapp</ion-label>
+												</ion-item>
+												
+											</div>
+											<div style="   background-color:{{backcolor2}}; color:{{textcolor2}}; margin-top:20px;">
+												<div><strong style=" "  style="margin-left:15px; margin-top:20px;">SERVICES COMMERCIAL</strong></div>
+												<ion-item href="#"   routerLink="/gestion/partner/prospect/Prospects">
+												  <ion-label style=" ">Prospects</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/gestion/partner/prospect2/Prospects en attente">
+												  <ion-label style=" ">Prospects en attente</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/demandes/0/Demandes">
+												  <ion-label style=" ">Gestions des demandes </ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/confirmation/0/Toutes les confirmations">
+												  <ion-label style=" ">Confirmations</ion-label>
+												</ion-item>
+												
+											</div>
+											
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="editschool">
+											<p>
+											<ion-button (click)="goSelect('configschool')" fill="clear" style=""> <ion-icon name="school-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('editschool')" fill="clear"style=""> <ion-icon name="disc-outline" style=""></ion-icon> </ion-button>
+											
+											</p>
+											
+											<p><strong style=" "  style="margin:15px;">ENSEIGNANTS</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/editfiliere">
+												  <ion-label style=" ">Cours et travaux pratiques</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/emploienseign/enseignant/Enseignants/8">
+												  <ion-label style=" ">Emplois et présences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editpresenceens/0">
+												  <ion-label style=" ">Editions des présences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/pointpresence/enseignant/Enseignants/8">
+												  <ion-label style=" ">Point des présences</ion-label>
+												</ion-item>
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<p><strong style=" "  style=" margin:15px;">ELEVES</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/note">
+												  <ion-label style=" ">Notes et bulletins</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/classeabsences">
+												  <ion-label style=" ">Emplois et absences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editabsences/0/8/Point des absences">
+												  <ion-label style=" ">Point des absences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editabsenceseleve/0/8/Absences des élèves">
+												  <ion-label style=" ">Absences des élèves</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="configschool">
+											<p>
+											<ion-button (click)="goSelect('configschool')" fill="clear" style=""> <ion-icon name="school-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('editschool')" fill="clear"style=""> <ion-icon name="disc-outline" style=""></ion-icon> </ion-button>
+											
+											</p>
+											
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/matiereniveau/matiere/0/MATIERES PAR NIVEAU">
+												  <ion-label style=" ">Matières par niveaun</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/periode/periode/filiere/Périodes d'évaluation">
+												  <ion-label style=" ">Périodes d'évaluation</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/filierenote">
+												  <ion-label style=" ">Configurer notes par niveau</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/typefrais/typefrais/filiere/Types de frais">
+												  <ion-label style=" ">Types de frais de scolarité</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/frais">
+												  <ion-label style=" ">Frais de scolarité par niveau</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/horaire/horaire/filiere/Horaire de l'emplois du temps">
+												  <ion-label style=" ">Horaire de l'emplois du temps</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/classe">
+												  <ion-label style=" ">Classes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/enseignant/enseignant/Enseignants">
+												  <ion-label style=" ">Enseignants</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/student/student/0/Elèves & Etudiant">
+												  <ion-label style=" ">Elèves</ion-label>
+												</ion-item>
+											</div>
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;"></strong></p>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"  routerLink="/configschool/type/0/Types de formation">
+												  <ion-label style=" ">Types de formation</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/filiere/type/Filères">
+												  <ion-label style=" ">Filères</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/niveau/filiere/Niveaux">
+												  <ion-label style=" ">Niveaux</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/matiere/filiere/Matières">
+												  <ion-label style=" ">Matières</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/typematiere/filiere/Type matières">
+												  <ion-label style=" ">Type matières</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/annee/0/Années Scolaires">
+												  <ion-label style=" ">Années Scolaires</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="caisse">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		 
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">CAISSE ET OPERATIONS</strong></p>
+											<div style=" margin-top:20px;">
+												<p><span style=" "  style=" margin-left:15px; margin-top:15px;">ENCAISSEMENT</span></p>
+												<ion-item href="#"  routerLink="/addoperation/1/0/Encaisser">
+												  <ion-label style=" color:#505152;">Encaisser</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billcaisse/1/1/Recette">
+												  <ion-label style=" ">Encaisse sur recette</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/operation/1/Encaissements">
+												  <ion-label style=" ">Tous les encaissements</ion-label>
+												</ion-item>
+											</div>
+											<div style=" margin-top:20px;">
+												<p><span style=" "  style=" margin-left:15px; margin-top:15px;">DECAISSEMENT</span></p>
+												<ion-item href="#"  routerLink="/addoperation/2/0/Décaisser" style="display:none;">
+												  <ion-label style=" color:#505152;">Décaisser</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billcaisse/2/1/Recette">
+												  <ion-label style=" ">Décaisser sur charge</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/operation/2/Décaissements">
+												  <ion-label style=" ">Tous les décaissements</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="statut">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		 
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">BONS DE SORTIE </strong></p>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/bill/2/CHARGE/3/Bons de sortie">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/billstatusall/2/COUNTED/2/Tous les bons de sortie/0">
+												  <ion-label style=" color:;">Etats des bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusattente/2/COUNTED/2/Bons en attente/1">
+												  <ion-label style=" ">Bons en attente</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatustransmis/2/COUNTED/2/Bons transmis/2">
+												  <ion-label style=" ">Bons transmis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusvalide/2/COUNTED/2/Bons validés/3">
+												  <ion-label style=" ">Bons validés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusapprouve/2/COUNTED/2/Bons approuvés/4">
+												  <ion-label style=" ">Bons approuvés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusdecaisse/2/COUNTED/2/Bons décaissés/5">
+												  <ion-label style=" ">Bons décaissés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusrejete/2/COUNTED/2/Bons rejétés/6">
+												  <ion-label style=" ">Bons rejétés</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="admin">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">ADMINISTRATION</strong></span>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+											  <div class="list-group"  style="display:none; background-color:{{backcolor2}}; border:0px; padding:15px;">
+												  <a href="#" routerLink="/information" class="list-group-item"  style="  border:0px; border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Information</a>
+												  <a href="#" routerLink="/motdepasse" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Changer mot de passe</a>
+												  <a href="#" routerLink="/users/user/Utilisateurs" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Utilisateurs</a>
+												  <a href="#" routerLink="/caissesultation" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Consulter les caisses</a>
+												  <a href="#" routerLink="/caisse" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Configurer les caisses</a>
+												  <a href="#" routerLink="/partner/banque/Banque et Mobile Money" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Banques et Mobile Money</a>
+												  <a href="#" routerLink="/partner/client/Clients" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Clients</a>
+												  <a href="#" routerLink="/partner/fournisseur/Fournisseurs" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Fournisseurs</a>
+												  <a href="#" routerLink="/partner/employe/Employés" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Employés</a>
+												</div> 
+
+											
+
+												<ion-item href="#" color="light"  routerLink="/information" style=" background-color:{{backcolor2}}; color:{{textcolor2}};">
+												  <ion-label style=" color:#505152;" >Information</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/motdepasse">
+												  <ion-label style=" ">Changer mot de passe</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/users/user/Utilisateurs">
+												  <ion-label style=" ">Utilisateurs</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/caisse">
+												  <ion-label style=" ">Configurer les caisses</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/caissesultation">
+												  <ion-label style=" ">Consulter les caisses</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/banque/Banque et Mobile Money">
+												  <ion-label style=" ">Banques et Mobile Money</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/employe/Employés">
+												  <ion-label style=" ">Employés</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="event">
+											
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">GESTION DE PROJETS</strong></span>
+											<div style=" margin-top:20px;">
+												
+												<ion-item href="#"  routerLink="/project/project/0/Projets" >
+												  <ion-label style=" color:;">Projets</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/project/project/0/Projets" >
+												  <ion-label style=" color:;">Etat des projets</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/projectagent/agent/0/Agents d'intervention">
+												  <ion-label style=" ">Agents d'intervention</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/projectmateriel/materiel/0/Matériels déployés">
+												  <ion-label style=" ">Matériels déployés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/projecttache/tache/0/Les tâches"><ion-label style=" ">Les tâches</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/projectrapport/rapport/0/Les rapports">
+												  <ion-label style=" ">Les rapports</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/projectfacture/facture/0/Factures et dépenses">
+												  <ion-label style=" ">Factures et dépenses</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/projectfichier/fichier/0/Fichiers">
+												  <ion-label style=" ">Fichiers</ion-label>
+												</ion-item>
+												
+												<div style="margin-top:15px;margin-bottom:15px;"><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></div>
+												<ion-item href="#" routerLink="/categoryproject/categoryproject/Catégories de projet">
+												  <ion-label style=" ">Catégories de projet</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/serviceproject/serviceproject/Services ou départements">
+												  <ion-label style=" ">Services ou départements</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/localiteproject/localiteproject/Localités projet">
+												  <ion-label style=" ">Localités projet</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/materielproject/materielproject/Matériels d'exploitation">
+												  <ion-label style=" ">Matériels d'exploitation</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/agentpro/agent/Agents">
+												  <ion-label style=" ">Agents</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="recette">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		
+													
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">RECETTES</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/billin/1/RECETTE/1/Bon d'entrée">
+												  <ion-label style=" color:;">Bon d'entrée</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/RECETTE-PRODUIT/3/Factures clients">
+												  <ion-label style=" ">Factures clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/FACTURE/2/Facture ventes sur stock">
+												  <ion-label style=" ">Facture ventes sur stock</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/COUNTED/0/Edition de toutes factures">
+												  <ion-label style=" ">Edition de toutes factures</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/validatebill/1/COUNTED/2/Validation des charges">
+												  <ion-label style=" ">Validation  pour encaissement</ion-label>
+												</ion-item>
+											</div>
+											
+											<div style=" margin-top:20px;">
+												
+												<span style="margin-top:15px; margin-bottom:15px;"><strong style=" "  style=" margin-left:15px; margin-top:15px;">AUTRES</strong></span>
+												<ion-item href="#"  routerLink="/bill/1/DEVIS/3/Dévis">
+												  <ion-label style=" ">Dévis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/1/PROFORMA/4/Proformas">
+												  <ion-label style=" ">Proformas</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/recette/Comptes des récettes">
+												  <ion-label style=" ">Comptes des récettes</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+											</div>
+											
+											
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="charge">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>	
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CHARGES</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/bill/2/CHARGE/3/Bons de sortie">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/CHARGE-PRODUIT/3/Factures fournisseurs">
+												  <ion-label style=" ">Factures fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/COMMANDE/2/Commande de produits">
+												  <ion-label style=" ">Commande de produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/COUNTED/2/Edition de toutes les factures">
+												  <ion-label style=" ">Edition de toutes les factures</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/validatebill/2/COUNTED/2/Validation des charges">
+												  <ion-label style=" ">Validation pour décaissement</ion-label>
+												</ion-item>
+											</div>
+											<div style=" margin-top:20px; margin-bottom:15px;">
+												<span><strong style=" "  style=" margin-left:15px; margin-top:15px; ">AUTRES</strong></span>
+												<ion-item href="#"  routerLink="/bill/2/BON-COMMANDE/3/Commandes">
+												  <ion-label style=" ">Bons de commande</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/charge/Comptes charges">
+												  <ion-label style=" ">Comptes des charges</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="config">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></span>
+											<div style=" margin-top:20px;">
+											
+												<ion-item href="#"  routerLink="/gestion/categorie/typebien/Types de bien">
+												  <ion-label style=" ">Types de bien</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/gestion/partner/proprietaire/Propriétaires">
+												  <ion-label style=" ">Propriétaires</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/recette/Comptes des récettes">
+												  <ion-label style=" ">Comptes des récettes</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/charge/Comptes charges">
+												  <ion-label style=" ">Comptes des charges</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="eglise">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">EGLISE</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#" routerLink="/categorie/group/Départements et Groupes">
+												  <ion-label style=" color:#505152;">Départements/Groupes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/params/1/Bureaux">
+												  <ion-label style=" ">Organisation et taches</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+												  <ion-label style=" ">Tous les membres</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/membregroupe/membre/0/Membres par département">
+												  <ion-label style=" ">Membres par département</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/cotisation/cotisation/Cotisations">
+												  <ion-label style=" ">Configurer les cotisations</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/listecotisations/cotisation/Liste cotisations">
+												  <ion-label style=" ">Liste cotisations</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="hebergement">
+												<div style=" margin-top:20px;">
+													<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">HEBERGEMENTS</strong></span>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Disponibilités</ion-label>
+													</ion-item>
+													<ion-item href="#"   routerLink="/hebergementnuite/1/HEBERGEMENT/4/Hébergement nuité">
+													  <ion-label style=" color:#505152;">Hébergement nuité</ion-label>
+													</ion-item>
+													<ion-item href="#"   routerLink="/hebergementnuite/2/Hébergement nuité">
+													  <ion-label style=" ">Hébergement répos</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Séjour par date</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Arrivées et départs</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/hebergementnuite/0/Hébergement nuité">
+													  <ion-label style=" ">Réservations</ion-label>
+													</ion-item>
+												</div>
+												<div style=" margin-top:20px;">
+													<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></span>
+													<ion-item href="#" routerLink="/type-chambre/typechambre/Type de chambre">
+													  <ion-label style=" color:#505152;">Types de chambre</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/chambre/0/Chambres">
+													  <ion-label style=" ">Chambres</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Tarifs</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Services dans les chambres</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Cardex clients</ion-label>
+													</ion-item>
+												</div>
+											</div>
+										
+										</ion-col>
+									
+									</ion-row>
+					
+							</ion-col>
+							<ion-col size="9">
+								<ion-router-outlet style="margin-top:0px; margin-left:;"></ion-router-outlet>
+							</ion-col>
+						</ion-row>
+						
+				</div>
+			</div>
+			<div class="col-md-12"  *ngIf="webtop" style="height:{{height}}px;">
+				<div class="row" style="height:{{height}}px;">
+						<ion-row style="padding-right:15px;height:{{height}}px;">
+							<ion-col size="3" style="padding:10;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+									<ion-row style=" background-color:{{backcolor2}}; color:{{textcolor2}};">
+										
+										<ion-col size="12" style=" width:150px;  background-color:{{backcolor2}}; color:{{textcolor2}}; max-height: 450px; overflow-y: scroll;">
+										
+											<div style="margin-top:15px; "  *ngIf="promotion"   >
+											<p><strong style=" "  style="margin:15px;">PROMOTION IMMOBILIERE</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+											
+												
+												<ion-item  routerLink="/promotion/property/promotion/Programmes">
+												  <ion-label style=" ">Programmes</ion-label>
+												</ion-item>
+												
+												
+												<ion-item routerLink="/societe/societe/Sociétés">
+												  <ion-label style=" ">Sociétés</ion-label>
+												</ion-item>
+												
+												<ion-item routerLink="/souscripteur/souscripteur/Souscripteurs">
+												  <ion-label style=" ">Souscripteurs</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/souscription/0/0/Souscriptions">
+												  <ion-label style=" ">Souscriptions</ion-label>
+												</ion-item>
+												
+												
+												<ion-item   routerLink="/lotstatut/0/Tous les lots">
+												  <ion-label style=" ">Tous les lots</ion-label>
+												</ion-item>
+												
+												
+												<ion-item   routerLink="/lotstatut/1/Lots disponibles disponibles">
+												  <ion-label style=" ">Lots disponibles</ion-label>
+												</ion-item>
+												
+												<ion-item   routerLink="/lotstatut/2/Lots vendus">
+												  <ion-label style=" ">Lots vendus</ion-label>
+												</ion-item>
+												
+												
+											<ion-accordion-group>
+											  <ion-accordion value="first">
+												<ion-item slot="header" color="light">
+												  <ion-label>CHARGES</ion-label>
+												</ion-item>
+												<div class="ion-padding" slot="content">
+													<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">CHARGES</strong></p>
+												<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+												<ion-item href="#"   routerLink="/billreport/2/CHARGE/3/Bons de sortie/0/0/0/1">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/CHARGE-PRODUIT/3/Factures fournisseurs/0/0/0/1">
+												  <ion-label style=" ">Factures fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/COMMANDE/2/Commande de produits/0/0/0/1">
+												  <ion-label style=" ">Commande de produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/2/COUNTED/2/Edition de toutes les factures/0/0/0/1">
+												  <ion-label style=" ">Edition de toutes les factures</ion-label>
+												</ion-item>
+												
+												<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">PRODUITS</strong></p>
+												<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+												<ion-item href="#"  routerLink="/billreport/1/DEVIS/3/Dévis/0/0/0/1">
+												  <ion-label style=" ">Dévis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billreport/1/PROFORMA/4/Proformas/0/0/0/1">
+												  <ion-label style=" ">Proformas</ion-label>
+												</ion-item>
+												
+												</div>
+											  </ion-accordion>
+											</ion-accordion-group>
+											
+											
+											
+												
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="parcauto">
+											<p><strong style=" "  style="margin:15px;">PARC AUTO</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+												<ion-item   routerLink="/conducteur/proprietaireauto/proprietaires">
+												  <ion-label style=" ">Propriétaires</ion-label>
+												</ion-item>
+												
+												
+												<ion-item  routerLink="/conducteur/conducteur/Conducteurs" >
+												  <ion-label style=" ">Conducteurs</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/car/0/Automobiles">
+												  <ion-label style=" ">Automobiles</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/chargeauto/Types de charge">
+												  <ion-label style=" ">Types de charge</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/recetteauto/Types de récette">
+												  <ion-label style=" ">Types de récette</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/chargefixe/11/CHARGE-AUTO/3/Charges liées">
+												  <ion-label style=" ">Charges d'exploitation</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/chiffredaffaire/12/RECETTE/1/Récettes d'exploitation">
+												  <ion-label style=" ">Récettes d'exploitation</ion-label>
+												</ion-item>
+												
+												<ion-item  routerLink="/rapport/0/Rapport" >
+												  <ion-label style=" ">Bilan d'exploitation</ion-label>
+												</ion-item>
+												
+												
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="gestionimmo">
+											<p><strong style=" "  style="margin:15px;">GESTION IMMOBILIERE</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												
+												<ion-item href="#"   routerLink="/gestion/partner/locataire/Locataires">
+												  <ion-label style=" ">Locataires</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/gestion/property/gestion/Propriétés">
+												  <ion-label style=" ">Propriétés</ion-label>
+												</ion-item>
+												
+												<ion-item href="#"  routerLink="/gestion/apartment/0/0/Biens immobiliers">
+												  <ion-label style=" ">Biens immobiliers</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/location/0/0/Gestions des baux">
+												  <ion-label style=" ">Gestions des baux </ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/editquittance/1/LOYER/1/Quittances">
+												  <ion-label style=" ">Gestions des quittances </ion-label>
+												</ion-item>
+												
+												<ion-item href="#"   routerLink="/commission/1/LOYER/1/Commissions et charges">
+												  <ion-label style=" ">Commissions et charges </ion-label>
+												</ion-item>
+												
+												
+												
+											</div>
+											<ion-accordion-group>
+											  <ion-accordion value="first">
+												<ion-item slot="header" color="light">
+												  <ion-label>CHARGES</ion-label>
+												</ion-item>
+												<div class="ion-padding" slot="content">
+													<ion-item href="#"   routerLink="/billreport/2/CHARGE/3/Bons de sortie/0/0/0/2">
+													  <ion-label style=" color:;">Bons de sortie</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/CHARGE-PRODUIT/3/Factures fournisseurs/0/0/0/2">
+													  <ion-label style=" ">Factures fournisseurs</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/COMMANDE/2/Commande de produits/0/0/0/2">
+													  <ion-label style=" ">Commande de produits</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/2/COUNTED/2/Edition de toutes les factures/0/0/0/2">
+													  <ion-label style=" ">Edition de toutes les factures</ion-label>
+													</ion-item>
+													
+													<p style="margin-top:20px; "><strong style=" "  style="margin:15px;">PRODUITS</strong></p>
+													<div style=" margin-top:0px;  background-color:{{backcolor2}}; color:{{textcolor2}};"></div>
+													<ion-item href="#"  routerLink="/billreport/1/DEVIS/3/Dévis/0/0/0/2">
+													  <ion-label style=" ">Dévis</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/billreport/1/PROFORMA/4/Proformas/0/0/0/2">
+													  <ion-label style=" ">Proformas</ion-label>
+													</ion-item>
+												</div>
+											  </ion-accordion>
+											</ion-accordion-group>
+											
+											
+												
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="gestioncom">
+										
+											<div style="   background-color:{{backcolor2}}; color:{{textcolor2}}; margin-top:20px;">
+												<div><strong style=" "  style="margin-left:15px; margin-top:20px;">COMMUNICATION MULTI CANAL</strong></div>
+												
+												
+												<ion-item href="#"   routerLink="/notificationsms/SMS/Envoyer SMS">
+												  <ion-label style=" ">Envoyer SMS</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/notificationmail/Email/Envoyer mail">
+												  <ion-label style=" ">Envoyer mail</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/notificationwhatsapp/SMS/Envoyer message Whatsapp">
+												  <ion-label style=" ">Envoyer message Whatsapp</ion-label>
+												</ion-item>
+												
+											</div>
+											<div style="   background-color:{{backcolor2}}; color:{{textcolor2}}; margin-top:20px;">
+												<div><strong style=" "  style="margin-left:15px; margin-top:20px;">SERVICES COMMERCIAL</strong></div>
+												<ion-item href="#"   routerLink="/gestion/partner/prospect/Prospects">
+												  <ion-label style=" ">Prospects</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/gestion/partner/prospect2/Prospects en attente">
+												  <ion-label style=" ">Prospects en attente</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/demandes/0/Demandes">
+												  <ion-label style=" ">Gestions des demandes </ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"   routerLink="/confirmation/0/Toutes les confirmations">
+												  <ion-label style=" ">Confirmations</ion-label>
+												</ion-item>
+												
+											</div>
+											
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="editschool">
+											<p>
+											<ion-button (click)="goSelect('configschool')" fill="clear" style=""> <ion-icon name="school-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('editschool')" fill="clear"style=""> <ion-icon name="disc-outline" style=""></ion-icon> </ion-button>
+											
+											</p>
+											
+											<p><strong style=" "  style="margin:15px;">ENSEIGNANTS</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/editfiliere">
+												  <ion-label style=" ">Cours et travaux pratiques</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/emploienseign/enseignant/Enseignants/8">
+												  <ion-label style=" ">Emplois et présences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editpresenceens/0">
+												  <ion-label style=" ">Editions des présences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/pointpresence/enseignant/Enseignants/8">
+												  <ion-label style=" ">Point des présences</ion-label>
+												</ion-item>
+											</div>
+											<p><strong style=" "  style=" margin-top:12px;"></strong></p>
+											<p><strong style=" "  style=" margin:15px;">ELEVES</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/note">
+												  <ion-label style=" ">Notes et bulletins</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/classeabsences">
+												  <ion-label style=" ">Emplois et absences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editabsences/0/8/Point des absences">
+												  <ion-label style=" ">Point des absences</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/editabsenceseleve/0/8/Absences des élèves">
+												  <ion-label style=" ">Absences des élèves</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="configschool">
+											<p>
+											<ion-button (click)="goSelect('configschool')" fill="clear" style=""> <ion-icon name="school-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('editschool')" fill="clear"style=""> <ion-icon name="disc-outline" style=""></ion-icon> </ion-button>
+											
+											</p>
+											
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></p>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+												<ion-item href="#"  routerLink="/matiereniveau/matiere/0/MATIERES PAR NIVEAU">
+												  <ion-label style=" ">Matières par niveaun</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/periode/periode/filiere/Périodes d'évaluation">
+												  <ion-label style=" ">Périodes d'évaluation</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/filierenote">
+												  <ion-label style=" ">Configurer notes par niveau</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/typefrais/typefrais/filiere/Types de frais">
+												  <ion-label style=" ">Types de frais de scolarité</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/frais">
+												  <ion-label style=" ">Frais de scolarité par niveau</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/horaire/horaire/filiere/Horaire de l'emplois du temps">
+												  <ion-label style=" ">Horaire de l'emplois du temps</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/classe">
+												  <ion-label style=" ">Classes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/enseignant/enseignant/Enseignants">
+												  <ion-label style=" ">Enseignants</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/student/student/0/Elèves & Etudiant">
+												  <ion-label style=" ">Elèves</ion-label>
+												</ion-item>
+											</div>
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;"></strong></p>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"  routerLink="/configschool/type/0/Types de formation">
+												  <ion-label style=" ">Types de formation</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/filiere/type/Filères">
+												  <ion-label style=" ">Filères</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/niveau/filiere/Niveaux">
+												  <ion-label style=" ">Niveaux</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/matiere/filiere/Matières">
+												  <ion-label style=" ">Matières</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/typematiere/filiere/Type matières">
+												  <ion-label style=" ">Type matières</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/configschool/annee/0/Années Scolaires">
+												  <ion-label style=" ">Années Scolaires</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="caisse">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		 
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">CAISSE ET OPERATIONS</strong></p>
+											<div style=" margin-top:20px;">
+												<p><span style=" "  style=" margin-left:15px; margin-top:15px;">ENCAISSEMENT</span></p>
+												<ion-item href="#"  routerLink="/addoperation/1/0/Encaisser">
+												  <ion-label style=" color:#505152;">Encaisser</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billcaisse/1/1/Recette">
+												  <ion-label style=" ">Encaisse sur recette</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/operation/1/Encaissements">
+												  <ion-label style=" ">Tous les encaissements</ion-label>
+												</ion-item>
+											</div>
+											<div style=" margin-top:20px;">
+												<p><span style=" "  style=" margin-left:15px; margin-top:15px;">DECAISSEMENT</span></p>
+												<ion-item href="#"  routerLink="/addoperation/2/0/Décaisser" style="display:none;">
+												  <ion-label style=" color:#505152;">Décaisser</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billcaisse/2/1/Recette">
+												  <ion-label style=" ">Décaisser sur charge</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/operation/2/Décaissements">
+												  <ion-label style=" ">Tous les décaissements</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="statut">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		 
+											<p><strong style=" "  style=" margin-left:15px; margin-top:15px;">BONS DE SORTIE </strong></p>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/bill/2/CHARGE/3/Bons de sortie">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"   routerLink="/billstatusall/2/COUNTED/2/Tous les bons de sortie/0">
+												  <ion-label style=" color:;">Etats des bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusattente/2/COUNTED/2/Bons en attente/1">
+												  <ion-label style=" ">Bons en attente</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatustransmis/2/COUNTED/2/Bons transmis/2">
+												  <ion-label style=" ">Bons transmis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusvalide/2/COUNTED/2/Bons validés/3">
+												  <ion-label style=" ">Bons validés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusapprouve/2/COUNTED/2/Bons approuvés/4">
+												  <ion-label style=" ">Bons approuvés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusdecaisse/2/COUNTED/2/Bons décaissés/5">
+												  <ion-label style=" ">Bons décaissés</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billstatusrejete/2/COUNTED/2/Bons rejétés/6">
+												  <ion-label style=" ">Bons rejétés</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="admin">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">ADMINISTRATION</strong></span>
+											<div style=" margin-top:20px;  background-color:{{backcolor2}}; color:{{textcolor2}};">
+											
+											  <div class="list-group"  style="display:none; background-color:{{backcolor2}}; border:0px; padding:15px;">
+												  <a href="#" routerLink="/information" class="list-group-item"  style="  border:0px; border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Information</a>
+												  <a href="#" routerLink="/motdepasse" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Changer mot de passe</a>
+												  <a href="#" routerLink="/users/user/Utilisateurs" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Utilisateurs</a>
+												  <a href="#" routerLink="/caissesultation" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Consulter les caisses</a>
+												  <a href="#" routerLink="/caisse" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Configurer les caisses</a>
+												  <a href="#" routerLink="/partner/banque/Banque et Mobile Money" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Banques et Mobile Money</a>
+												  <a href="#" routerLink="/partner/client/Clients" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Clients</a>
+												  <a href="#" routerLink="/partner/fournisseur/Fournisseurs" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Fournisseurs</a>
+												  <a href="#" routerLink="/partner/employe/Employés" class="list-group-item"  style="  border:0px;border-bottom:1px solid #c0c0c0; background-color:{{backcolor2}}; color:{{textcolor2}};">Employés</a>
+												</div> 
+
+											
+
+												<ion-item href="#" color="light"  routerLink="/information" style=" background-color:{{backcolor2}}; color:{{textcolor2}};">
+												  <ion-label style=" color:#505152;" >Information</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/motdepasse">
+												  <ion-label style=" ">Changer mot de passe</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/users/user/Utilisateurs">
+												  <ion-label style=" ">Utilisateurs</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/caisse">
+												  <ion-label style=" ">Configurer les caisses</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/caissesultation">
+												  <ion-label style=" ">Consulter les caisses</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/banque/Banque et Mobile Money">
+												  <ion-label style=" ">Banques et Mobile Money</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/employe/Employés">
+												  <ion-label style=" ">Employés</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="event">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">PROJETS ET GESTION</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"  routerLink="/project/project/0/Projets" >
+												  <ion-label style=" color:#505152;">Projets</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/params/1/Bureaux">
+												  <ion-label style=" ">Organisation et taches</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/project/alltask/0/Les tâches">
+												  <ion-label style=" ">Les tâches</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/project/event/0/Evènements">
+												  <ion-label style=" ">Evènements</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="recette">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>		
+													
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">RECETTES</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/billin/1/RECETTE/1/Bon d'entrée">
+												  <ion-label style=" color:;">Bon d'entrée</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/RECETTE-PRODUIT/3/Factures clients">
+												  <ion-label style=" ">Factures clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/FACTURE/2/Facture ventes sur stock">
+												  <ion-label style=" ">Facture ventes sur stock</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/billin/1/COUNTED/0/Edition de toutes factures">
+												  <ion-label style=" ">Edition de toutes factures</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/validatebill/1/COUNTED/2/Validation des charges">
+												  <ion-label style=" ">Validation  pour encaissement</ion-label>
+												</ion-item>
+											</div>
+											
+											<div style=" margin-top:20px;">
+												
+												<span style="margin-top:15px; margin-bottom:15px;"><strong style=" "  style=" margin-left:15px; margin-top:15px;">AUTRES</strong></span>
+												<ion-item href="#"  routerLink="/bill/1/DEVIS/3/Dévis">
+												  <ion-label style=" ">Dévis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/1/PROFORMA/4/Proformas">
+												  <ion-label style=" ">Proformas</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/recette/Comptes des récettes">
+												  <ion-label style=" ">Comptes des récettes</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+											</div>
+											
+											
+											</div>
+											
+											
+											<div style="margin-top:15px;"  *ngIf="charge">
+											<p>
+											<ion-button (click)="goSelect('recette')" fill="clear" style=""> <ion-icon name="diamond-outline" style="font-size:24px;color:;"></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('charge')" fill="clear"style=""> <ion-icon name="cart-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('caisse')" fill="clear"style=""> <ion-icon name="wallet-outline" style=""></ion-icon> </ion-button>
+											
+											<ion-button (click)="goSelect('statut')" fill="clear"style=""> <ion-icon name="checkmark-done-circle-outline" style=""></ion-icon> </ion-button>
+											</p>	
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CHARGES</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"   routerLink="/bill/2/CHARGE/3/Bons de sortie">
+												  <ion-label style=" color:;">Bons de sortie</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/CHARGE-PRODUIT/3/Factures fournisseurs">
+												  <ion-label style=" ">Factures fournisseurs</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/COMMANDE/2/Commande de produits">
+												  <ion-label style=" ">Commande de produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/bill/2/COUNTED/2/Edition de toutes les factures">
+												  <ion-label style=" ">Edition de toutes les factures</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/validatebill/2/COUNTED/2/Validation des charges">
+												  <ion-label style=" ">Validation pour décaissement</ion-label>
+												</ion-item>
+											</div>
+											<div style=" margin-top:20px; margin-bottom:15px;">
+												<span><strong style=" "  style=" margin-left:15px; margin-top:15px; ">AUTRES</strong></span>
+												<ion-item href="#"  routerLink="/bill/2/BON-COMMANDE/3/Commandes">
+												  <ion-label style=" ">Bons de commande</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/charge/Comptes charges">
+												  <ion-label style=" ">Comptes des charges</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											
+											<div style="margin-top:15px;"  *ngIf="config">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"  routerLink="/gestion/categorie/typebien/Types de bien">
+												  <ion-label style=" ">Types de bien</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#"  routerLink="/gestion/partner/proprietaire/Propriétaires">
+												  <ion-label style=" ">Propriétaires</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#" routerLink="/categorie/exploitation/Type d'explotation">
+												  <ion-label style=" ">Type d'explotation</ion-label>
+												</ion-item>
+												
+												<ion-item href="#" routerLink="/categorie/logement/Type de logement">
+												  <ion-label style=" ">Type de logement</ion-label>
+												</ion-item>
+												
+												
+												<ion-item href="#" routerLink="/categorie/recette/Comptes des récettes">
+												  <ion-label style=" ">Comptes des récettes</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/charge/Comptes charges">
+												  <ion-label style=" ">Comptes des charges</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/categorie/produit/Catégories produits">
+												  <ion-label style=" ">Catégories produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/product">
+												  <ion-label style=" ">Produits</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/productstock">
+												  <ion-label style=" ">Stock produits</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/client/Clients">
+												  <ion-label style=" ">Clients</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partner/fournisseur/Fournisseurs">
+												  <ion-label style=" ">Fournisseurs</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="eglise">
+											<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">EGLISE</strong></span>
+											<div style=" margin-top:20px;">
+												<ion-item href="#" routerLink="/categorie/group/Départements et Groupes">
+												  <ion-label style=" color:#505152;">Départements/Groupes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/params/1/Bureaux">
+												  <ion-label style=" ">Organisation et taches</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+												  <ion-label style=" ">Tous les membres</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/membregroupe/membre/0/Membres par département">
+												  <ion-label style=" ">Membres par département</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/cotisation/cotisation/Cotisations">
+												  <ion-label style=" ">Configurer les cotisations</ion-label>
+												</ion-item>
+												<ion-item href="#" routerLink="/listecotisations/cotisation/Liste cotisations">
+												  <ion-label style=" ">Liste cotisations</ion-label>
+												</ion-item>
+											</div>
+											</div>
+											<div style="margin-top:15px;"  *ngIf="hebergement">
+												<div style=" margin-top:20px;">
+													<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">HEBERGEMENTS</strong></span>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Disponibilités</ion-label>
+													</ion-item>
+													<ion-item href="#"   routerLink="/hebergementnuite/1/HEBERGEMENT/4/Hébergement nuité">
+													  <ion-label style=" color:#505152;">Hébergement nuité</ion-label>
+													</ion-item>
+													<ion-item href="#"   routerLink="/hebergementnuite/2/Hébergement nuité">
+													  <ion-label style=" ">Hébergement répos</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Séjour par date</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Arrivées et départs</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/hebergementnuite/0/Hébergement nuité">
+													  <ion-label style=" ">Réservations</ion-label>
+													</ion-item>
+												</div>
+												<div style=" margin-top:20px;">
+													<span><strong style=" "  style=" margin-left:15px; margin-top:15px;">CONFIGURATION</strong></span>
+													<ion-item href="#" routerLink="/type-chambre/typechambre/Type de chambre">
+													  <ion-label style=" color:#505152;">Types de chambre</ion-label>
+													</ion-item>
+													<ion-item href="#"  routerLink="/chambre/0/Chambres">
+													  <ion-label style=" ">Chambres</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/0/Tous les membres">
+													  <ion-label style=" ">Tarifs</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Services dans les chambres</ion-label>
+													</ion-item>
+													<ion-item href="#" routerLink="/membre/membre/1/Tous les membres">
+													  <ion-label style=" ">Cardex clients</ion-label>
+													</ion-item>
+												</div>
+											</div>
+										
+										</ion-col>
+									</ion-row>
+					
+							</ion-col>
+							<ion-col size="9">
+								<ion-router-outlet style="margin-top:0px; margin-left:;"></ion-router-outlet>
+							</ion-col>
+						</ion-row>
+						
+				</div>
+			</div>
+			
+		</div>	
+		<div class="row" *ngIf="mobile">
+			 <div class="col-md-12" >
+				<ion-router-outlet style="margin-top:0px; margin-left:;"></ion-router-outlet>
+			</div>
+		</div>
+	</ion-content>  
+</ion-app>

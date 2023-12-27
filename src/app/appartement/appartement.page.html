@@ -1,0 +1,179 @@
+
+<ion-content [fullscreen]="true">
+  <ion-card style="" *ngIf="!facture">
+    	<ion-card-content>
+			<div class="row">  
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<h5 style="margin-left:20px;">PHOTOS</h5>
+				</div>	  
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl1}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl2}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl3}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl4}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl5}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-img class="map" src="{{imageurl6}}"  style="width:100%;height:auto;"></ion-img>
+				</div>
+				
+			</div>
+		  </ion-card-content>
+	  
+  </ion-card>
+   
+		  
+	  <ion-card *ngIf="facture">
+		<ion-card-content>
+			<div class="row">
+				
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<h5 style="margin-left:20px;"> MONTANTS LOYER</h5>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="caution" formControlName="caution" value="" type="text" >
+						  <div slot="label">Caution</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="cautionmois" formControlName="cautionmois" value="" type="text" >
+						  <div slot="label">Mois caution</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="avance" formControlName="avance" value="" type="text" >
+						  <div slot="label">Avance</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="avancemois" formControlName="avancemois" value="" type="text" >
+						  <div slot="label">Mois avance</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="agence" formControlName="agence" value="" type="text" >
+						  <div slot="label">Agence</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="agencemois" formControlName="agencemois" value="" type="text" >
+						  <div slot="label">Mois agence</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="tva" formControlName="tva" value="" type="text" >
+						  <div slot="label">TVA</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="tvataux" formControlName="tvataux" value="" type="text" >
+						  <div slot="label">Taux TVA</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="dossier" formControlName="dossier" value="" type="text" >
+						  <div slot="label">Frais de dossier</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="total1" formControlName="total1" value="" type="text" >
+						  <div slot="label">Total</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+	  
+		  
+	  <ion-card *ngIf="facture">
+		<ion-card-content>
+			<div class="row">
+				
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<h5 style="margin-left:20px;"> INSTALLATIONS</h5>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="bail" formControlName="bail" value="" type="text" >
+						  <div slot="label">Enregistrement du bail</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="cie" formControlName="cie" value="" type="text" >
+						  <div slot="label">CIE</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly  [(ngModel)]="dijoncteur" formControlName="dijoncteur" value="" type="text" >
+						  <div slot="label">DIJONCTEUR</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="sodeci" formControlName="sodeci" value="" type="text" >
+						  <div slot="label">SODECI</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating" readonly [(ngModel)]="total2" formControlName="total2" value="" type="text" >
+						  <div slot="label">Total</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					  <ion-item style="margin-bottom:20px;">
+						<ion-input labelPlacement="floating"  readonly [(ngModel)]="netapayer" formControlName="netapayer" value="" type="text" >
+						  <div slot="label">Net à payer</div>
+						</ion-input>
+					  </ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-button fill="clear" style="width:150px;" expand="block">Payer la facture</ion-button>
+				</div>
+				
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+	  
+		
+
+</ion-content>

@@ -1,0 +1,174 @@
+
+<ion-menu contentId="main-content">
+<ion-content [fullscreen]="true" style="height:100%; padding:0px;margin-top:50px;">
+  <ion-row style=" background-color:{{backcolor1}}; padding-top:100px; color:#ffffff;">
+		<ion-col size="12">
+			<span>Bienvenue</span>
+		</ion-col>
+		<ion-col size="12">
+			<span>Username</span>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-item href="#" style="width:100%;"  routerLink="/apropos">
+			<ion-icon slot="start"  name="help-outline"></ion-icon>
+			<ion-label style=" color:#505152;">A Propos</ion-label>
+			<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		</ion-item>
+		<ion-item href="#" style="width:100%;"  routerLink="/information">
+			<ion-icon slot="start"  name="information-outline"></ion-icon>
+			<ion-label style=" color:#505152;">Mes informations</ion-label>
+			<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		</ion-item>
+		<ion-item href="#" style="width:100%;"  routerLink="/motdepasse">
+			<ion-icon slot="start"  name="key-outline"></ion-icon>
+			<ion-label style=" color:#505152;">Changer mot de passe</ion-label>
+			<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		</ion-item>
+		<ion-item href="#" style="width:100%;" (click)="close()">
+			<ion-icon slot="start"  name="log-out-outline"></ion-icon>
+			<ion-label style=" color:#505152;">Déconnexion</ion-label>
+			<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		</ion-item>
+	</ion-row>
+					
+</ion-content>
+</ion-menu>
+<div class="ion-page" id="main-content">
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-menu-toggle>
+			  <ion-button fill="clear"><ion-icon style="color:{{textcolor}};" name="menu-outline"></ion-icon></ion-button>
+			</ion-menu-toggle>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Bienvenue
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button   size="small"  fill="clear" ><ion-icon style="color:#ffffff;" name="log-out"(click)="close()"></ion-icon></ion-button>
+	   
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div  style="background-color:{{backcolor2}}; width:100%;  padding:20px;">
+		<div align="left">
+			<p style="display:none;">
+				<img class="map" src="assets/images/logo.jpg" style="width:110px;height:auto; border-radius: 50%; border:5px solid #c0c0c0;"/>
+			</p>
+			<p style="font-size:12px; margin-top:7px; color:#ffffff;"><strong ></strong></p>
+			<p style="font-size:12px; margin-top:7px; color:#ffffff;">
+			
+			</p>
+		</div>	
+ </div>
+	<ion-row  style="display:none;">
+		<ion-col size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="bag-add" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Recette</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="bag-remove" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Dépenses</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col  size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="wallet" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Caisse</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+    </ion-row>
+  
+  
+	<ion-row  style="display:none;">
+		<ion-col size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="cart" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Ventes</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="boat" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Achats</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col  size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="document-attach" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Proforma</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+    </ion-row>
+  
+  
+	<ion-row  style="display:none;">
+		<ion-col size="4">
+		   <ion-card style="margin:0px;" >
+		       <button style="width:100%; background-color:#ffffff;"  routerLink="/adminproduct/service/Services" >
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="hammer" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Services</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;"  routerLink="/adminproduct/article/Articles" >
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="fast-food" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Articles</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+		<ion-col  size="4">
+		   <ion-card style="margin:0px;">
+		       <button style="width:100%; background-color:#ffffff;">
+			   <div align="center" style="padding:9px;">
+				   <p style="margin-bottom:0px;"><ion-icon slot="end"  name="layers" color="primary" style="font-size:35px;"></ion-icon></p>
+				   <p style="margin-bottom:0px; font-size:11px;">Catégorie</p>
+			   </div>
+			   </button>
+		   </ion-card>
+		</ion-col>
+    </ion-row>
+  
+ 
+
+</ion-content>

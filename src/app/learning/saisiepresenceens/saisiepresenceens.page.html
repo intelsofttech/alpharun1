@@ -1,0 +1,106 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+<form [formGroup]="pageForm" > 
+  <ion-card style="padding:15px;">
+  <ion-row>
+	<ion-col  size="4">
+       <ion-input labelPlacement="floating" value="" type="date"   [(ngModel)]="date" formControlName="date"  (ionChange)="onRefresh()"  style="border-bottom:1px solid #c0c0c0;">
+			<div slot="label">Date</div>
+		</ion-input>
+	</ion-col>
+  </ion-row>
+  <table class="styled-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th *ngIf="day1">Lundi</th>
+            <th *ngIf="day2">Mardi</th>
+            <th *ngIf="day3">Mercredi</th>
+            <th *ngIf="day4">Jeudi</th>
+            <th *ngIf="day5">Vendredi</th>
+            <th *ngIf="day6">Samedi</th>
+            <th *ngIf="day0">Dimanche</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let result of horaires; let i = index">
+            <td>{{ result.horaire }}</td>
+            <td *ngIf="day1">
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.col1}}</p>
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval1}} </p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col1!=null && result.present1!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present1)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col1!=null && result.present1==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid1)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day2">
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.col2}}</p>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval2}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col2!=null && result.present2!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present2)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col2!=null && result.present2==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid2)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day3">
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.col3}}</p>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval3}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col3!=null && result.present3!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present3)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col3!=null && result.present3==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid3)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day4">
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.col4}}</p>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval4}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col4!=null && result.present4!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present4)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col4!=null && result.present4==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid4)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day5">
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.col5}}</p>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval5}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col5!=null && result.present5!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present5)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col5!=null && result.present5==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid5)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day6">
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.col6}}</p>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval6}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col6!=null && result.present6!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present6)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col6!=null && result.present6==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid6)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td *ngIf="day0">
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.col7}}</p>
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval7}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col7!=null && result.present7!=null "><ion-badge color="success"  style="font-size:11px; ">Présent</ion-badge><a href="javascript:void(0);"  (click)="onDeletepresence(result.present7)" style="color:red; "><strong><ion-icon name="close-outline"></ion-icon></strong></a></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col7!=null && result.present7==null " ><a href="javascript:void(0);"  (click)="presentModal(result.colid7)"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Marquer</ion-badge></a></p>
+				
+			</td>
+            <td>
+				
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+  </ion-card>
+  </form>
+
+</ion-content>

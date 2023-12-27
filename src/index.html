@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Iksox</title>
+
+  <base href="./" />
+
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel='stylesheet' href='../assets/css/styles.css' type='text/css' />
+  
+ 
+  <style type="text/css">
+	.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;box-sizing: content-box;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}
+
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+
+	/* Firefox */
+	input[type=number] {
+	  -moz-appearance: textfield;
+	}
+</style>
+</head>
+
+<body  style=" ">
+				
+
+<input type="hidden"  id="API_SERVER1" value="http://localhost:8080/api/v1"  #REST_API />
+<input type="hidden"  id="API_SERVER" value="https://app.oz-ci.com/alphaservice/api/v1"  #REST_API />	
+	
+<input type="hidden" id="userApikey2" value="c4bff608f868da31a031791dff20a937"/>
+<input type="hidden" id="walletId2" value="c4bff608f868da31a031791dff20a937"/>
+<input type="hidden" id="userApikey" value="4b372653135f9a79073cde07a39e6d23"/>
+<input type="hidden" id="walletId" value="4b372653135f9a79073cde07a39e6d23"/>
+<input type="hidden" id="walletId22" value="bc1d0328a960fcddcb10cf76a134d1ee"/>
+<input type="hidden" id="idCategory" value=""/>
+<input type="hidden" id="idtype" value=""/>
+<input type="hidden" id="idcateg" value=""/>
+<input type="hidden" id="idaccountType" value=""/>
+<input type="hidden" id="id" value=""/>
+<input type="hidden" id="idadmin" value="1"/>
+<input type="hidden" id="idlastName" value=""/>
+<input type="hidden" id="idfirstName" value=""/>
+<input type="hidden" id="idphone" value=""/>
+<input type="hidden" id="idemail" value=""/>
+<input type="hidden" id="agency" value="10"/>
+<input type="hidden" id="cashdesk" value=""/>
+<input type="hidden" id="cashdeskName" value=""/>
+<input type="hidden" id="yearSco" value="2023-2024"/>
+<input type="hidden" id="filiere" value="8"/>
+<input type="hidden" id="backcolor1" value="#4270ec"/>
+<input type="hidden" id="backcolor2" value="#5f6060"/>
+<input type="hidden" id="backcolor3" value="#5f6060"/>
+<input type="hidden" id="textcolor" value="#ffffff"/>
+<input type="hidden" id="textcolor2" value="#ffffff"/>
+<input type="hidden" id="textcolor3" value="#ffffff"/>
+<input type="hidden" id="showmode" value="grid"/>
+<input type="hidden" id="baseUrl" value="https://alphaservices.tech/filesystem"/>
+
+	
+  <app-root></app-root>
+</body>
+
+<script type="text/javascript">
+        function PrintDiv(id) {
+		
+            var divContents = document.getElementById(id).innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<body >');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+        function PrintDiv2(id) {
+		
+            var data=document.getElementById(id).innerHTML;
+			console.log(data);
+            var myWindow = window.open('', 'File', 'height=400,width=600');
+            myWindow.document.write('<html><head><title>my div</title>');
+            myWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">');
+            myWindow.document.write('</head><body >');
+            myWindow.document.write(data);
+            myWindow.document.write('</body></html>');
+            myWindow.document.close(); // necessary for IE >= 10
+
+            myWindow.onload=function(){ // necessary if the div contain images
+
+                myWindow.focus(); // necessary for IE >= 10
+                myWindow.print();
+                myWindow.close();
+            };
+        }
+		
+    </script>
+	
+	 <script type="text/javascript" src="http://jqueryjs.googlecode.com/files/jquery-1.3.1.min.js"> </script>
+    <script type="text/javascript">
+        function PrintElem(elem) {
+			var data=document.getElementById(id).innerHTML;
+			console.log(data);
+            Popup(data);
+        }
+
+        function Popup(data) {
+            var myWindow = window.open('', 'my div', 'height=400,width=600');
+            myWindow.document.write('<html><head><title>my div</title>');
+            /*optional stylesheet*/ //myWindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+            myWindow.document.write('</head><body >');
+            myWindow.document.write(data);
+            myWindow.document.write('</body></html>');
+            myWindow.document.close(); // necessary for IE >= 10
+
+            myWindow.onload=function(){ // necessary if the div contain images
+
+                myWindow.focus(); // necessary for IE >= 10
+                myWindow.print();
+                myWindow.close();
+            };
+        }
+		//Ad@2020
+    </script>
+</html>

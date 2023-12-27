@@ -1,0 +1,610 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear"  style="display:none1;">
+		  <ion-icon slot="end" style="color:#;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   
+  <div *ngIf="!addForm">
+	   <ion-card >
+			<div style="border-bottom:1px solid #c0c0c0;">
+				<div class="row" style="padding:7px;">
+					<div class="col-md-1">
+					   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+					</div>
+					<div class="col-md-7">
+					   <div style="margin-top:10px; text-transform:upercase;">
+						<form [formGroup]="pageForm"  *ngIf="pageForm">
+							<input class=""   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+					   </form>
+					   </div>
+					</div>
+					<div class="col-md-4" >
+						<div align="right">
+						 <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+						<ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+						<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+	    </ion-card>
+	   
+	   	<div  class="row" *ngIf="listmode">
+		<ion-card  style="padding:20px;">
+			<table style="width:100%;"  >
+				<thead>
+					<tr>
+						<td>Id</td>
+						<td>Nom</td>
+						<td>Programme</td>
+						<td>Ilot/Lot</td>
+						<td>Prix du bien</td>
+						<td>Dossier</td>
+						<td>Clôture</td>
+						<td>Net à payer</td>
+						<td>Payé</td>
+						<td>Reste à payer</td>
+						<td>Ajouté le</td>
+						<td></td>
+						 
+					</tr>
+				</thead>
+				<tbody>
+					<tr  *ngFor="let result of results">
+						<td>{{ result.id }}</td>
+						<td>{{ result.nom }}</td>
+						<td>{{ result.programme }}</td>
+						<td>{{ result.ilot }} / {{ result.lot }}</td>
+						<td>{{ result.prixtotal }}</td>
+						<td>{{ result.fraisdedossier }}</td>
+						<td>{{ result.fraisdecloture }}</td>
+						<td>{{ result.totalapayer }}</td>
+						<td>{{ result.totalpaye }}</td>
+						<td>{{ result.totalrestant }}</td>
+						<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+						<td>
+							
+							<ion-button id="click-trigger"   fill="clear" slot="end" ><ion-icon name="settings"></ion-icon></ion-button>
+								<ion-popover trigger="click-trigger" triggerAction="click"  side="left" alignment="start">
+								  <ng-template>
+									<ion-list [inset]="true">
+										<ion-item [button]="true"   routerLink="/souscriptiondetail/{{result.id}}/{{ result.nom }}">
+										  <ion-icon  slot="start"  name="list"></ion-icon>
+										  <ion-label>Afficher</ion-label>
+										</ion-item>
+										<ion-item   (click)="onGet(result.id)" [button]="true">
+										  <ion-icon  slot="start" name="pencil"></ion-icon>
+										  <ion-label>Modifier</ion-label>
+										</ion-item>
+										<ion-item  (click)="onDelete(result.id)" [button]="true">
+										  <ion-icon  slot="start" name="trash"></ion-icon>
+										  <ion-label>Supprimer</ion-label>
+										</ion-item>
+									  </ion-list>
+								  </ng-template>
+								</ion-popover>
+						</td>
+					</tr>
+				</tbody>
+			</table>  
+		</ion-card >	
+		</div>
+	
+	 
+	   <div  class="row" style="padding:0px;" *ngIf="gridmode">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>{{ result.nom }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>Programme:</strong> {{ result.programme }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>Ilot/Lot: </strong>{{ result.ilot }} / {{ result.lot }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Prix du bien: </strong>{{ result.prixtotal }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Dossier: </strong>{{ result.fraisdedossier }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Clôture: </strong>{{ result.fraisdecloture }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Net à payer: </strong>{{ result.totalapayer }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Payé: </strong>{{ result.totalpaye }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Reste à payer: </strong>{{ result.totalrestant }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Ajouté le: </strong>{{ result.createdAt| date: 'dd/MM/yyyy' }}</p>
+			</div>
+			<p style="margin:0px;">
+			<ion-button fill="clear" slot="end"    routerLink="/souscriptiondetail/{{result.id}}/{{ result.nom }}"  style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			<ion-button fill="clear" slot="end"    routerLink="/souscriptionprint/{{result.id}}/{{ result.nom }}"  style="display:none1;text-transform: capitalize;"> <ion-icon name="print" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		    </ion-card>
+	  
+		</div>
+	</div>
+	</div>
+	<form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+	
+		<div  class="row" style="padding:0px; margin-top:30px;" >
+			
+			<div class="col-md-12" style="padding:0px;" >	
+				<div style="padding:20px;padding-bottom:0px;"><strong>SOUSCRIPTEUR ET CO-SOUSCRIPTEUR</strong></div>
+				<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+				
+				<div style="padding:15px;" class="row">
+					<div class="col-md-6" style="margin-bottom:0px;">	
+						<div  style="margin-left:25px;"><strong>SOUSCRIPTEUR</strong> </div>
+						<div  style="margin-left:15px;"><ion-button  fill="clear"  (click)="Selectpartner()"> Sélectionner  <ion-icon style="color:#;" name="search"></ion-icon></ion-button></div>
+						<div style="padding:15px;" class="row">
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ nom }}"  type="text">
+									  <div slot="label">Nom</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ mobile }} "  type="text">
+									  <div slot="label">Téléphone</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ email }}"  type="text">
+									  <div slot="label">Email</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ adresse }}"  type="text">
+									  <div slot="label">Adresse</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ profession }}"  type="text">
+									  <div slot="label">Profession</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ nationalite }}"  type="text">
+									  <div slot="label">Nationalité</div>
+									</ion-input>
+								</ion-item>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-md-6" style="margin-bottom:0px;">	
+						<div  style="margin-left:25px;"><strong>CO-SOUSCRIPTEUR</strong> </div>
+						<div  style="margin-left:15px;"><ion-button  fill="clear"  (click)="Selectcopartner()"> Sélectionner  <ion-icon style="color:#;" name="search"></ion-icon></ion-button></div>
+						<div style="padding:15px;" class="row">
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ conom }}"  type="text">
+									  <div slot="label">Nom</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ comobile }} "  type="text">
+									  <div slot="label">Téléphone</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ coemail }}"  type="text">
+									  <div slot="label">Email</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ coadresse }}"  type="text">
+									  <div slot="label">Adresse</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ coprofession }}"  type="text">
+									  <div slot="label">Profession</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ conationalite }}"  type="text">
+									  <div slot="label">Nationalité</div>
+									</ion-input>
+								</ion-item>
+							</div>
+						</div>
+					</div>
+				</div>
+				</ion-card>
+		  
+			</div>
+			<div class="col-md-12" style="padding:0px;" >	
+				<div style="padding:20px;padding-bottom:0px;"><strong>BIEN IMMOBILIER</strong></div>
+				<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+				
+				<div style="padding:15px;" class="row">
+					<div class="col-md-6" style="margin-bottom:0px;">	
+						<div  style="margin-left:25px;"><strong>IDENTIFICATION</strong> </div>
+						<div  style="margin-left:15px;"><ion-button  fill="clear"  (click)="Selectlot()"> Sélectionner  <ion-icon style="color:#;" name="search"></ion-icon></ion-button></div>
+						<div style="padding:15px;" class="row">
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ programme }}"  type="text">
+									  <div slot="label">Programme</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ ilot }} "  type="text">
+									  <div slot="label">Ilot</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ lot }}"  type="text">
+									  <div slot="label">Lot</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ promotion }}"  type="text">
+									  <div slot="label">Type</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ logement }}"  type="text">
+									  <div slot="label">Logement</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value=""  type="text">
+									  <div slot="label">Superficie</div>
+									</ion-input>
+								</ion-item>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-md-6" style="margin-bottom:0px;">	
+						<div  style="margin-left:25px;"><strong>MONTANTS</strong> </div>
+						<div  style="margin-left:15px;"><ion-button  fill="clear"  (click)="Selectlot()"> Sélectionner  <ion-icon style="color:#;" name="search"></ion-icon></ion-button></div>
+						<div style="padding:15px;" class="row">
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ prix }}"  type="text">
+									  <div slot="label">Coût du bien</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value=""  type="text">
+									  <div slot="label">Surface supplementaire</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ supsupplementaire }}"  type="text">
+									  <div slot="label">Coût supplementaire</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ dossier }}"  type="text">
+									  <div slot="label">Frais de dossier</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ cloture }}"  type="text">
+									  <div slot="label">Clôture</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value="{{ totalapayer }}"  type="text">
+									  <div slot="label">Net à payer</div>
+									</ion-input>
+								</ion-item>
+							</div>
+						</div>
+					</div>
+				</div>
+				</ion-card>
+		  
+			</div>
+			
+			<div class="col-md-12" style="padding:0px;" >	
+				<div style="padding:20px;padding-bottom:0px;"><strong>CONSTITUTION DEPOT D'ACOMPTE</strong></div>
+				<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+				
+				<div style="border-bottom:1px solid #c0c0c0; display:none;">
+					<ion-row>
+						<ion-col size="6">
+						   <div style="margin-left:10px; margin-top:7px; text-transform:upercase;">CONSTITUTION DEPOT D'ACOMPTE</div>
+						</ion-col>
+						<ion-col size="3" >
+							
+						</ion-col>
+						<ion-col size="3">
+							<ion-button  fill="clear" > <ion-icon style="color:#;" name="wallet"></ion-icon></ion-button>
+							
+						</ion-col>
+					</ion-row>
+				</div>
+				<div style="padding:15px;" class="row">
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="prixtotal" formControlName="prixtotal" type="text">
+							  <div slot="label">Coût du bien</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="fraisdedossier" formControlName="fraisdedossier" type="text">
+							  <div slot="label">Frais de dossier</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"   [(ngModel)]="fraisdecloture" formControlName="fraisdecloture" type="text">
+							  <div slot="label">Clôture</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" readonly [(ngModel)]="totalapayer" formControlName="totalapayer" type="text">
+							  <div slot="label">Net à payer</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  (keyup)="onCalculapport()" [(ngModel)]="tauxapport" formControlName="tauxapport" type="text">
+							  <div slot="label">Taux apport</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  (keyup)="onCalcultaux()" [(ngModel)]="apportinitial" formControlName="apportinitial" type="text">
+							  <div slot="label">Apport inital</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="resteapayer" formControlName="resteapayer" type="text">
+							  <div slot="label">Reste à payer</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="36"  (keyup)="onCalcultaux()" [(ngModel)]="duree" formControlName="duree" type="number">
+							  <div slot="label">Durée paiement(mois)</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="mensualite" formControlName="mensualite" type="text">
+							  <div slot="label">Versement mensuel</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="debutremb" formControlName="debutremb" type="date">
+							  <div slot="label">Début paiement</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="finremb" formControlName="finremb" type="date">
+							  <div slot="label">Fin paiement</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="livraisonprevu" formControlName="livraisonprevu" type="date">
+							  <div slot="label">Date de livraison</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-12" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-textarea labelPlacement="floating" value=""  [autoGrow]="true" [(ngModel)]="description" formControlName="description" type="text">
+							  <div slot="label">Détail</div>
+							</ion-textarea>
+						</ion-item>
+					</div>
+				
+				</div>
+				</ion-card>
+		  
+			</div>
+			
+			<div class="col-md-12" style="padding:0px;" >
+				<div style="padding:20px;padding-bottom:0px;"><strong>PRET ET GARANTIE</strong></div>
+				<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+				<div style="border-bottom:1px solid #c0c0c0; display:none;">
+					<ion-row>
+						<ion-col size="6">
+						   <div style="margin-left:10px; margin-top:7px; text-transform:upercase;">SOUSCRIPTEUR</div>
+						</ion-col>
+						<ion-col size="3" >
+							
+						</ion-col>
+						<ion-col size="3">
+							<ion-button  fill="clear" > <ion-icon style="color:#;" name="wallet"></ion-icon></ion-button>
+							
+						</ion-col>
+					</ion-row>
+				</div>
+				<div style="padding:15px;" class="row">
+					<div class="col-md-12" style="margin-bottom:0px;">
+						<div style="margin-left:15px;"><strong>SOUCRIPTEUR</strong></div>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="numdecomptesous" formControlName="numdecomptesous" type="text">
+							  <div slot="label">N° de compte</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="banquesous" formControlName="banquesous" type="text">
+							  <div slot="label">Banque</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="salairenetsous" formControlName="salairenetsous" type="text">
+							  <div slot="label">Salaire net</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="autreressourcesous" formControlName="autreressourcesous" type="text">
+							  <div slot="label">Autre ressource</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-12" style="margin-bottom:0px;">
+						<div style="margin-left:15px;"><strong>CO-SOUCRIPTEUR</strong></div>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="numdecomptecosous" formControlName="numdecomptecosous" type="text">
+							  <div slot="label">N° de compte</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="banquecosous" formControlName="banquecosous" type="text">
+							  <div slot="label">Banque</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="salairenetcosous" formControlName="salairenetcosous" type="text">
+							  <div slot="label">Salaire net</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="autreressourcecosous" formControlName="autreressourcecosous" type="text">
+							  <div slot="label">Autre ressource</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-12" style="margin-bottom:0px;">
+						<div style="margin-left:15px;"><strong>NOTAIRE</strong></div>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="notaire" formControlName="notaire" type="text">
+							  <div slot="label">Nom notaire</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="adressenot" formControlName="adressenot" type="text">
+							  <div slot="label">Adresse</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="telephonenot" formControlName="telephonenot" type="text">
+							  <div slot="label">Téléphone</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="emailnot" formControlName="emailnot" type="email">
+							  <div slot="label">Email</div>
+							</ion-input>
+						</ion-item>
+					</div>
+				</div>
+				</ion-card>
+		  
+			</div>
+			
+			<div class="col-md-3" style="margin-bottom:50px;margin-top:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+				</div>
+				<div class="col-md-2" style="margin-bottom:50px;margin-top:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+			</div>
+		</div>
+		<div style="margin-bottom:70px;">
+         </div>
+	</form>
+	
+
+  <div style="margin-bottom:200px;"></div>
+</ion-content>

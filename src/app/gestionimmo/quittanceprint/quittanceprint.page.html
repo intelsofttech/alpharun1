@@ -1,0 +1,168 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Quittance
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+
+<ion-content [fullscreen]="true">
+  <ion-button  type="" style="margin:20px;" onclick="PrintDiv('myDiv')" ><ion-icon name="print" style="font-size:18px;"></ion-icon> Imprimer</ion-button>
+    <div id="myDiv">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<div style="margin-top:0px;">
+		<table class="" style="width:750px;margin:0px;margin-bottom:10px; " >
+			<tbody style="background-color:#ffffff;">
+				<tr style="width:750px; border:0px; background-color:#ffffff;">
+					<td style="width:200px;  border:0px; ">
+					<img class="" [src]="imgbaseUrl" style="width:100%;height:auto;"/>
+					</td>
+					<td style="width:550px;  border:0px; padding-right:0px; ">
+						<div align="center" style="width:450px; margin-bottom:15px;">{{services}}</div>
+						<div style="border-bottom: solid 3px #f78812;"></div>
+						<div align="center" style="width:450px; font-size:12px; margin-top:15px;">{{siege}}</div>
+						<div align="center" style="width:450px; font-size:12px;">Tél. : {{contacts}}    RCCM: {{rccm}} / No CC: {{comptecontribuable}}</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<table class="styled-table" style="margin-top:0px;margin-bottom:0px; ">
+			<tbody style="background-color:#ffffff;">
+				<tr style="width:600px; border:0px; background-color:#ffffff;">
+					<td style="width:550px;  border:0px; ">
+					<p style=" margin-bottom:3px; font-size:24px; color:#;">QUITTANCE DE LOYER</p>
+					</td>
+					<td style="width:250px;  border:0px; padding-right:0px; ">
+					
+					 <table class="styled-table"  style="margin-top:0px;margin-bottom:0px;  padding-right:0px;">
+						<thead style="display:none1; border: 1px;">
+							<tr style=" background-color:#ffffff; border: 1px solid #dddddd;">
+								<th style="width:100px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">MOIS</p></th>
+								<th style="width:100px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">ANNEE</p></th>
+							</tr>
+						</thead>
+						<tbody style="background-color:#ffffff;">
+							<tr style="border: 1px solid #dddddd; background-color:#ffffff;">
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;">{{monthlib}}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;">{{year}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		</div>	
+		<table class="styled-table" style="margin-top:0px;margin-bottom:0px;">
+						<thead style="display:none1; border: 1px;">
+							<tr style=" background-color:#ffffff; border: 1px solid #dddddd;">
+								<th style="width:350px; border: 1px solid #dddddd; background-color:{{backcolor1}}; color:{{textcolor}}; "><p style="font-size:12px; padding:12px; margin-bottom:0px;">NOM DU LOCATAIRE</p></th>
+								<th style="width:230px; border: 1px solid #dddddd;background-color:{{backcolor1}}; color:{{textcolor}}; "><p style="font-size:12px; padding:12px; margin-bottom:0px; ">NOM RESIDENCE</p></th>
+								<th style="width:220px; border: 1px solid #dddddd;background-color:{{backcolor1}}; color:{{textcolor}}; "><p style="font-size:12px; padding:12px; margin-bottom:0px;">N° APPARTEMENT</p></th>
+							</tr>
+						</thead>
+						<tbody style="background-color:#ffffff;">
+							<tr style="border: 1px solid #dddddd; background-color:#ffffff;">
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;">{{tenant}}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;">{{property}}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;">{{ref}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		<table class="styled-table" style="margin-top:20px;margin-bottom:0px;">
+			<tbody style="background-color:#ffffff;">
+				<tr style="width:600px; border:0px; background-color:#ffffff;">
+					
+					<td style="width:300px;  border:0px; vertical-align: top;">
+					
+						 <table class="styled-table"  style="margin-top:0px;margin-bottom:0px;  padding-right:0px;">
+						<thead style="display:none1; border: 1px;">
+							<tr style=" background-color:#ffffff; border: 1px solid #dddddd;">
+								<th style="width:180px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">MODE</p></th>
+								<th style="width:180px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">MONTANT</p></th>
+								<th style="width:180px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">DATE</p></th>
+							</tr>
+						</thead>
+						<tbody style="background-color:#ffffff;">
+							<tr style="border: 1px solid #dddddd; background-color:#ffffff;"  *ngFor="let line of list; let i = index" >
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{ line.method }}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{ line.amount }}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{ line.createdAt| date: 'dd/MM/yyyy' }}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					
+					</td>
+					<td style="width:150px;  border:0px; ">
+					<p style=" margin-bottom:3px;padding-left:12px; font-size:12px; color:#;">Sous réserve des <br/>loyers antérieurs<br/> impayés</p>
+					</td>
+					<td style="width:350px;  border:0px; padding-right:0px;">
+					
+					 <table class="styled-table"  style="margin-top:0px;margin-bottom:0px;  padding-right:0px;">
+						<thead style="display:none1; border: 1px;">
+							<tr style=" background-color:#ffffff; border: 1px solid #dddddd;">
+								<th style="width:180px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">LOYER</p></th>
+								<th style="width:180px; border: 1px solid #dddddd;"><p style="font-size:12px; padding:12px; margin-bottom:0px;">CHARGE</p></th>
+							</tr>
+						</thead>
+						<tbody style="background-color:#ffffff;">
+							<tr style="border: 1px solid #dddddd; background-color:#ffffff;">
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{price}}</p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{charge}}</p>
+								</td>
+							</tr>
+							<tr style="border: 1px solid #dddddd; background-color:#ffffff;">
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="left"><strong>TOTAL A PAYER</strong></p>
+								</td>
+								<td style="border: 1px solid #dddddd; ">
+									<p style="font-size:12px; padding:12px; margin-bottom:0px;" align="right">{{amount}}</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div>IMPORTANT: Les versements sont payés d’avance avant le 5 du mois.</div>
+	</div>	
+	
+<div style="margin-bottom:80px;"> </div>
+  	
+		
+</ion-content>

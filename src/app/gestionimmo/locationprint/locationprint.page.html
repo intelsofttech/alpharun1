@@ -1,0 +1,308 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Contrat
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+
+<ion-content [fullscreen]="true">
+	<ion-button  type="" style="margin:20px;" onclick="PrintDiv('myDiv')" ><ion-icon name="print" style="font-size:18px;"></ion-icon> Imprimer</ion-button>
+    <div id="myDiv">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<table class="" style="width:750px;margin:0px;margin-bottom:10px; " >
+			<tbody style="background-color:#ffffff;">
+				<tr style="width:750px; border:0px; background-color:#ffffff;">
+					<td style="width:200px;  border:0px; ">
+					<img class="" [src]="imgbaseUrl" style="width:100%;height:auto;"/>
+					</td>
+					<td style="width:550px;  border:0px; padding-right:0px; ">
+						<div align="center" style="width:450px; margin-bottom:15px;">{{services}}</div>
+						<div style="border-bottom: solid 3px #f78812;"></div>
+						<div align="center" style="width:450px; font-size:12px; margin-top:15px;">{{localisation2}}</div>
+						<div align="center" style="width:450px; font-size:12px;">{{contacts}}   RCCM: {{rccm}} / No CC: {{comptecontribuable}}</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+        <div style="margin-top:0px;margin-bottom:80px;">
+			<p style="border:1px solid #c0c0c0; padding:15px; width:800px;" align="center">CONTRAT DE BAIL A USAGE D’HABITATION </p>
+			<p>ENTRE-LES SOUSSIGNES :</p>
+			<p  style=" width:800px;"  *ngIf="idadmin=='1'">
+				•	<strong>{{etabName}}</strong>, au capital d’un million (1.000.000) de Francs CFA, immatriculée au registre de commerce et du Crédit Mobilier {{rccm}} ; {{etabaddress}}; Tél: {{contacts}}
+				Email: {{etabemail}}. Dont le siège est à {{siege}}, Représentée par <strong>{{representant}}</strong>.
+			</p>
+			<p>Ci-après désigné «  <strong>Le Bailleur</strong> »</p>
+			<p align="right" style=" width:800px;">D’une part </p>
+			<p align="left" style=" width:800px;">ET: </p>
+			<p align="left" style=" width:800px;">
+			{{firstName}} {{lastName}}, né le {{birthDate| date: 'dd/MM/yyyy'}} à {{birthLocate}} de Nationalité {{nationality}}. Titulaire du {{typeidcard}}. de la REPUBLIQUE {{countryidcard}} N° {{numidcard}}.  délivrée le {{dateidcard| date: 'dd/MM/yyyy'}} Valable expire le {{endidcard| date: 'dd/MM/yyyy'}} ; tel : {{phone}} ; E-mail {{email}}.; 
+			</p>
+			<p>Locataire du bien décrit ci-dessous dans l’article « DESIGNATION »</p>
+			<p>Ci-après désigné «  <strong>Le Preneur </strong> »</p>
+			<p align="right" style=" width:800px;">D’autre part </p>
+			<p align="left" style=" width:800px;">Il a été convenu et arrêté ce qui suit :</p>
+			<p align="center" style=" width:800px;">DESIGNATION</p>
+			<p align="left" style=" width:800px;">Un appartement de {{nbroom}} Pièces situé au {{etage}} étage de la résidence {{property}}. numéroté {{ref}} d’une superficie de {{area}} m², sis à {{commune}}. Formant le (Lot, ilot) 
+			</p>
+			<p><strong>lot {{lot}} et Ilot {{ilot}} </strong>. et faisant l’objet du titre Foncier numéro  {{foncier}} de {{commune}},</p>
+			<p>
+			Il est précisé que l’emplacement est livré nu et non meublé, et que le Preneur déclarant avoir vu, visité et parfaitement connaître les locaux loués qu’il consent occuper dans leur état actuel.
+			</p>
+			<p align="center" style=" width:800px;">DUREE</p>
+			<p align="left" style=" width:800px;">Le présent bail est conclu pour une durée de... (..) an à partir du {{datesignature| date: 'dd/MM/yyyy'}} et jusqu’au {{date| date: 'dd/MM/yyyy'}} inclus.</p>
+			<p style=" width:800px;">
+				Le bail sera tacitement renouvelé par période annuelle, sauf préavis de l’une ou l’autre des parties, par lettre recommandée avec avis de réception ou remise de lettre contre décharge, De trois (03) mois, la date de la décharge faisant foi et étant la seule à considérer en cas de litige.
+			</p>
+			<p align="center" style=" width:800px;">CLAUSES ET CONDITIONS</p>
+			<p align="left" style=" width:800px;">
+				Le présent bail est fait aux clauses et conditions suivantes que le Preneur s’oblige à exécuter sans qu’il puisse réclamer aucune diminution de loyer ci-après fixé et à peine de résiliation sur simple contestation des fautes s’il plaît au Bailleur.
+			</p>
+			<p><strong>1° Usage :</strong></p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra donner aux locaux loués d’autre usage que celui d’habitation à l’exclusion de tout autre, même temporairement. Il n’aura aucun recours contre le Bailleur.
+			</p>
+			<p><strong>2° Etat des lieux :</strong></p>
+			<p style=" width:800px;">
+			Un état des lieux est dressé au moment de l’entrée en jouissance et à la fin du bail.
+  
+			Un état des lieux intermédiaire peut être réalisé à l’initiative du bailleur en cours de bail.
+
+			A l’expiration du bail, un état des lieux contradictoire de sortie sera également réalisé par les Parties        pour vérifier que les lieux sont restitués conformément à l’état des lieux d’entrée.
+			Les états des lieux font foi
+
+			</p>
+			<p><strong>3° Entretien et réparations :</strong></p>
+			<p style=" width:800px;">
+			Le Preneur entretiendra les lieux loués en bon état et en jouira en bon père de famille et les restituera en bon état. Le Preneur devra notamment, à ses frais, refaire les badigeons, peinture des boiseries, portes, persiennes, plafonnages et de tous autres travaux utiles à l’entretient des lieux, aussi souvent que besoin sera.
+			</p>
+			<p style=" width:800px;">
+			Le Bailleur ne sera tenu d’exécuter, au cours du bail, que les grosses réparations qui pourraient devenir nécessaires, toutes autres réparations, quelles qu’elles soient, restant à la charge du Preneur.
+			</p>
+			<p style=" width:800px;">
+			Bien que les grosses réparations soient à la charge du Bailleur, le Preneur devra aviser en temps utile le Bailleur, par écrit, des réparations qu’il apparaîtrait nécessaire d’effectuer au cours du bail.
+			</p>
+			<p style=" width:800px;">
+			Le Bailleur ne pourra en aucune façon être tenu pour responsable des dégâts causés directement ou indirectement par la pluie, la rouille, la foudre ou le vent, aux meubles meublants, matériels et biens de toute nature, aménagements et agencements se trouvant dans les lieux loués, s’il n’a été mis en demeure depuis huit (8) jours au moins, par lettre recommandée, d’avoir à effectuer les réparations devenues nécessaires.
+			</p>
+			<p style=" width:800px;">
+			Il est précisé que les bris de glace, qu’elle qu’en soit la cause, fût-ce même la guerre civile ou étrangère ou troubles à l’ordre public, resteront à la charge du Preneur qui en supportera les conséquences.
+			</p>
+			<p><strong>4° Grosses réparations : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur souffrira des troubles de jouissance, résultant des grosses réparations et de toutes transformations nécessaires que le Bailleur jugerait utile d’effectuer dans le cours du bail, quelles qu’en soient l’importance, sans pouvoir réclamer aucune indemnité ni diminution du loyer. Il pourra toutefois les réclamer lorsque la durée des travaux serait supérieure à quinze (15) jours. Il devra laisser pénétrer les ouvriers dans les lieux loués pour tous travaux jugés utiles par le Bailleur.
+			</p>
+			<p style=" width:800px;">
+			Lorsque le Bailleur refuse d’assumer les grosses réparations qui lui incombent, le Preneur peut se faire autoriser par la juridiction compétente à les exécuter conformément aux règles de l’art, pour le compte du Bailleur.
+			</p>
+			<p style=" width:800px;">
+			Dans ce cas, la juridiction compétente fixe le montant de ces réparations et les modalités de leur remboursement.
+			</p>
+			<p style=" width:800px;">
+			A chaque renouvellement de bail, le Bailleur, directement ou par les services de son mandataire, procèdera à une visite des lieux afin de s’assurer de leur bon état et éventuellement, commandera à ses frais tous travaux utiles.
+			</p>
+			<p><strong>5° Aménagements et transformations : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra faire aucun aménagement, aucune modification dans l’état ou la disposition des locaux, sans autorisation préalable et écrite du Bailleur.
+			</p>
+			<p style=" width:800px;">
+			Tout aménagement réalisé par le Preneur, embellissements, améliorations ou constructions nouvelles, meubles fixés aux murs, sols ou plafonds, appartiendront de plein droit au Bailleur en fin de bail sans aucune indemnité en faveur du Preneur, à moins que le Bailleur préfère que les lieux soient remis en leur état d’origine aux frais du Preneur.
+			</p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra déduire des loyers les travaux qu’il aura fait exécuter sans l’accord écrit et préalable du Bailleur.
+			</p>
+			<p style=" width:800px;">
+			Les travaux seront effectués sous la surveillance de l’architecte du Bailleur, dont les honoraires seront à la charge du Preneur.
+			</p>
+			<p><strong>6° Règlements urbains : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur satisfera en lieu et place du Bailleur à toutes les prescriptions de police, de voirie et d’hygiène.
+			</p>
+			<p style=" width:800px;">
+			Il exécutera, à ses frais sans recours contre le Bailleur, tous travaux qui sont ou seront exigés par les lois, décrets, arrêtés ou règlements sur la santé publique nonobstant toutes dispositions contraires, le tout de manière à ce que le Bailleur ne soit jamais inquiété ni recherché à ce sujet.
+			</p>
+			
+			
+			<p><strong>7° Cession de bail et sous-location : </strong></p>
+			<p style=" width:800px;">
+			La présente location a été consentie au Preneur « intuitu personae ». En conséquence, sauf accord écrit et préalable du Bailleur, toute cession de bail, sous-location ou simple occupation des lieux par un tiers est rigoureusement interdite et ce à peine de résiliation immédiate du présent contrat de bail à la simple constatation de la faute et sans qu’il soit besoin de recourir à la procédure de mise en demeure.
+			</p>
+			<p><strong>8°Impôts, patentes et taxe locative:   </strong></p>
+			<p style=" width:800px;">
+			Le Preneur acquittera exactement et à bonne date les contributions, taxes et patentes et tous autres impôts pouvant exister ou à être établis en raison de son occupation des lieux loués. Il devra justifier de leur acquittement à toute réquisition et notamment avant de déménager. Il versera au Bailleur, à chaque échéance de loyer, le montant des taxes et notamment de la taxe d’enlèvement des ordures ménagères.
+			</p>
+			<p><strong>9° Grillages moustiquaires : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur devra au Bailleur le remboursement des frais d’installation et d’entretien des grillages- moustiquaires si leur usage vient à être rétabli ou imposé, notamment en cas d’épidémie.
+			</p>
+			<p><strong>10° Assurance:</strong></p>
+			<p style=" width:800px;">
+			Le Preneur s’engage, dès la signature du présent bail, à assurer contre l’incendie, son mobilier, son matériel et les biens de toute nature lui appartenant ainsi que les risques locatifs, bris de glace et le recours des voisins et à maintenir cette assurance pendant toute la durée d’exécution du présent bail, à en acquitter exactement les primes et cotisations annuelles et à justifier du tout à la première réquisition du Bailleur.
+			</p>
+			<p style=" width:800px;">
+			Enfin, le Preneur s’engage à prévenir immédiatement le Bailleur de tout sinistre qui surviendrait, sous peine d’être tenu responsable des dommages éventuellement causés et ou aggravés par sa faute et d’en réparer les préjudices
+			</p>
+			<p style=" width:800px;">
+			La copie d’assurance doit être transmise au Bailleur ou son représentant avant la remise des clés du bien ci-dessus mentionné.
+			</p>
+			<p><strong>11° Biens inflammables ou hasardeuses :  </strong></p>
+			<p style=" width:800px;">
+			Le Preneur s’engage à ne pas détenir dans les lieux loués de biens ou de marchandises inflammables ou hasardeuses
+			</p>
+			<p><strong>12° Visite des lieux : </strong></p>
+			<p style=" width:800px;">
+			En cas de mise en vente des lieux par le Bailleur et en cas de remise en location le dernier mois du préavis uniquement, le Preneur devra laisser visiter par les acquéreurs et locataires éventuels les lieux loués les lundis, mercredi et vendredi de 15 à 18 heures.
+			</p>
+			<p><strong>13° Eau, électricité et charges diverses </strong></p>
+			<p style=" width:800px;">
+			Le Preneur paiera directement au concessionnaire et fournisseur le montant de ses abonnements ou de sa consommation d’eau et/ou d’électricité et remboursera au Bailleur, avec la première échéance de loyer suivante, les sommes que ce dernier serait amené à avancer de ce fait pour le compte du locataire.
+			</p>
+			<p  style=" width:800px;">
+			Le Preneur ne pourra formuler aucune réclamation pour cause d’interruption dans les services des eaux ou d’électricité pour quelque cause que ce soit.
+			</p>
+			<p  style=" width:800px;">
+			Il ne pourra non plus exiger du Bailleur aucune indemnité ni diminution de loyer pour tous les accidents ou dégâts qui pourraient survenir par suite de rupture de canalisation d’eau ou d’électricité, renonçant dès à présent à exercer toutes actions de ce chef contre le Bailleur.
+			</p>
+			<p  style=" width:800px;">
+			Le Bailleur pourra, à toute époque de la location, faire placer un compteur divisionnaire sur le branchement desservant les lieux loués. Dans ce cas, le prix de l’eau ou de l’électricité consommée d’après les indications de ce compteur ainsi que les frais de pose, de branchement, de location, d’entretien, de réparation et de relevé du compteur divisionnaire, seront réglés directement par le Preneur ou remboursés au Bailleur dans le cas où ce dernier serait amené à les avancer.
+			</p>
+			<p  style=" width:800px;">
+			En cas d’absence de compteur divisionnaire, le montant des charges afférentes à chaque locataire sera calculé au prorata de la superficie des locaux loués. Ce montant pourra être un forfait révisable payable d’avance.
+			</p>
+			<p  style=" width:800px;">
+			L’entretien, la réparation et le remplacement des climatiseurs est à la charge exclusive du Preneur 
+
+			La fourniture et le remplacement de tous appareils d’éclairages et de toutes ampoules sont exclusivement à la charge du Preneur.
+
+			</p>
+			<p><strong>14° Poêle mobile : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra avoir dans les lieux loués aucun poêle ni aucun appareil nécessitant un conduit de fumée.
+			</p>
+			<p><strong>15° Règlementations diverses : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra demander aucune indemnité ni diminution de loyer en raison des travaux occasionnés par une circonstance fortuite étrangère au Bailleur.
+			</p>
+			<p><strong>16° Accès et parties communes : </strong></p>
+			<p style=" width:800px;">
+			Le Preneur s’interdit de déposer tout matériel, caisse, emballage, objet de toute nature et détritus dans les parties de l’immeuble communes à tous les locataires.
+			</p>
+			<p style=" width:800px;">
+			Il entretiendra les accès et les alentours des locaux qui lui sont loués, ainsi que les W.C. dont il userait en parfait état de propreté.
+			</p>
+			<p><strong>17° Remises des clés :</strong></p>
+			<p style=" width:800px;">
+			Un (1) mois avant l’expiration du bail, le Preneur devra faire établir contradictoirement avec le Bailleur lui-même ou son représentant, un état des réparations lui incombant. A défaut d’exécution, le Preneur devra régler le montant des dites réparations, sans pouvoir élever la moindre objection.
+			</p>
+			<p style=" width:800px;">
+			Le jour de l’expiration du bail, le Preneur devra remettre au Bailleur les clefs des locaux ainsi que les reçues des résiliations des abonnements CIE et SODECI. Dans le cas où, par le fait du Preneur, le Bailleur n’aurait pu mettre en location ou laisser visiter les lieux ou bien faire la livraison à un nouveau locataire ou en reprendre la libre disposition, il aura droit à une indemnité au moins égale à un mois de loyer, sans préjudice des éventuels dommages et intérêts.
+			</p>
+			<p><strong>18° Dégradations, vols et Responsabilités:</strong></p>
+			<p style=" width:800px;">
+			Le Preneur est responsable de toutes dégradations ou vols quelconques qui pourraient être commis dans et sur les locaux loués par lui.
+			</p>
+			<p style=" width:800px;">
+			Le Preneur est responsable à l’égard des tiers, des conséquences dommageables entrainés par toute infraction aux clauses et conditions du présent bail et, plus généralement par son fait, celui de ses préposés, des personnes se rendant chez lui ou des animaux lui appartenant.
+			</p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra ni mettre en cause le Bailleur, ni exercer contre lui aucune action, ni demander aucune indemnité ou diminution de loyer, à raison de troubles qui pourraient lui être causés par d’autres locataires ou des tiers, et notamment à l’occasion de réparations, réfections ou constructions de propriétés voisines ou de murs mitoyens, quelle que soit la durée des travaux, tout recours devant être exercé directement contre l’auteur responsable.
+
+			</p>
+			<p><strong>19° GARANTIE</strong></p>
+			<p style=" width:800px;">
+			A titre de provision pour garantie de l’exécution des clauses du présent contrat, le Preneur à versé, au moment de la signature, la somme de ………. …… (………) Francs CFA, correspondant à deux (2) mois de loyer en principal et en charges, entre les mains du Bailleur ou de son représentant. Cette somme sera remboursée au Preneur à l’expiration de la présente location, lors de la remise des clefs et des locaux au Bailleur, déduction faite de toutes sommes qui pourraient être dues par le Preneur tant pour les éventuelles réparations que pour toute autre cause. De convention expresse, cette somme versée à titre de dépôt de garantie demeurera improductive d’intérêt et sera réajustée aux mêmes époques et dans les mêmes proportions que le loyer lui-même, suivant la clause de révision ci-dessous.
+			</p>
+			<p style=" width:800px;">
+			Le Preneur ne pourra en aucun cas déduire de ses loyers la somme versée à titre de dépôts de garantie sous peine de poursuite.
+			</p>
+			<p style=" width:800px;">
+			Toute libération du loyer entre les mains d’un tiers est subordonnée à l’accord préalable du Preneur.
+
+			</p>
+			<p><strong>20° Frais:</strong></p>
+			<p style=" width:800px;">
+			Tous les frais, droits d’enregistrement et honoraires auxquels pourraient donner lieu le présent acte et ses suites, seront supportés par le Preneur et sont payables d’avance à la signature du présent bail et à chaque renouvellement.
+			</p>
+			<p style=" width:800px;">
+			<strong>Droit d’enregistrement au bail à la date des présentes :</strong> 2,5% du loyer annuel + timbre
+			</p>
+			<p style=" width:800px;">
+			<strong>Droit d’enregistrements annuels : </strong>2,5% du loyer annuel + timbre au renouvellement
+			</p>
+			<p style=" width:800px;">
+			<strong>Honoraires annuels au renouvellement : </strong> 1,5% du loyer annuel
+			</p>
+			
+			<p><strong>21° Montant du loyer :</strong></p>
+			<p style=" width:800px;">
+			Le  présent  bail  est  consenti  et  accepté,  moyennant,  charges  comprises,  un  loyer  mensuel de {{amount}}. ({{amount}}) de Francs CFA, un (1) euro = 655, 957 FCFA.
+			</p>
+			<p style=" width:800px;">
+			Il est rappelé qu’une facture sera émise au moins cinq (5) jours avant chaque échéance et une quittance de loyer sera donnée dès paiement. 
+			</p>
+			<p style=" width:800px;">
+			Le loyer est portable, payable soit par chèque soit par virement soit par dépôt d’espèce directement sur le compte N° ……………………………………………………………………………………………
+			</p>
+			
+			<p style="margin-left:30px;"><strong>21.1° Loyer mensuel :</strong></p>
+			<p style="margin-left:30px; width:800px;">
+			Le loyer mensuel est fixé à {{amount}}. ({{amount}}) Francs CFA. 
+			</p>
+			<p style="margin-left:30px; width:800px;">
+			Le loyer mensuel est payable mensuellement d’avance le premier jour de chaque période entre les mains du mandataire sus désigné du Bailleur et est expressément spécifié portable. Cependant, la simple remise d’un chèque ne vaudra pas libération du Preneur. Tout retard de plus de dix (10) jours francs dans le paiement entraînera, sans qu’aucune mise en demeure ne soit nécessaire, une majoration de dix pour cent (10%) du terme correspondant. Les loyers et charges impayés à leur échéance produiront, à compter du deuxième mois après l’échéance impayé, intérêt de plein droit, aux taux de base de la B.C.E.A.O. jusqu’au complet paiement. 
+			</p>
+			<p style="margin-left:30px; width:800px;">
+			Les intérêts dus pour une année entière deviendront à leurs tours productifs d’intérêts conformément à l’article 1154 du Code Civil et sans préjudice pour le Bailleur d’obtenir la résiliation du bail dans les conditions ci-après
+			</p>
+			<p style="margin-left:30px;"><strong>21.2° Charges :</strong></p>
+			<p style="margin-left:30px; width:800px;">
+			Le montant des charges à acquitter, en même temps que le loyer mensuel, correspondant à la quote-part des taxes locatives, les frais de gardiennage, l’entretien, l’électricité et l’eau des parties communes, est fixé à {{charge}}. ({{charge}}) Francs CFA en sus du loyer mensuel.
+			</p>
+			
+			<p><strong>22° Clause de révision :</strong></p>
+			<p style=" width:800px;">
+			Conformément aux dispositions en vigueur, le loyer mensuel de la présente location sera révisable tous les trois (3) ans dans les conditions précisées par la loi n°2019-576 du 26 Juin 2019 instituant le Code de la Construction et de l’Habitat. Les litiges relatifs à la révision du loyer peuvent être portés devant la juridiction compétente. La partie qui entend solliciter une augmentation ou réduction du loyer doit préalablement notifier son intention à l’autre partie par tout moyen au moins 3 mois avant la date d’effet de ladite révision et après la 3e année de conclusion du bail ou de la précédente révision, sous peine de nullité de la clause contractuelle consacrant ladite révision. 
+			</p>
+			<p><strong>23° Clauses résolutoires :</strong></p>
+			<p style=" width:800px;">
+			A défaut par le Preneur, d’exécuter une seule des charges et conditions du bail, ou de payer exactement à son échéance un seul terme de loyer ou de ses accessoires, le présent bail sera résilié de plein droit, si bon semble au Bailleur et sans aucune formalité judiciaire, HUIT (8) jours après une simple mise en demeure d’exécuter ses obligations ou un simple commandement de payer ou de remplir les conditions du bail. 
+			</p>
+			<p style=" width:800px;">
+			En application de cette clause et demeurée sans effet, quelle que soit la cause de cette carence et nonobstant toutes consignations ultérieures, l’expulsion sera prononcée par simple ordonnance de référé rendue par Monsieur le Président du Tribunal de première instance d’ABIDJAN, exécutoire par provision et non susceptible d’appel. Dès la mise en demeure par lettre et jusqu’à son départ, l’occupant subira, par jour d’occupation, une astreinte ferme et non comminatoire égale au triple du loyer journalier. 
+			</p>
+			<p style=" width:800px;">
+			Le tout sans préjudice du paiement des loyers anciens et de tous autres dommages et intérêts qui comprendront notamment tous frais judiciaires en y incluant ceux de tous Officiers Ministériels qui auront été requis aux fins des poursuites et réclamations. 
+			</p>
+			
+			<p><strong>24° Clause attributive de juridiction :</strong></p>
+			<p style=" width:800px;">
+			En cas de litige, les juridictions d’Abidjan seront les seules compétentes. DONT ACTE SUR HUIT PAGES   
+			</p>
+			<p style=" width:800px;">
+			Fait à ABIDJAN, le / /2023, dont SUIVENT LES SIGNATURES 
+			</p>
+			<p style=" width:800px;">
+			
+			<span style="margin-right:500px;"><strong>Pour le Bailleur</strong> </span>                                         <span><strong>Pour le Preneur </strong></span>
+			</p>
+			
+			<p>
+			</p>
+		</div>
+   </div>
+
+
+    
+</ion-content>

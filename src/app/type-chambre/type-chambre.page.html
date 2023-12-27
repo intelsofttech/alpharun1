@@ -1,0 +1,86 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Type de chambre</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-row  style="margin-top:20px;">
+    <ion-col size="2">
+       <ion-button color="light"  (click)="onNew()">Ajouter</ion-button>
+    </ion-col>
+    <ion-col size="10">
+       <div align="right">
+	      <ion-button  color="light" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list"></ion-icon> </ion-button>
+		  <ion-button  color="light" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+  
+ <div style="padding:10px;"  *ngIf="!addForm">
+ 
+ <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td style="width:40%;">Libellé</td>
+			<td>Prix nuité</td>
+			<td>Demi Tarid</td>
+			<td>Prix heure</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.name }}</td>
+			<td>{{ result.priceNight }}</td>
+			<td>{{ result.minPrice }}</td>
+			<td>{{ result.priceHour }}</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	  <ion-list  *ngIf="gridmode">
+		  <ion-item button *ngFor="let result of results">
+			<ion-label><p>{{ result.name }}</p> 
+			<p>  Prix nuité: {{ result.priceNight }}    Demi tarif: {{ result.minPrice }} Prix heure: {{ result.priceHour }}</p>
+			</ion-label>
+		  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)" > <ion-icon name="pencil"></ion-icon> </ion-button>
+		  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </ion-item>
+	  </ion-list>
+  </div>
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			
+			<br />
+			<ion-input label="Désignation" [(ngModel)]="name" formControlName="name" label-placement="floating" required  type="text" fill="outline" placeholder="Désignation"></ion-input>
+			<br />
+			<ion-input label="Prix nuité" [(ngModel)]="priceNight" formControlName="priceNight" label-placement="floating" required  type="text" fill="outline" placeholder="Prix nuité"></ion-input>
+			<br />
+			<ion-input label="Demi tarif" [(ngModel)]="minPrice" formControlName="minPrice" label-placement="floating" required  type="text" fill="outline" placeholder="Demi tarif"></ion-input>
+			<br />
+			<ion-input label="Prix heure" [(ngModel)]="priceHour" formControlName="priceHour" label-placement="floating" required  type="text" fill="outline" placeholder="Prix heure"></ion-input>
+			<br />
+			<ion-textarea label="Détail" [(ngModel)]="detail" formControlName="detail" label-placement="floating"  type="text" fill="outline" placeholder="Détail"></ion-textarea>
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+
+</ion-content>
+

@@ -1,0 +1,201 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card  style="padding:7px;">
+		<div class="row" style="">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm">
+					<ion-select labelPlacement="floating" (ionChange)="onSelectProgram()" id="" [(ngModel)]="program" formControlName="program"  interface="popover" >
+					<ion-select-option  *ngFor="let line of programs; let i = index" value="{{line.id}}">{{line.name}}</ion-select-option>
+					<div slot="label">Programme</div>
+				</ion-select>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				<ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+	</ion-card>
+	
+	 	<div  class="row" *ngIf="listmode">
+	<ion-card  style="padding:20px;">
+		<table style="width:100%;"  >
+			<thead>
+				<tr>     
+					<td>Id</td>
+					<td>Ilot</td>
+					<td>N°</td>
+					<td>Type de bien</td>
+					<td>Type de logement</td>
+					<td>Programme</td>
+					<td>Prix</td>
+					<td>Dossier</td>
+					<td>Clôture</td>
+					<td>Net à payer</td>
+					<td>Statut</td>
+					<td>Date</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody  *ngIf="param1=='0'">
+				<tr  *ngFor="let result of results">
+					<td  *ngIf="result.category!='ilot'">{{ result.id }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.ilot }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.reference }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.type }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.logementlib }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.property }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.total }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.dossier }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.cloture }}</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.net }}</td>
+					<td  *ngIf="result.category!='ilot'">
+						<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+						<ion-badge color="success" *ngIf="result.status=='Libre'">Disponible</ion-badge> 
+						<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+						</p>
+					</td>
+					<td  *ngIf="result.category!='ilot'">{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="param1=='1'">
+				<tr  *ngFor="let result of results">
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.id }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.ilot }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.reference }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.type }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.logementlib }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.property }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.total }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.dossier }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.cloture }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.net }}</td>
+					<td  *ngIf="result.category!='ilot'  && result.status=='Libre'">
+						<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+						<ion-badge color="success" *ngIf="result.status=='Libre'">Disponible</ion-badge> 
+						<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+						</p>
+					</td>
+					<td  *ngIf="result.category!='ilot' && result.status=='Libre'">{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+			<tbody *ngIf="param1=='2'">
+				<tr  *ngFor="let result of results">
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.id }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.ilot }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.reference }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.type }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.logementlib }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.property }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.total }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.dossier }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.cloture }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.net }}</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">
+						<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+						<ion-badge color="success" *ngIf="result.status=='Libre'">Disponible</ion-badge> 
+						<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+						</p>
+					</td>
+					<td  *ngIf="result.category!='ilot' && result.status!='Libre'">{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+		</table>  
+	</ion-card >	
+	</div>
+	<div  class="row" style="padding:0px;" *ngIf="gridmode">
+		<div class="col-md-12" *ngFor="let result of results; let i = index" >	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"  *ngIf="result.category!='ilot' && param1=='0'">
+			<div class="row">
+			
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>Ilot: {{ result.ilot }} Lot: {{ result.reference }}</strong></span>
+			</p>
+			<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+				<ion-badge color="success" *ngIf="result.status=='Libre'">Validé</ion-badge> 
+				<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+				</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type: {{ result.type }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type logement: {{ result.logementlib }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Prix: {{ result.total }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Dossier: {{ result.dossier }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Clôture: {{ result.cloture }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer {{ result.net }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Ajouté le: {{ result.createdAt| date: 'dd/MM/yyyy' }}</p>
+			</div>
+			
+		    </ion-card>	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"  *ngIf="result.category!='ilot' && param1=='1'  && result.status=='Libre'">
+			<div class="row">
+			
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>Ilot: {{ result.ilot }} Lot: {{ result.reference }}</strong></span>
+			</p>
+			<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+				<ion-badge color="success" *ngIf="result.status=='Libre'">Validé</ion-badge> 
+				<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+				</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type: {{ result.type }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type logement: {{ result.logementlib }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Prix: {{ result.total }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Dossier: {{ result.dossier }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Clôture: {{ result.cloture }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer {{ result.net }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Ajouté le: {{ result.createdAt| date: 'dd/MM/yyyy' }}</p>
+			</div>
+			
+		    </ion-card>	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"  *ngIf="result.category!='ilot'  && param1=='2' && result.status!='Libre'">
+			<div class="row">
+			
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>Ilot: {{ result.ilot }} Lot: {{ result.reference }}</strong></span>
+			</p>
+			<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+				<ion-badge color="success" *ngIf="result.status=='Libre'">Validé</ion-badge> 
+				<ion-badge color="danger" *ngIf="result.status!='Libre'">Vendu</ion-badge>
+				</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type: {{ result.type }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type logement: {{ result.logementlib }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Prix: {{ result.total }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Dossier: {{ result.dossier }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Clôture: {{ result.cloture }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer {{ result.net }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Ajouté le: {{ result.createdAt| date: 'dd/MM/yyyy' }}</p>
+			</div>
+			
+		    </ion-card>
+	  
+		</div>
+	</div>
+  
+  <div style="margin-bottom:200px;"></div>
+ 
+</ion-content>

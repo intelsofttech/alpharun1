@@ -1,0 +1,139 @@
+<ion-header  >
+   <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:12px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+	   </ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card  *ngIf="selectmode">
+    <ion-list>
+		  <ion-item button  (click)="onSlectMode('CASH', 'Espèce')" >
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Espèce</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('MOBILE MONEY', 'Mobile Money')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Mobile Money </p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('WAVE MOBILE', 'Wave Mobile')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Wave Mobile</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('VERSEMENT', 'Versement')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Versement</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('CHEQUE', 'Chèque')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Chèque</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('CARTE', 'Carte bancaire')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Carte bancaire</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('VIREMENT', 'Virement')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Virement</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button (click)="onSlectMode('TRANSFERT', 'Transfert')">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Transfert</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+	  </ion-list>
+  </ion-card>
+	
+  <ion-card  *ngIf="operform" style="margin-bottom:80px;">
+      <div style="padding:12px;">
+		<h4>{{mode}}</h4>
+		<form [formGroup]="categForm" (ngSubmit)="onAdd()">
+			
+			<div style="display:none1;">
+			<ion-input label="Objet" [(ngModel)]="label"  formControlName="label" label-placement="floating"   type="text" fill="outline" placeholder="Objet"></ion-input>
+			<br />
+			</div>
+			<div>
+			<ion-input label="Montant" [(ngModel)]="amount" formControlName="amount" label-placement="floating"   type="text" fill="outline" placeholder="Montant"></ion-input>
+			<br />
+			</div>
+			<div>
+				<ion-input label="{{receppartner}}" [(ngModel)]="name" formControlName="name" label-placement="floating"   type="text" fill="outline" placeholder="{{receppartner}}"></ion-input>
+				<br />
+			</div>
+			<div>
+				<ion-input label="Téléphone" [(ngModel)]="phone" formControlName="phone" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+				<br />
+			</div>
+			<div>
+				<ion-input label="Pièce" [(ngModel)]="identitycard" formControlName="identitycard" label-placement="floating"   type="text" fill="outline" placeholder="Pièce"></ion-input>
+				<br />
+			</div>
+			<div>
+				<ion-input label="N° ou Réference" [(ngModel)]="reference" formControlName="reference" label-placement="floating"   type="text" fill="outline" placeholder="N° ou Réference"></ion-input>
+				<br />
+			</div>
+			<div  *ngIf="show2">
+				<ion-input label="Date dépôt" [(ngModel)]="addDate" formControlName="addDate" label-placement="floating"   type="date" fill="outline" placeholder="Date dépôt"></ion-input>
+				<br />
+			</div>
+			<div  *ngIf="show2">
+				<ion-select label="Banque ou établissement" formControlName="establishment"   [(ngModel)]="establishment" label-placement="floating" interface="popover" placeholder="Banque ou établissement"  fill="outline">
+					 <ion-select-option  *ngFor="let line of partners;" value="{{line.id}}"  >{{line.firstName}}</ion-select-option>
+				</ion-select>
+				<br />
+			</div>
+			
+			<ion-button fill="solid" color="primary" expand="block"   type="submit" >Continuer</ion-button>
+			<ion-button fill="clear" expand="block"  (click)="onInitiliz()">Annuler</ion-button>
+		</form>
+	  </div>
+  </ion-card>
+  <ion-card  *ngIf="confirmation">
+	  <div style="padding:12px;">
+		<h4>{{mode}}</h4>
+		<br />
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Montant</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{amount}}</span></p>
+				
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>{{receppartner}}"</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{name}}</span></p>
+				
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Téléphone</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{phone}}</span></p>
+				
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Téléphone</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{phone}}</span></p>
+			
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Pièce</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{identitycard}}</span></p>
+			
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>N° ou Réference</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{reference}}</span></p>
+			
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Date dépôt</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{phone}}</span></p>
+		
+		<p style="margin:0px; font-size:16px; color:#187ad1; margin-bottom:7px;"><span>Banque ou établissement</span></p>
+		<p style="margin:0px; font-size:12px; margin-bottom:15px;"><span>{{establishment}}</span></p>
+		
+		<ion-button fill="solid" color="primary" expand="block"  (click)="onAddPayment()"  >Valider</ion-button>
+		<ion-button fill="clear" expand="block"  (click)="onCancel()" >Précedent</ion-button>		
+     </div>
+  </ion-card>
+</ion-content>

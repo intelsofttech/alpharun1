@@ -1,0 +1,30 @@
+<ion-header  >
+   <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+        <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  <strong>{{libelle}}</strong>
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border" style="box-shadow: 0 !important;">
+  <form [formGroup]="pageForm">	
+  <ion-row>
+	<ion-searchbar   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()"></ion-searchbar>
+  </ion-row>
+  </form>
+</ion-header>
+<ion-content [fullscreen]="true">
+	<ion-item href="javascript:void(0)"  (click)="onselect(result.id,result.label)"  *ngFor="let result of results">
+	  <ion-label>{{result.label}}</ion-label>
+	</ion-item>
+	
+</ion-content>

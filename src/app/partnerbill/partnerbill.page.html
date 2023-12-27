@@ -1,0 +1,336 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		 <ion-col size="1" style="padding:0px; font-size:20px;">
+       <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="close()">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param4}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="searchForm()">
+            <ion-icon name="search" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-header  class="ion-no-border" *ngIf="search">
+  <ion-card>
+  <ion-row>
+	<ion-col  size="6">
+       <ion-input label="Du" label-placement="floating"   type="date" fill="solid" placeholder="Du"></ion-input>
+    </ion-col>
+	<ion-col  size="6">
+       <ion-input label="Au" label-placement="floating"   type="date" fill="solid" placeholder="Au"></ion-input>
+    </ion-col>
+  </ion-row>
+  </ion-card>
+</ion-header>
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+    <ion-card *ngIf="showsearchForm"  style="padding:12px; margin-bottom:0px;">
+		<form [formGroup]="pageForm">
+		<div style="display:none1;">
+			
+			<ion-row >
+				<ion-col size="12">
+				   <span>Récherche</span>
+				</ion-col>
+				<ion-col size="12">
+				   <ion-select label="Compte" label-placement="floating"  [(ngModel)]="_categ" formControlName="_categ"  interface="popover" placeholder="Compte"  fill="outline">
+						<ion-select-option  value="0"  >Toutes les catégories</ion-select-option>
+						<ion-select-option  *ngFor="let line of listcategories;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="6">
+				   <ion-input label="Du" label-placement="floating"  [(ngModel)]="_date1" formControlName="_date1"  interface="popover"  fill="outline" type="date" placeholder="Du"></ion-input>
+				</ion-col>
+				<ion-col  size="6">
+				   <ion-input label="Au" label-placement="floating"   [(ngModel)]="_date2" formControlName="_date2" interface="popover"  fill="outline" type="date" placeholder="Du"></ion-input>
+				</ion-col>
+			</ion-row>
+	        <ion-button expand="block"  (click)="onBillList()">Afficher</ion-button>
+		</div>
+		</form>
+	</ion-card>
+	<ion-row  style="margin-top:20px;">
+		<ion-col size="4">
+		   <ion-button style="display:none; color:#707071;" fill="clear"  (click)="onNew()" >Ajouter</ion-button>
+		</ion-col>
+		<ion-col size="8">
+		   <div align="right">
+			  <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list" style="color:#707071;"></ion-icon> </ion-button>
+			  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps" style="color:#707071;"></ion-icon> </ion-button>
+		   </div>
+		</ion-col>
+	</ion-row>
+	 
+	 <table style="width:100%;"  *ngIf="listmode">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Libellé</td>
+				<td>Montant</td>
+				<td>{{montencaisse}}</td>
+				<td>Reste</td>
+				<td>Réference</td>
+				<td>{{categpart}}</td>
+				<td>Date</td>
+				<td>Echéance</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results; let i = index">
+				<td>{{ result.id }}</td>
+				<td>{{ result.title }}</td>
+				<td>{{ result.amount }}F</td>
+				<td>{{ result.payamount }}</td>
+				<td>{{ result.stayamount }}</td>
+				<td>{{ result.reference }}</td>
+				<td>{{ result.partner }}</td>
+				<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+				<td>{{ result.eventDate| date: 'dd/MM/yyyy' }}</td>
+				<td>
+				   <ion-button fill="clear" slot="end"  routerLink="/billdetail/{{ result.uui }}/{{ result.code }}/{{ result.id }}" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				</td>
+				<td>				
+				   <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)" style="display:none1;"> <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+				</td>
+				<td>   
+				  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)" style="display:none1;"> <ion-icon name="trash" style="font-size:18px;"></ion-icon> </ion-button>
+				  
+				  <ion-button  fill="clear" slot="end"  (click)="operationModal(result.id, result.code)" style="display:none;"> <ion-icon name="wallet" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Validé')" style="display:none;text-transform: capitalize;"> <ion-icon name="checkmark-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Réjeté')" style="display:none;text-transform: capitalize;"> <ion-icon name="close-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>{{amountBill}} F</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+
+
+
+	<div  *ngIf="gridmode">
+	
+	 <div  class="row">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card>
+			  <div button  style="padding:7px;">
+				<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:2px;"><span>{{ result.id }} | {{ result.title }}</span></p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Montant:</span> {{ result.amount }}  F <span> {{montencaisse}}:</span>  {{ result.payamount }}  F <span> Reste:</span>  {{ result.stayamount }}  F</span> <span> Réf: </span>{{ result.reference }}</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>{{categpart}}: </span>{{ result.partner }}<span> Téléphone: </span>{{ result.phone1 }} <span> Email: </span>{{ result.email }}</p>
+				<p style="margin:0px;  margin-bottom:2px;font-size:14px;"><span><span>  Date: </span>{{ result.addDate| date: 'dd/MM/yyyy' }}<span>  Echéance:</span> {{ result.eventDate| date: 'dd/MM/yyyy' }} </span></p>
+				<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+				<ion-badge color="warning" *ngIf="result.statut=='En attente'">En attente</ion-badge>
+				<ion-badge color="success" *ngIf="result.statut=='Validé'">Validé</ion-badge> 
+				<ion-badge color="danger" *ngIf="result.statut=='Réjeté'">Réjeté</ion-badge>
+				</p>
+				<p ><strong>{{ result.canal }}</strong></p>
+				
+						   
+						   
+				<p style="margin:0px;">
+				  <ion-button fill="clear" slot="end"  routerLink="/billdetail/{{ result.uui }}/{{ result.code }}/{{ result.id }}" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end"  (click)="operationModal(result.id, result.code)" style="display:none;"> <ion-icon name="wallet" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Validé')" style="display:none1;text-transform: capitalize;"> <ion-icon name="checkmark-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Réjeté')" style="display:none1;text-transform: capitalize;"> <ion-icon name="close-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)" style="display:none1;"> <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end"  style="display:none1;"> <ion-icon name="print" style="font-size:18px;"></ion-icon> </ion-button>
+				  </p>
+			  </div>
+		    </ion-card>
+	  
+		</div>
+	</div>
+
+
+
+	 
+	  <div  style="margin-bottom:80px;">
+	  </div>
+	   <ion-card  color="default"   style="margin-bottom:10px; padding:10px; color:#000000; position:fixed; bottom:0; width:100%; left:0;">Total: {{amountBill}} F - Payé: {{payamountTotal}} F - Reste: {{stayamountTotal}} F</ion-card>
+     </div>
+  </div>
+
+
+ 
+	
+ 
+    <div   *ngIf="addForm" style="margin-top:25px;">
+	<ion-col size="12">
+		<span style="font-size:18px; margin:15px; ">CREATION</span>
+	</ion-col>
+    <div  *ngIf="!step">
+		<div  *ngIf="stepsell">
+		    <form [formGroup]="pageForm"  *ngIf="addForm">
+				<div  *ngIf="!step">
+				<ion-header  class="ion-no-border">
+				  <ion-row>
+					<ion-searchbar   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()"></ion-searchbar>
+				  </ion-row>
+				</ion-header>
+				</div>
+			</form>
+			<ion-card *ngFor="let result of list; let i = index" >
+				  <div button  style="padding:7px;">
+					<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><span>{{ result.title }}</span></span></p>
+					<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><span>Stock:</span> {{ result.stock }} <span>Mini: </span>{{ result.stockmini }} <span>Alert: </span>{{ result.stockalert }}</span></p>
+					<p style="margin:0px; font-size:14px;"><span><span>  Achat: </span>{{ result.buyingprice }} F<span>  Vente:</span> {{ result.sellingprice }} F <span>  Marge: </span>{{ result.margin }} F</span></p>
+					<p style="margin:0px;">
+					 
+					  <ion-button  fill="clear" slot="end" (click)="onRemoveQte(i, result.id, result.title, result.buyingprice, result.sellingprice)" > <ion-icon name="remove-circle" style="font-size:16px;"></ion-icon> </ion-button>
+					   <input type="number" placeholder="Qte"  (change)="onEnterQty($event, i, result.id, result.title, result.buyingprice, result.sellingprice)" value="{{ result.shop }}" name="qte" style="width:50px; height:30px; border:1px solid #c0c0c0; margin-top:3px;">
+					  <ion-button  fill="clear" slot="end" (click)="onAddQte(i, result.id, result.title, result.buyingprice, result.sellingprice)"> <ion-icon name="add-circle" style="font-size:16px;"></ion-icon> </ion-button>
+					  
+				  </p>
+				  </div>
+			</ion-card>
+		</div>
+		<div  *ngIf="stepdetail">
+		    
+			<ion-col size="12">
+				   <span style="font-size:14px; margin:15px;">LES LIGNES AJOUTES</span>
+			</ion-col>
+			<ion-card *ngFor="let line of cartprod; let j = index" >
+			  <div button  style="padding:7px;">
+				<p style="margin:0px; font-size:20px; color:#1258da; margin-bottom:5px;"><span><span>{{ line.label }}</span></span></p>
+				<p style="margin:0px; font-size:18px; margin-bottom:5px;"><span>{{ line.quantity }} x {{ line.price }} F = {{ line.total }} F</span></p>
+				<p style="margin:0px; font-size:18px; margin-bottom:5px;">{{ line.description }}</p>
+				<ion-button  fill="clear" slot="end" (click)="onDeleteinCart(line.id)"> <ion-icon name="trash" style="font-size:16px;"></ion-icon> </ion-button>
+			
+			  </div>
+			</ion-card>
+			<ion-row>
+				<ion-col size="10">
+				   <ion-button color="light" (click)="addlineModal()">Ajouter une ligne</ion-button>
+				</ion-col>
+			</ion-row>
+		</div>
+		
+	</div>
+	
+	 <form [formGroup]="categForm" (ngSubmit)="onAdd()">
+	   
+	
+		<div  *ngIf="step">
+        <ion-card *ngFor="let line of cartprod; let j = index" >
+		  <div button  style="padding:7px;">
+			<p style="margin:0px; font-size:20px; color:#1258da; margin-bottom:5px;"><span><span>{{ line.label }}</span></span></p>
+			<p style="margin:0px; font-size:18px; margin-bottom:5px;"><span>{{ line.quantity }} x {{ line.price }} F = {{ line.total }} F</span></p>
+			<p style="margin:0px; font-size:18px; margin-bottom:5px;">{{ line.description }}</p>
+			<ion-button  fill="clear" slot="end" (click)="onDeleteinCart(line.id)"> <ion-icon name="trash" style="font-size:16px;"></ion-icon> </ion-button>
+			  
+		  </div>
+	    </ion-card>
+	    </div>
+	
+		<ion-card  *ngIf="step" style="padding:12px; margin-bottom:80px;">
+			<div class="row">
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-input label="Objet" [(ngModel)]="title" formControlName="title" label-placement="floating"   type="text" fill="outline" placeholder="Objet"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Montant" [(ngModel)]="amountTotal" formControlName="amount" label-placement="floating"   type="text" fill="outline" placeholder="Montant"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Réference" [(ngModel)]="reference" formControlName="reference" label-placement="floating"   type="text" fill="outline" placeholder="reference"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-select label="Compte" formControlName="account"  [(ngModel)]="account" label-placement="floating" interface="popover" placeholder="Compte"  fill="outline">
+				 <ion-select-option selected value="0"  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of listcategories;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Date" [(ngModel)]="date" formControlName="date" label-placement="floating"   type="date" fill="outline" placeholder="Date"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Echéance" [(ngModel)]="echeance" formControlName="echeance" label-placement="floating"   type="date" fill="outline" placeholder="Echéance"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-select label="Projet" formControlName="event"  [(ngModel)]="event" label-placement="floating" interface="popover" placeholder="Projet"  fill="outline">
+						 <ion-select-option  value="0"  >Aucun</ion-select-option>
+						 <ion-select-option  *ngFor="let line of projets;" value="{{line.id}}"  >{{line.title}}</ion-select-option>
+					</ion-select>
+				</div>
+				<div class="col-md-12" style="margin-bottom:0px;">
+					<div ><ion-button id="open-action-sheet" fill="clear" style="text-transform:none;">Sélectionnez {{categpart}}</ion-button></div>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="{{categpart}}" [(ngModel)]="partner" formControlName="partner" label-placement="floating"  (click)="presentModal()"  type="text" fill="outline" placeholder="{{categpart}}"></ion-input>
+					<div style="display:none;">
+					<ion-input label="Code" [(ngModel)]="partnercode" formControlName="partnercode" label-placement="floating"   type="text" fill="outline" placeholder="Code"></ion-input>
+					</div>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Téléphone" [(ngModel)]="phone1" formControlName="phone1" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Email" [(ngModel)]="email" formControlName="email" label-placement="floating"   type="text" fill="outline" placeholder="Email"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					<ion-input label="Adresse" [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" fill="outline" placeholder="Adresse"></ion-input>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					<ion-input label="Ville" [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" fill="outline" placeholder="Ville"></ion-input>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-textarea label="Détail" [autoGrow]="true" [(ngModel)]="description" formControlName="description" labelPlacement="floating" fill="outline" placeholder="Détail"></ion-textarea>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					
+				</div>
+			</div>
+			
+			<div style="display:none;">
+				    <ion-action-sheet
+						trigger="open-action-sheet"
+						header="Dépuis"
+						[buttons]="actionSheetButtons"
+						(didDismiss)="setResult($event)"
+					></ion-action-sheet>
+			</div>
+	  </ion-card>
+	  
+	  <ion-button *ngIf="!step" color="primary"   (click)="goNext()" style="margin-bottom:60px; color:#000000; position:fixed; bottom:0; width:100%; left:0;">Continuer {{amountTotal}} F</ion-button>
+
+	  <ion-button *ngIf="step" color="primary"  type="submit"  style="margin-bottom:60px; color:#000000; position:fixed; bottom:0; width:100%; left:0;">Valider  {{amountTotal}} F</ion-button>
+	  <div  *ngIf="!typeForm"><ion-button *ngIf="step" fill="clear"  (click)="goPreview()" style="color:#000000; position:fixed; bottom:0; width:100%; left:0;">Précedent</ion-button></div>
+
+      </form>
+  <div style="margin-bottom:80px;">
+  </div>
+  </div>
+	  
+	  
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true"  style="margin-bottom:100px;">
+  <ion-fab-button style="margin-bottom:30px;" id="addFormButton" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:30px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

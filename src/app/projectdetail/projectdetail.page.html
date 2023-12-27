@@ -1,0 +1,99 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+     <table style="width:100%;">
+
+		<tbody>
+			<tr >
+				<td style="width:100px;"><span>Objet</span></td>
+				<td style="width:100%;">{{title}}</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Date début</span></td>
+				<td style="width:100%;">{{addDate}} {{addHour}}</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Date fin</span></td>
+				<td>{{eventDate}} {{eventHour}}</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Lieu</span></td>
+				<td>{{locate}}</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Tâche</span></td>
+				<td>
+					<div *ngIf="!modtask">
+						<ion-textarea readonly [autoGrow]="true" labelPlacement="floating"  value="{{task}}"></ion-textarea>
+						
+						<ion-button  fill="clear" slot="end"  (click)="onEdit('task')"> <ion-icon name="pencil"></ion-icon> </ion-button>
+					</div>
+					<div *ngIf="modtask">
+						<ion-textarea label="Tâche" id="task" [autoGrow]="true" labelPlacement="floating" fill="outline" placeholder="Tâche" value="{{task}}"></ion-textarea>
+						<ion-button  color="primary" slot="end"  (click)="onSave('task')"> Enregistrer </ion-button>
+						<ion-button  color="default" slot="end"  (click)="onCancel('task')" style="color:#505050;"> Annuler </ion-button>
+					</div>
+				</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Rapport</span></td>
+				<td>
+					<div *ngIf="!modreport">
+						<ion-textarea readonly [autoGrow]="true" labelPlacement="floating"  value="{{report}}"></ion-textarea>
+						<ion-button  fill="clear" slot="end"  (click)="onEdit('report')"> <ion-icon name="pencil"></ion-icon> </ion-button>
+					</div>
+					<div *ngIf="modreport">
+						<ion-textarea label="Rapport" id="rapport" [autoGrow]="true" labelPlacement="floating" fill="outline" placeholder="Rapport">{{report}}</ion-textarea>
+						<ion-button  fill="clear" color="primary" slot="end"  (click)="onSave('report')"> Enregistrer </ion-button>
+						<ion-button  fill="clear" color="default" slot="end"  (click)="onCancel('report')" style="color:#505050;"> Annuler </ion-button>
+						
+					</div>
+				</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Décision</span></td>
+				<td>
+					<div *ngIf="!moddecision">
+						<ion-textarea readonly [autoGrow]="true" labelPlacement="floating"  value="{{decision}}"></ion-textarea>
+						<ion-button  fill="clear" slot="end"  (click)="onEdit('decision')"> <ion-icon name="pencil"></ion-icon> </ion-button>
+					</div>
+					<div *ngIf="moddecision">
+						<ion-textarea label="Décision" id="decision" [autoGrow]="true" labelPlacement="floating" fill="outline" placeholder="Décision">{{decision}}</ion-textarea>
+						<ion-button fill="clear"  slot="end"  (click)="onSave('decision')"> Enregistrer </ion-button>
+						<ion-button  fill="clear" color="default" slot="end"  (click)="onCancel('decision')" style="color:#505050;"> Annuler </ion-button>
+					</div>
+				</td>
+			</tr>
+			<tr >
+				<td style="width:100px;"><span>Autre</span></td>
+				<td>
+					<div *ngIf="!modother">
+						<ion-textarea readonly [autoGrow]="true" labelPlacement="floating"  value="{{other}}"></ion-textarea>
+						<ion-button  fill="clear" slot="end"  (click)="onEdit('other')"> <ion-icon name="pencil"></ion-icon> </ion-button>
+					</div>
+					<div *ngIf="modother">
+						<ion-textarea label="Autre" id="other" [autoGrow]="true" labelPlacement="floating" fill="outline" placeholder="Autre">{{other}}</ion-textarea>
+						<ion-button  fill="clear" color="primary" slot="end"  (click)="onSave('other')"> Enregistrer </ion-button>
+						<ion-button  fill="clear" color="default" slot="end"  (click)="onCancel('other')" style="color:#505050;"> Annuler </ion-button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+  </ion-card>
+</ion-content>

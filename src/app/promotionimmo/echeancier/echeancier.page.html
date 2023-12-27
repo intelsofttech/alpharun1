@@ -1,0 +1,201 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Echeancier
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card  style="padding:7px;">
+		<div class="row" style="">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm" >
+					<input class=""   [(ngModel)]="word" formControlName="word"  placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				 <ion-button  fill="clear"  *ngIf="specialech" (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+			    <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+	</ion-card>
+		<form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+				
+				<div  class="row" style="padding:0px; margin-top:30px;" >
+				
+					<div class="col-md-12" style="padding:0px;" >	
+						<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+						
+						<div style="border-bottom:1px solid #c0c0c0; display:none1;">
+							<div style="margin-left:10px; margin-top:7px; padding:15px; text-transform:upercase;"><strong>AJOUT ECHEANCE</strong></div>
+						</div>
+						<div style="padding:15px;" class="row">
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value=""  [(ngModel)]="date" formControlName="date" type="date">
+									  <div slot="label">Date</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							<div class="col-md-6" style="margin-bottom:20px;">
+								<ion-item>
+									<ion-input labelPlacement="floating" value=""  [(ngModel)]="montant" formControlName="montant" type="text">
+									  <div slot="label">Montant</div>
+									</ion-input>
+								</ion-item>
+							</div>
+							
+							<div class="col-md-3" style="margin-bottom:50px;margin-top:20px;">
+									<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+									<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+							</div>
+							
+							<div class="col-md-2" style="margin-bottom:50px;margin-top:20px;">
+									<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+							</div>
+						</div>
+						</ion-card>
+				  
+					</div>
+					
+				</div>
+				<div style="margin-bottom:70px;">
+				 </div>
+			</form>
+			
+	<div >
+	<ion-card style="padding:7px;">
+		<form [formGroup]="pageForm"> 
+		
+		<div  class="row" style="padding:20px;">
+		
+					<div class="col-md-4" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" readonly formControlName="totalapayer"  [(ngModel)]="totalapayer" type="text">
+							  <div slot="label">Net à payer</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-4" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" readonly formControlName="totalpaye"  [(ngModel)]="totalpaye" type="text">
+							  <div slot="label">Payé</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					<div class="col-md-4" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  formControlName="resteapayer" readonly [(ngModel)]="resteapayer" type="text">
+							  <div slot="label">Reste à payer</div>
+							</ion-input>
+						</ion-item>
+					</div>
+			
+		<table style="width:100%;"   *ngIf="listmode">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Date</td>
+					<td>Montant</td>
+					<td>Pénalité</td>
+					<td>Net à payer</td>
+					<td>Payé</td>
+					<td>Reste à payer</td>
+					<td>Statut</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of list">
+					<td>{{ result.id }}</td>
+					<td>{{ result.date| date: 'dd/MM/yyyy' }}</td>
+					<td>{{ result.montant }}</td>
+					<td>{{ result.frais }}</td>
+					<td>{{ result.netapayer }}</td>
+					<td>{{ result.paye }}</td>
+					<td>{{ result.reste }}</td>
+					<td>{{ result.status }}</td>
+					<td>
+						
+					</td>
+				</tr>
+				
+			</tbody>
+			<thead>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>{{ amountTotal}}</td>
+					<td>{{ amountFrais}}</td>
+					<td>{{ amountnet}}</td>
+					<td>{{ amountPaye}}</td>
+					<td>{{ amountReste}}</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</thead>
+		</table>  
+		
+	</div>
+	
+		</form>
+	</ion-card>
+	
+	<div class="row" *ngIf="gridmode">  
+		<div class="col-md-12"  *ngFor="let result of list; let i = index" >  
+			 <ion-card style=" ">
+				<div style="padding:10px; border-bottom:1px solid #c0c0c0;">
+					<div class="row">  
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>Date: </strong>{{ result.date| date: 'dd/MM/yyyy' }}</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>Montant: </strong>{{ result.montant }}</p>
+						</div> 
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>Pénalité: </strong>{{ result.frais }}</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong> Net à payer : </strong>{{ result.netapayer }}</p>
+						</div>
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>  Payé: </strong>{{ result.paye }}</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>  Reste à payer:</strong> {{ result.reste }}</p>
+						</div>
+					</div>
+				</div>
+			</ion-card>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<td><p style="margin-bottom:0px;">Total:</p> <p style="margin-bottom:0px;">{{ amountTotal}}</p></td>
+					<td><p style="margin-bottom:0px;">Pénalité:</p> <p style="margin-bottom:0px;">{{ amountFrais}}</p></td>
+					<td><p style="margin-bottom:0px;">Net à payer: </p><p style="margin-bottom:0px;">{{ amountnet}}</p></td>
+					<td><p style="margin-bottom:0px;">Payé:</p><p style="margin-bottom:0px;">{{ amountPaye}}</p></td>
+					<td><p style="margin-bottom:0px;">Reste à payer: </p><p style="margin-bottom:0px;">{{ amountReste}}<p></td>
+				</tr>
+			</thead>
+		</table> 		
+	 </div>
+		 
+	</div>
+	
+  <div style="margin-bottom:200px;"></div>
+</ion-content>

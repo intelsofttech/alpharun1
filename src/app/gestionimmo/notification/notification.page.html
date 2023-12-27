@@ -1,0 +1,161 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-card *ngIf="!addForm">
+	<div style="border-bottom:1px solid #c0c0c0;">
+		<div class="row" style="padding:7px;">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm"  *ngIf="pageForm">
+					<input class=""   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				 <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+			    <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+		
+	</div>
+	
+	<div  class="row" style="padding:20px;" *ngIf="listmode">
+		<table style="width:100%;"  >
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Type</td>
+					<td>Date</td>
+					<td>Destinateur</td>
+					<td>Téléphone</td>
+					<td>Etat</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results">
+					<td>{{ result.id }}</td>
+					<td>{{ result.type }}</td>
+					<td>{{ result.senddate| date: 'dd/MM/yyyy' }}</td>
+					<td>{{ result.partner }}</td>
+					<td>{{ result.contact }}</td>
+					<td>{{ result.status }}</td>
+					<td>
+						<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>  
+		
+	</div>
+	<div  class="row" style="padding:0px; margin-left:3px;" *ngIf="gridmode">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>{{ result.type }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>Date:</strong> {{ result.senddate| date: 'dd/MM/yyyy' }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>Destinateur: </strong>{{ result.partner }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Téléphone: </strong>{{ result.contact }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><strong>  Etat: </strong>{{ result.status }}</p>
+			</div>
+			<p style="margin:0px;">
+			 <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		    </ion-card>
+	  
+		</div>
+	</div>
+  </ion-card>
+     
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+	    <div style="border-bottom:1px solid #c0c0c0;">
+			<ion-row>
+				<ion-col size="1">
+				   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+				</ion-col>
+				<ion-col size="6">
+				   <div style="margin-top:7px; text-transform:upercase;">Message</div>
+				</ion-col>
+				<ion-col size="5" >
+					
+				</ion-col>
+			</ion-row>
+			
+		</div>
+		  <ion-card-content>
+		    <div class="row">
+				<div class="col-md-6" style="margin-bottom:20px; display:none;">
+					<ion-item>
+						<ion-select formControlName="type"  [(ngModel)]="type" label-placement="floating" interface="popover" placeholder="">
+								<ion-select-option selected value="SMS"  >SMS</ion-select-option>
+								<ion-select-option  value="Whatsapp"  >Whatsapp</ion-select-option>
+								<div slot="label">Type</div>
+						</ion-select>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" [(ngModel)]="contact" formControlName="contact" value="" type="text">
+						  <div slot="label">{{libcontact}}</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px; display:none1;">
+					<ion-item>
+						<ion-input labelPlacement="floating" readonly [(ngModel)]="senddate" formControlName="senddate" value="" type="date">
+						  <div slot="label">Date</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-textarea labelPlacement="floating" value=""  [(ngModel)]="message" formControlName="message" type="text">
+						  <div slot="label">Message</div>
+						</ion-textarea>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		  
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+  
+</ion-content>

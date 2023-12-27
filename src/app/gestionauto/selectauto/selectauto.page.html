@@ -1,0 +1,410 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+        </button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+
+<ion-content [fullscreen]="true">
+  
+  <div *ngIf="!addForm">
+  <ion-card style="padding:12px;">
+	<div class="row" style="padding:7px;">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm"  *ngIf="pageForm">
+					<input class=""   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				 <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+			    <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+</ion-card>
+  
+	<div  class="row" style="padding:20px;" *ngIf="listmode">
+		<ion-card  style="padding:15px; ">
+			<table style="width:100%;"  >
+				<thead>
+					<tr>
+						<td>Id</td>
+						<td>N° Plaque</td>
+						<td>Marque</td>
+						<td>Modèle</td>
+						<td>Conducteur</td>
+						<td>Propriétaire</td>
+						<td>Date d'ajout</td>
+						<td>Date service</td>
+						<td>Etat</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr  *ngFor="let result of results">
+						<td>{{ result.id }}</td>
+						<td>{{ result.immatriculation }}</td>
+						<td>{{ result.marque }}</td>
+						<td>{{ result.model }}</td>
+						<td>{{ result.tenant }}</td>
+						<td>{{ result.owner }}</td>
+						<td>{{ result.datecirculation| date: 'dd/MM/yyyy'  }}</td>
+						<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+						<td>{{ result.status }}</td>
+						<td>
+							<ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+							<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+							<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+						</td>
+					</tr>
+				</tbody>
+			</table>  
+			</ion-card>  
+			
+	</div>
+	<div  class="row" style="padding:0px;  margin-right:12px;" *ngIf="gridmode">
+		<div class="col-md-4" style="padding:0px;" *ngFor="let result of results; let i = index">	
+			<ion-card  style="margin:0px;  margin-left:12px; margin-bottom:12px; border:1px solid #c0c0c0;padding:15px; ">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>N° PLAQUE: {{ result.immatriculation }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Marque: {{ result.marque }} </span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Modèle: {{ result.model }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Conducteur 1: {{ result.tenant }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Conducteur 2: {{ result.tenant2 }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Propriétaire: {{ result.owner }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Date service: {{ result.datecirculation| date: 'dd/MM/yyyy' }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Date ajout: {{ result.createdAt| date: 'dd/MM/yyyy' }}</span></p>
+			</div>
+			<p style="margin:0px;">
+			<ion-button fill="clear" slot="end"    routerLink="/quittancepartner/1/LOYER/1/Quittances" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		    </ion-card>
+	  
+		</div>
+	</div>
+    
+   
+	</div>
+
+    
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+	    <div style="border-bottom:1px solid #c0c0c0;">
+			<ion-row>
+				<ion-col size="1">
+				   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+				</ion-col>
+				<ion-col size="6">
+				   <div style="margin-top:7px; text-transform:upercase;">{{param2}}</div>
+				</ion-col>
+				<ion-col size="5" align="right">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Fermer</ion-button>
+				</ion-col>
+			</ion-row>
+			
+		</div>
+		  <ion-card-content>
+		    <div class="row">
+				<div class="col-md-12" style="margin-left:15px;margin-bottom:20px; font-size:16px;">
+					<strong>CARACTERISTIQUES</strong>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input required  labelPlacement="floating" value="" [(ngModel)]="reference" formControlName="reference" type="text">
+						  <div slot="label">N° Chassis</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="immatriculation" formControlName="immatriculation" type="text">
+						  <div slot="label">Immatriculation</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="marque" formControlName="marque" type="text">
+						  <div slot="label">Marque</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="model" formControlName="model" type="text">
+						  <div slot="label">Madèle</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="serie" formControlName="serie" type="text">
+						  <div slot="label">Série</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating"   [(ngModel)]="cylindre" formControlName="cylindre" value=""  type="text">
+						  <div slot="label">Cylindre</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input readonly labelPlacement="floating" [(ngModel)]="type" formControlName="type" value="" type="text">
+						  <div slot="label">Type</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="origine" formControlName="origine" type="text">
+						  <div slot="label">Origine</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input readonly labelPlacement="floating" [(ngModel)]="kilometrage" formControlName="kilometrage" value="" type="text">
+						  <div slot="label">Kilométrage</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-left:15px; margin-bottom:20px; font-size:16px;">
+					<strong>RECETTE ET CONDUCTEURS</strong>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input readonly (click)="onSelectConducteur1()" labelPlacement="floating" [(ngModel)]="tenant" formControlName="tenant" value="" type="text">
+						  <div slot="label">Conducteur 1</div>
+						</ion-input>
+						<div style="display:none;">
+							<ion-input readonly labelPlacement="floating" [(ngModel)]="tenantid" formControlName="tenantid" value="" type="text">
+							  <div slot="label">Conducteur 1 id</div>
+							</ion-input>
+						</div>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" (click)="onSelectConducteur2()" value=""  [(ngModel)]="tenant2" formControlName="tenant2" type="text">
+						  <div slot="label">Conducteur 2</div>
+						</ion-input>
+						<div style="display:none;">
+							<ion-input readonly labelPlacement="floating" [(ngModel)]="tenantid2" formControlName="tenantid2" value="" type="text">
+							  <div slot="label">Conducteur 2 id</div>
+							</ion-input>
+						</div>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input readonly  (click)="onSelectProprietaire()" labelPlacement="floating" [(ngModel)]="owner" formControlName="owner" value="" type="text">
+						  <div slot="label">Propriétaire</div>
+						</ion-input>
+						<div style="display:none;">
+							<ion-input readonly labelPlacement="floating" [(ngModel)]="ownerid" formControlName="ownerid" value="" type="text">
+							  <div slot="label">Propriétaire id</div>
+							</ion-input>
+						</div>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input  labelPlacement="floating" [(ngModel)]="base" formControlName="base" value="" type="text">
+						  <div slot="label">Recette taxi</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="honoraire" formControlName="honoraire" type="text">
+						  <div slot="label">Comission conducteur</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input  labelPlacement="floating" [(ngModel)]="recette" formControlName="recette" value="" type="text">
+						  <div slot="label">Totale recette</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-left:15px; margin-bottom:20px; font-size:16px;">
+					<strong>DOCUMENTS ADMINISTRATIFS</strong>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input  labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Date d'achat</div>
+								</ion-input>
+							</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input labelPlacement="floating" value=""  [(ngModel)]="datecirculation" formControlName="datecirculation" type="date">
+								  <div slot="label">Date service</div>
+								</ion-input>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input  labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Date debut assurance</div>
+								</ion-input>
+							</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input labelPlacement="floating" value=""  [(ngModel)]="datecirculation" formControlName="datecirculation" type="date">
+								  <div slot="label">Date fin assurance</div>
+								</ion-input>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input  labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Date visite</div>
+								</ion-input>
+							</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input labelPlacement="floating" value=""  [(ngModel)]="datecirculation" formControlName="datecirculation" type="date">
+								  <div slot="label">Date nouvelle visite</div>
+								</ion-input>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-12" style="margin-left:15px; margin-bottom:20px; font-size:16px;">
+					<strong></strong>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input  labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Date patente</div>
+								</ion-input>
+							</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input labelPlacement="floating" value=""  [(ngModel)]="datecirculation" formControlName="datecirculation" type="date">
+								  <div slot="label">Date fin patente</div>
+								</ion-input>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input  labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Date stationnement</div>
+								</ion-input>
+							</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-input labelPlacement="floating" value=""  [(ngModel)]="datecirculation" formControlName="datecirculation" type="text">
+								  <div slot="label">Etat</div>
+								</ion-input>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<ion-item>
+								<ion-textarea rows="5" [autoGrow]="true" labelPlacement="floating" [(ngModel)]="dateachat" formControlName="dateachat" value="" type="date">
+								  <div slot="label">Observation</div>
+								</ion-textarea>
+							</ion-item>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		  
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+
+  <div style="margin-bottom:70px;">
+  
+  </div>
+</ion-content>

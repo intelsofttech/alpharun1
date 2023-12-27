@@ -1,0 +1,100 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th>Lundi</th>
+            <th>Mardi</th>
+            <th>Mercredi</th>
+            <th>Jeudi</th>
+            <th>Vendredi</th>
+            <th>Samedi</th>
+            <th>Dimanche</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let result of horaires; let i = index">
+            <td>{{ result.horaire }}</td>
+            <td >
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.col1}}</p>
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval1}} 
+				<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid1)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col1==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '1', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.col2}}</p>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval2}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid2)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col2==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '2', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.col3}}</p>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval3}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid3)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col3==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '3', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.col4}}</p>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval4}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid4)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col4==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '4', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.col5}}</p>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval5}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid5)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col5==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '5', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.col6}}</p>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval6}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid6)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col6==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '6', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+            <td>
+				<p *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.col7}}</p>
+				<p *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval7}}<a href="javascript:void(0);"  (click)="onDeleteemp(result.colid7)" style="color:red; "><ion-icon name="close-outline"></ion-icon></a></p>
+				<span  *ngIf="result.col7==null " >
+					<ion-button fill="clear" slot="end" (click)="presentModal(result.idhoraire, '7', result.horaire)"  >    <ion-icon name="add-circle-outline"></ion-icon>
+					</ion-button>
+				</span>
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+</ion-content>

@@ -1,0 +1,206 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+ <ion-card>
+		  <ion-card-content>
+			<div class="row">
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Photo:</strong></h3>
+					<p><ion-img class="map" src="{{imgbaseUrl}}/uploads/{{image}}"  style="width:100%;height:auto;"></ion-img></p>
+				</div>
+				
+			</div>
+		  </ion-card-content>
+	  </ion-card>
+ 
+ <ion-card>
+		  <ion-card-content>
+		    <div align="left"><span><strong>IDENTITE</strong></span></div>
+			<div class="row">
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Matricule:</strong></h3>
+					<p>{{code}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Nom:</strong></h3>
+					<p>{{firstName}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Prénom:</strong></h3>
+					<p>{{lastName}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Date de naissance:</strong></h3>
+					<p>{{birthDate| date: 'dd/MM/yyyy'}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Lieu de naissance:</strong></h3>
+					<p>{{birthLocate}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Sexe:</strong></h3>
+					<p>{{gender}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Nationalité:</strong></h3>
+					<p>{{nationality}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Profession:</strong></h3>
+					<p>{{profession}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Situation matrimoniale:</strong></h3>
+					<p>{{matrimonial}}</p>
+				</div>
+			</div>
+		  </ion-card-content>
+	  </ion-card>
+ 	 <ion-card>
+		  <ion-card-content>
+		    <div align="left" style="margin-bottom:20px;"><h3><span><strong>ADRESSE ET CONTACT</strong></span></h3></div>
+			<div class="row">
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Téléphone:</strong></h3>
+					<p>{{phone}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Email:</strong></h3>
+					<p>{{email}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Adresse:</strong></h3>
+					<p>{{address}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Ville, commune, quartier:</strong></h3>
+					<p>{{city}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>URL Géolocalisation:</strong></h3>
+					<a href="{{locateurl}}" target="_blank">{{locateurl}}</a>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					
+				</div>
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+  
+    <ion-card>
+		  <ion-card-content>
+		    <div align="left" style="margin-bottom:20px;"><h3><span><strong>PERSONNES EN CAS DE BESOINS</strong></span></h3></div>
+			<div class="row">
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<h3><strong>Personne 1:</strong></h3>
+					<p>{{master}}</p>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<h3><strong>Téléphone:</strong></h3>
+					<p>{{mastercontact}}</p>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<h3><strong>Personne 2:</strong></h3>
+					<p>{{manager}}</p>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<h3><strong>Téléphone:</strong></h3>
+					<p>{{managercontact}}</p>
+				</div>
+			</div>
+			
+		  </ion-card-content>
+	</ion-card>
+      <ion-card  style="display:none1">
+		  <ion-card-content>
+		    <div align="left" style="margin-bottom:20px;"><h3><span><strong>EGLISE</strong></span></h3></div>
+			<div class="row">
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Date de conversion:</strong></h3>
+					<p>{{addDate| date: 'dd/MM/yyyy'}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Lieu de conversion:</strong></h3>
+					<p>{{locateadd}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Baptisé(e):</strong></h3>
+					<p>{{other}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Date de baptème:</strong></h3>
+					<p>{{eventDate| date: 'dd/MM/yyyy'}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Lieu de baptème:</strong></h3>
+					<p>{{locateevent}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Baptisé du Saint Esprit:</strong></h3>
+					<p>{{confirmation}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>L'église à l'extérieur:</strong></h3>
+					<p>{{locate}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>L'église locale:</strong></h3>
+					<p>{{compagnyName}}</p>
+				</div>
+				
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Département 1:</strong></h3>
+					<p>{{group1}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Département 2:</strong></h3>
+					<p>{{group2}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Département 3:</strong></h3>
+					<p>{{group3}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Département 4:</strong></h3>
+					<p>{{group4}}</p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<h3><strong>Département 5:</strong></h3>
+					<p>{{group5}}</p>
+				</div>
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+	  
+		
+      <ion-card  style="display:none1">
+		  <ion-card-content>
+			<div class="row">
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<h3><strong>Autres informations:</strong></h3>
+					<p>{{about}}</p>
+				</div>
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+	  
+		
+
+</ion-content>

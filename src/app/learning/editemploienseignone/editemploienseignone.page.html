@@ -1,0 +1,76 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+
+<table class="styled-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th>Lundi</th>
+            <th>Mardi</th>
+            <th>Mercredi</th>
+            <th>Jeudi</th>
+            <th>Vendredi</th>
+            <th>Samedi</th>
+            <th>Dimanche</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let result of horaires; let i = index">
+            <td>{{ result.horaire }}</td>
+            <td >
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.col1}}</p>
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval1}} </p>
+			</td>
+            <td>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.col2}}</p>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval2}}</p>
+				
+			</td>
+            <td>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.col3}}</p>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval3}}</p>
+				
+			</td>
+            <td>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.col4}}</p>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval4}}</p>
+				
+			</td>
+            <td>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.col5}}</p>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval5}}</p>
+				
+			</td>
+            <td>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.col6}}</p>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval6}}</p>
+				
+			</td>
+            <td>
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.col7}}</p>
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval7}}</p>
+				
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+</ion-content>

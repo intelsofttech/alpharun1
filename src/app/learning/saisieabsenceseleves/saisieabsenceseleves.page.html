@@ -1,0 +1,52 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param7}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card style="padding:20px;">
+    <div>
+      <p style="margin-bottom:0px;">Heure</p>
+      <p style="margin-bottom:7px;"><strong>{{param2}}</strong></p>
+      <p style="margin-bottom:0px;">Matière</p>
+      <p style="margin-bottom:7px;"><strong>{{param5}}</strong></p>
+      <p style="margin-bottom:0px;">Enseignant</p>
+      <p style="margin-bottom:7px;"><strong>{{param3}}</strong></p>
+    </div>
+  </ion-card>
+  <ion-card style="padding:20px; margin-bottom:60px;">
+    <div>
+      <table style="width:100%;">
+		<thead>
+			<tr>
+				<td>Mle</td>
+				<td>Nom Prénom(s)</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results">
+				<td>{{ result.userName }}</td>
+				<td>{{ result.firstName }} {{ result.lastName }}</td>
+				<td>
+					<ion-toggle style="margin-top:15px;margin-right:15px;" (ionChange)="Change(result.id, result.firstName +' '+ result.lastName)" [checked]="result.confirmation"> </ion-toggle>
+				</td>
+			</tr>
+		</tbody>
+	</table> 
+    </div>
+  </ion-card>
+</ion-content>

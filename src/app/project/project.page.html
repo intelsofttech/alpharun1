@@ -1,0 +1,233 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none1;">
+		  <ion-icon slot="end" style="color:#;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+ <div *ngIf="!addForm">
+	<ion-card style="padding:7px;">
+		<div class="row" style="">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm"  *ngIf="pageForm">
+					<input class=""   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				 <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+			    <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+	</ion-card>
+	
+	
+    <ion-card style="padding:7px;"  *ngIf="listmode"> 
+	   <table style="width:100%;">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Libellé</td>
+				<td>Date début</td>
+				<td>Heure début</td>
+				<td>Date fin</td>
+				<td>Heure fin</td>
+				<td>Lieu</td>
+				<td>Valeur</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results; let i = index">
+				<td>{{ result.id }}</td>
+				<td>{{ result.title }}</td>
+				<td>{{ result.addDate| date: 'dd/MM/yyyy' }}</td>
+				<td>{{ result.addHour }}</td>
+				<td>{{ result.eventDate| date: 'dd/MM/yyyy' }}</td>
+				<td>{{ result.eventHour }}</td>
+				<td>{{ result.locate }}</td>
+				<td>{{ result.value }}</td>
+				<td>
+				   <ion-button  fill="clear" slot="end"  routerLink="/projectdetail/{{result.id}}/{{ result.title }}"> <ion-icon name="list"></ion-icon> </ion-button>
+				   <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				   <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+    </ion-card>
+
+	  <div  *ngIf="gridmode">
+		  <ion-card *ngFor="let result of results; let i = index">
+			  <div class="row"  style="padding:7px;">
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:2px;"><span><span>{{ result.id }} | {{ result.title }}</span></span></p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Debut:</span> {{ result.addDate| date: 'dd/MM/yyyy' }} <span> Heure:</span>  {{ result.addHour }}</span></p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Fin: </span>{{ result.eventDate| date: 'dd/MM/yyyy' }} <span> Heure: </span>{{ result.eventHour }}</span></p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Catégorie:</span> {{ result.typelib }} </p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Niveau: </span>{{ result.levellib }}</span></p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Service: </span>{{ result.servicelib }}</span></p>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Budget:</span> {{ result.budget }} </p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Chef de proget: </span>{{ result.chiefname }}</span></p>
+					<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Ville: </span>{{ result.locate }}</span></p>
+				</div>
+				
+				
+				<p style="margin:0px;  margin-bottom:2px;font-size:14px;"><span><span>  Lieu: </span>{{ result.locate }} </span></p>
+				<p style="margin:0px;">
+				   <ion-button  fill="clear" slot="end"  routerLink="/projectdetail/{{result.id}}/{{ result.title }}"> <ion-icon name="list"></ion-icon> </ion-button>
+				   <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				   <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+				  </p>
+			  </div>
+		  </ion-card>
+		</div>
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card style="padding:20px;">
+		    <div align="left"><h5><span>{{liboperation}}</span></h5></div>
+			<ion-row>  
+				<ion-col size="12">  
+					<div class="row">
+						<div class="col-md-12" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input [(ngModel)]="title" formControlName="title" label-placement="floating" required  type="text" placeholder="Objet"><div slot="label">Objet</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input [(ngModel)]="budget" formControlName="budget" label-placement="floating" required  type="text" placeholder="Objet"><div slot="label">Budget</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating"  (ionChange)="onGetlabel('categorie')"  (ionChange)="onChange()" id="Type"  [(ngModel)]="type" formControlName="type"  interface="popover" >
+								 <ion-select-option  *ngFor="let line of categories; let i = index" value="{{line.id}}">{{line.label}}</ion-select-option>
+								 <div slot="label">Catégorie</div>
+							</ion-select>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating"   (ionChange)="onGetlabel('niveau')" id="level"  [(ngModel)]="level" formControlName="level"  interface="popover" >
+								 <ion-select-option  *ngFor="let line of niveaux; let i = index" value="{{line.id}}">{{line.label}}</ion-select-option>
+								 <div slot="label">Niveau</div>
+							</ion-select>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating"  (ionChange)="onGetuser()" id="chief"  [(ngModel)]="chief" formControlName="chief"  interface="popover" >
+								 <ion-select-option  *ngFor="let line of agents; let i = index" value="{{ line.id }}">{{ line.firstName }} {{ line.lastName }}</ion-select-option>
+								 <div slot="label">Chef de projet</div>
+							</ion-select>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input [(ngModel)]="addDate" formControlName="addDate" label-placement="floating"  type="date" placeholder="Début"><div slot="label">Début</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input  [(ngModel)]="addHour" formControlName="addHour" label-placement="floating"  type="text" placeholder="Heure début"><div slot="label">Heure début</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input [(ngModel)]="eventDate" formControlName="eventDate" label-placement="floating"  type="date" placeholder="Fin"><div slot="label">Fin</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-3" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input [(ngModel)]="eventHour" formControlName="eventHour" label-placement="floating"  type="text" placeholder="Heure fin"><div slot="label">Heure fin</div></ion-input>
+						</ion-item>
+						</div>
+						<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating"  id="locate"  [(ngModel)]="locate" formControlName="locate"  interface="popover" >
+								 <ion-select-option  *ngFor="let line of villes; let i = index" value="{{line.id}}">{{line.label}}</ion-select-option>
+								 <div slot="label">Ville(Localité)</div>
+							</ion-select>
+							
+						</ion-item>
+						</div>
+						<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating"  id="service"  (ionChange)="onGetlabel('service')" [(ngModel)]="service" formControlName="service"  interface="popover" >
+								 <ion-select-option  *ngFor="let line of services; let i = index" value="{{line.id}}">{{line.label}}</ion-select-option>
+								 <div slot="label">Service</div>
+							</ion-select>
+						</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-textarea [autoGrow]="true" [(ngModel)]="task" formControlName="task" labelPlacement="floating" placeholder="Détail"><div slot="label">Détail</div></ion-textarea>
+						</ion-item>
+						</div>
+						<div class="col-md-12" style="margin-bottom:20px;">
+							<div style="display:none1;">
+								<ion-input  id="file" type="file" />
+								<ion-input type="text"  [(ngModel)]="typelib" formControlName="typelib"/>
+								<ion-input type="text"  [(ngModel)]="levellib" formControlName="levellib"/>
+								<ion-input type="text"  [(ngModel)]="servicelib" formControlName="servicelib"/>
+								<ion-input type="text"  [(ngModel)]="chiefname" formControlName="chiefname"/>
+							</div>
+							<div style="display:none;">
+								<ion-button  color="light" slot="end"    (click)="addFile()">Joindre une image ou fichier</ion-button>
+								<ion-input label="Image, pdf" readonly [(ngModel)]="image" formControlName="image" label-placement="floating"  type="text" fill="outline" placeholder="Image, pdf"></ion-input>
+								<br />
+							</div>
+						</div>
+					</div>
+					
+				</ion-col>
+			</ion-row>
+			<ion-row>
+			    <ion-col size="12">  
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+					<br />
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</ion-col>
+			</ion-row>
+				
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:80px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:80px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

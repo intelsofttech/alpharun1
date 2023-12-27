@@ -1,0 +1,254 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;" >
+       <ion-back-button  *ngIf="!forSelect"></ion-back-button>  
+	   <button *ngIf="forSelect" style="padding-top:10px; background-color:#;"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:#;"  showWhen="android,windows"></ion-icon>
+       </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border"  style="margin-top:30px;">
+<form [formGroup]="pageForm" >
+		 <ion-select label="Département" formControlName="group"  [(ngModel)]="group"  (ionChange)='onList()' label-placement="floating" interface="popover" placeholder="Département"  fill="solid">
+			<ion-select-option  value="0"  >Quel département/Groupe?</ion-select-option>
+			<ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+		 </ion-select>
+	   </form>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ 
+ <div *ngIf="!addForm">
+      <ion-row  style="margin-top:0px;">
+		<ion-col size="2">
+		   
+		</ion-col>
+		<ion-col size="10">
+		   <div align="right">
+			  <ion-button  color="light" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list"></ion-icon> </ion-button>
+			  <ion-button  color="light" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps"></ion-icon> </ion-button>
+		   </div>
+		</ion-col>
+	  </ion-row>
+	<table style="width:100%;"  *ngIf="listmode">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Mle</td>
+				<td>Nom</td>
+				<td>Prénom(s)</td>
+				<td>Date de naiss.</td>
+				<td>Sexe</td>
+				<td>Profession</td>
+				<td>Téléphone</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results">
+				<td  *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.id }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.userName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.firstName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.lastName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.birthDate| date: 'dd/MM/yyyy' }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.gender }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.profession }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.mobile }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">
+					<ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+					<ion-button  fill="clear" slot="end" > <ion-icon name="locate-outline"></ion-icon> </ion-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>  
+	<div  *ngIf="gridmode">  
+      <div *ngFor="let result of results; let i = index" >
+      <ion-card  *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group " >
+		  <ion-row >
+			<ion-col size="3">
+			   <ion-img class="map"  *ngIf="result.image!=''" src="{{imgbaseUrl}}/uploads/{{result.image}}"  style="width:100%;height:auto;"></ion-img>
+			   <ion-img class="map"  *ngIf="result.image =='' " src="{{imgbaseUrldefault}}"  style="width:100%;height:auto;"></ion-img>
+			</ion-col>
+			<ion-col size="9">
+				<div button  style="padding:7px;">
+				<div >
+				<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;">
+				<span><span>{{ result.id }} | {{ result.firstName }} {{ result.lastName }}</span></span>
+				</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Téléphone:</span> {{ result.mobile }}</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Email: </span>{{ result.emailaddress }}</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><span>Ville: </span>{{ result.city }}<span>Adresse: </span>{{ result.address }}</span></p>
+				</div>
+				<p style="margin:0px;">
+				  <ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end" > <ion-icon name="locate-outline"></ion-icon> </ion-button>
+			    </p>
+			  </div>
+			</ion-col>
+		  </ion-row>
+	    </ion-card>
+	    </div>
+	  </div> 
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm" style="margin-bottom:100px;">
+  <div align="left"><h3><span>{{liboperation}}</span></h3></div>
+  
+    <ion-card>
+		  <ion-card-content>
+		    <div align="left"><span>IDENTITE</span></div>
+			<br />
+			<ion-input label="Matricule" [(ngModel)]="code" formControlName="code" label-placement="floating" required  type="text" fill="outline" placeholder="Matricule"></ion-input>
+			<br />
+			<ion-input label="Nom" [(ngModel)]="firstName" formControlName="firstName" label-placement="floating" required  type="text" fill="outline" placeholder="Désignation"></ion-input>
+			<br />
+			<ion-input label="Prénom" [(ngModel)]="lastName" formControlName="lastName" label-placement="floating"   type="text" fill="outline" placeholder="Prénom"></ion-input>
+			<br />
+			<ion-input label="Date de naissance" [(ngModel)]="birthDate" formControlName="birthDate" label-placement="floating"   type="date" fill="outline" placeholder="Date de naissance"></ion-input>
+			<br />
+			<ion-input label="Lieu de naissance" [(ngModel)]="birthLocate" formControlName="birthLocate" label-placement="floating"   type="text" fill="outline" placeholder="Lieu de naissance"></ion-input>
+			<br />
+			
+			<ion-select label="Sexe" formControlName="gender"  [(ngModel)]="gender" label-placement="floating" interface="popover" placeholder="Sexe"  fill="outline">
+				 <ion-select-option value="Masculin">Masculin</ion-select-option>
+				 <ion-select-option value="Feminin">Feminin</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-input label="Nationalité" [(ngModel)]="nationality" formControlName="nationality" label-placement="floating"   type="text" fill="outline" placeholder="Nationalité"></ion-input>
+			<br />
+			<ion-input label="Profession" [(ngModel)]="profession" formControlName="profession" label-placement="floating"   type="text" fill="outline" placeholder="Profession"></ion-input>
+			<br />
+			<ion-select label="Situation matrimoniale" formControlName="matrimonial"  [(ngModel)]="matrimonial" label-placement="floating" interface="popover" placeholder="Situation matrimoniale"  fill="outline">
+				 <ion-select-option value="Marié(e)">Marié(e)</ion-select-option>
+				 <ion-select-option value="Célibataire">Célibataire</ion-select-option>
+				 <ion-select-option value="Veuve/Veuf">Veuve/Veuf</ion-select-option>
+				 <ion-select-option value="Divorcé(e)">Divorcé(e)</ion-select-option>
+			</ion-select>
+			<br />
+		  </ion-card-content>
+	  </ion-card>
+  
+    <ion-card>
+		  <ion-card-content>
+		    <div align="left"><h3><span>ADRESSE ET CONTACT</span></h3></div>
+			<br />
+			<ion-input label="Téléphone" [(ngModel)]="phone" formControlName="phone" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+			<br />
+			<ion-input label="Email" [(ngModel)]="email" formControlName="email" label-placement="floating"   type="email" fill="outline" placeholder="Email"></ion-input>
+			<br />
+			<ion-input label="Adresse" [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" fill="outline" placeholder="Adresse"></ion-input>
+			<br />
+			<ion-input label="Ville, commune, quartier" [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" fill="outline" placeholder="Ville, commune, quartier"></ion-input>
+			<br />
+			<ion-input label="URL Géolocalisation" [(ngModel)]="locateurl" formControlName="locateurl" label-placement="floating"   type="text" fill="outline" placeholder="URL Géolocalisation"></ion-input>
+			
+		  </ion-card-content>
+	  </ion-card>
+  
+    <ion-card>
+		  <ion-card-content>
+		    <div align="left"><h3><span>PERSONNES EN CAS DE BESOINS</span></h3></div>
+			<br />
+			<ion-input label="Personne 1" [(ngModel)]="master" formControlName="master" label-placement="floating"   type="text" fill="outline" placeholder="Personne 1"></ion-input>
+			<br />
+			<ion-input label="Téléphone" [(ngModel)]="mastercontact" formControlName="mastercontact" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+			<br />
+			<ion-input label="Personne 2" [(ngModel)]="manager" formControlName="manager" label-placement="floating"   type="text" fill="outline" placeholder="Personne 2"></ion-input>
+			<br />
+			<ion-input label="Téléphone" [(ngModel)]="managercontact" formControlName="managercontact" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+			<br />
+			
+		  </ion-card-content>
+	</ion-card>
+    <ion-card  style="display:none1">
+		  <ion-card-content>
+		    <div align="left"><h3><span>EGLISE</span></h3></div>
+			<br />
+			<ion-input label="Date de conversion" [(ngModel)]="addDate" formControlName="addDate" label-placement="floating"   type="date" fill="outline" placeholder="Date de conversion"></ion-input>
+			<br />
+			<ion-input label="Lieu de conversion" [(ngModel)]="locateadd" formControlName="locateadd" label-placement="floating"   type="text" fill="outline" placeholder="Lieu de conversion"></ion-input>
+			<br />
+			<ion-input label="Date de baptème" [(ngModel)]="eventDate" formControlName="eventDate" label-placement="floating"   type="date" fill="outline" placeholder="Date de baptème"></ion-input>
+			<br />
+			
+			<ion-input label="Lieu de baptème" [(ngModel)]="locateevent" formControlName="locateevent" label-placement="floating"   type="text" fill="outline" placeholder="Lieu de baptème"></ion-input>
+			<br />
+			
+			<div  style="margin-bottom:20px; display:none">
+			<ion-toggle [enableOnOffLabels]="false" >Baptisé à l'église ici</ion-toggle>
+			<br />
+			</div>
+			<div  style="margin-bottom:20px;">
+			<ion-select label="Situation matrimoniale" formControlName="other"  [(ngModel)]="other" label-placement="floating" interface="popover" placeholder="Situation matrimoniale"  fill="outline">
+				 <ion-select-option value="Non">Non</ion-select-option>
+				 <ion-select-option value="Oui">Oui</ion-select-option>
+			</ion-select>
+			<br />
+			</div>
+			<ion-select label="Département 1" formControlName="group1"  [(ngModel)]="group1" label-placement="floating" interface="popover" placeholder="Département 1"  fill="outline">
+				 <ion-select-option  value=""  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-select label="Département 2" formControlName="group2"  [(ngModel)]="group2" label-placement="floating" interface="popover" placeholder="Département 2"  fill="outline">
+				 <ion-select-option  value=""  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-select label="Département 3" formControlName="group3"  [(ngModel)]="group3" label-placement="floating" interface="popover" placeholder="Département 3"  fill="outline">
+				 <ion-select-option  value=""  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-select label="Département 4" formControlName="group4"  [(ngModel)]="group4" label-placement="floating" interface="popover" placeholder="Département 4"  fill="outline">
+				 <ion-select-option  value=""  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-select label="Département 5" formControlName="group5"  [(ngModel)]="group5" label-placement="floating" interface="popover" placeholder="Département 5"  fill="outline">
+				 <ion-select-option  value=""  >Aucun</ion-select-option>
+				 <ion-select-option  *ngFor="let line of department;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			
+		  </ion-card-content>
+	  </ion-card>
+	  <ion-card>
+		  <ion-card-content>
+		    
+		    <div style="display:none">
+			<input type="file" id="photo"  (change)="onChange($event)"/>
+		    <ion-input label="Image" [(ngModel)]="image" formControlName="image" label-placement="floating"   type="text" fill="outline" placeholder="Image"></ion-input>
+			<div>
+				<span>Photo</span>
+			</div>
+			<div>
+				<img style="width:200px; height:auto;" id="imageid"  onClick="document.getElementById('photo').click()" (click)="SelectFile()" [src]="imagedata"/>
+			</div>
+			</div>
+			
+		   <div align="left"><h3><span>AUTRE</span></h3></div>
+			  <ion-textarea label="Détail" [autoGrow]="true" [(ngModel)]="about" formControlName="about" labelPlacement="floating" fill="outline" placeholder="Détail"></ion-textarea>
+			<br />
+			
+			
+		  </ion-card-content>
+	  </ion-card>
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+  </form>
+  
+</ion-content>

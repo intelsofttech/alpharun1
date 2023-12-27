@@ -1,0 +1,235 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <ion-card >
+	
+	<form [formGroup]="pageForm" >
+	<div style="border-bottom:1px solid #c0c0c0;">
+		<div class="row" style="padding:7px;">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-5">
+			   <ion-item>
+				   <ion-input (click)="onSelectPropriete()"  labelPlacement="floating" value="" [(ngModel)]="propriete" formControlName="propriete" type="text">
+						<div slot="label">Propriété</div>
+					</ion-input>
+				<div style="display:none;">
+					<ion-input  labelPlacement="floating" value="" [(ngModel)]="proprieteid" formControlName="proprieteid" type="text">
+						<div slot="label">Propriété</div>
+					</ion-input>
+			    </div>
+				</ion-item>
+			</div>
+			<div class="col-md-3">
+			    <ion-item>
+				<ion-select labelPlacement="floating" (ionChange)="onRefresh()" [(ngModel)]="statut" formControlName="statut"  interface="popover" >
+							 <ion-select-option value="0">Tout</ion-select-option>
+							 <ion-select-option value="1">Impayés</ion-select-option>
+							 <ion-select-option value="2">A jour</ion-select-option>
+							 <div slot="label">Statut</div>
+				</ion-select>
+				</ion-item>		
+			</div>
+			
+			<div class="col-md-3" >
+				<div align="right">
+				 <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				<ion-button   fill="clear" > <ion-icon style="color:#707071;" name="print"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+		
+	</div>
+	</form>
+	<div  class="row" style="padding:20px;" *ngIf="listmode">
+		<table style="width:100%;"   *ngIf="proprieteid=='0'">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Type</td>
+					<td>Numéro</td>
+					<td>Locataire</td>
+					<td>Loyer</td>
+					<td>Charge</td>
+					<td>Net à payer</td>
+					<td>Impayé</td>
+					<td>Mois</td>
+					<td>Date servce</td>
+					<td>Propriété</td>
+					<td>Propriétaire</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody  *ngIf="statut=='0'">
+				<tr   *ngFor="let result of results">
+					<td >{{ result.id }}</td>
+					<td >{{ result.typelib }}</td>
+					<td >{{ result.ref }}</td>
+					<td >{{ result.tenant }}</td>
+					<td >{{ result.price }}</td>
+					<td >{{ result.charge }}</td>
+					<td >{{ result.amount }}</td>
+					<td ><ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }}F</ion-badge></td>
+					<td ><ion-badge color="warning"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge></td>
+					<td >{{ result.date| date: 'dd/MM/yyyy' }}</td>
+					<td >{{ result.property }}</td>
+					<td >{{ result.owner }}</td>
+					<td >
+						
+					</td>
+				</tr>	
+			</tbody>
+			<tbody  *ngIf="statut=='1'">
+				<tr   *ngFor="let result of results">
+					<td  *ngIf="result.description!='0'">{{ result.id }}</td>
+					<td *ngIf="result.description!='0'">{{ result.typelib }}</td>
+					<td *ngIf="result.description!='0'">{{ result.ref }}</td>
+					<td *ngIf="result.description!='0'">{{ result.tenant }}</td>
+					<td *ngIf="result.description!='0'">{{ result.price }}</td>
+					<td *ngIf="result.description!='0'">{{ result.charge }}</td>
+					<td *ngIf="result.description!='0'">{{ result.amount }}</td>
+					<td *ngIf="result.description!='0'"><ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }}F</ion-badge></td>
+					<td *ngIf="result.description!='0'"><ion-badge color="warning"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge></td>
+					<td *ngIf="result.description!='0'">{{ result.date| date: 'dd/MM/yyyy' }}</td>
+					<td *ngIf="result.description!='0'">{{ result.property }}</td>
+					<td *ngIf="result.description!='0'">{{ result.owner }}</td>
+					<td *ngIf="result.description!='0'">
+						
+					</td>
+				</tr>	
+			</tbody>
+			<tbody  *ngIf="statut=='2'">
+				<tr   *ngFor="let result of results">
+					<td *ngIf="result.description=='0'">{{ result.id }}</td>
+					<td *ngIf="result.description=='0'">{{ result.typelib }}</td>
+					<td *ngIf="result.description=='0'">{{ result.ref }}</td>
+					<td *ngIf="result.description=='0'">{{ result.tenant }}</td>
+					<td *ngIf="result.description=='0'">{{ result.price }}</td>
+					<td *ngIf="result.description=='0'">{{ result.charge }}</td>
+					<td *ngIf="result.description=='0'">{{ result.amount }}</td>
+					<td *ngIf="result.description=='0'"><ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }}F</ion-badge></td>
+					<td *ngIf="result.description=='0'"><ion-badge color="warning"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge></td>
+					<td *ngIf="result.description=='0'">{{ result.date| date: 'dd/MM/yyyy' }}</td>
+					<td *ngIf="result.description=='0'">{{ result.property }}</td>
+					<td *ngIf="result.description=='0'">{{ result.owner }}</td>
+					<td *ngIf="result.description=='0'">
+						
+					</td>
+				</tr>	
+			</tbody>
+		</table>  
+		
+	</div>
+	<div  class="row" style="padding:0px;" *ngIf="gridmode" >
+	
+		<div class="col-md-12"   *ngFor="let result of results; let i = index;">	
+			
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"  *ngIf="statut=='0'">
+				<div class="row">
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:px;">
+						<span><strong>{{ result.typelib }} N° : {{ result.ref }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<span><strong>Locataire : {{ result.tenant }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }} F</ion-badge>
+						<ion-badge color="warning" style="margin-left:10px;"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge>
+						</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Loyer: {{ result.price }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Charge: {{ result.charge }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer: {{ result.amount }}</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Date Occupation: {{ result.date| date: 'dd/MM/yyyy' }}
+					 
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }} Propriétaire: {{ result.owner }}</p>
+					</div>
+				</div>
+		    </ion-card>
+	  
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"  *ngIf="statut=='1' && result.description!='0'">
+				<div class="row">
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:px;">
+						<span><strong>{{ result.typelib }} N° : {{ result.ref }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<span><strong>Locataire : {{ result.tenant }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }} F</ion-badge>
+						<ion-badge color="warning" style="margin-left:10px;"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge>
+						</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Loyer: {{ result.price }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Charge: {{ result.charge }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer: {{ result.amount }}</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Date Occupation: {{ result.date| date: 'dd/MM/yyyy' }}
+					 
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }} Propriétaire: {{ result.owner }}</p>
+					</div>
+				</div>
+		    </ion-card>
+	  
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;"   *ngIf="statut=='2' && result.description=='0'">
+				<div class="row">
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:px;">
+						<span><strong>{{ result.typelib }} N° : {{ result.ref }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<span><strong>Locataire : {{ result.tenant }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; color:#505050; margin-bottom:5px;">
+						<ion-badge color="danger"  *ngIf="result.fee!=''">{{ result.fee }} F</ion-badge>
+						<ion-badge color="warning" style="margin-left:10px;"  *ngIf="result.description!='0'">{{ result.description }} mois  impayé(s)</ion-badge>
+						</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Loyer: {{ result.price }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Charge: {{ result.charge }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer: {{ result.amount }}</p>
+					</div>
+					<div class="col-md-4">
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Date Occupation: {{ result.date| date: 'dd/MM/yyyy' }}
+					 
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }} Propriétaire: {{ result.owner }}</p>
+					</div>
+				</div>
+		    </ion-card>
+	  
+		</div>
+	
+		
+	</div>
+  </ion-card>
+   
+<div style="margin-bottom:300px;">
+</div>
+</ion-content>

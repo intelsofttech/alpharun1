@@ -1,0 +1,226 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Impression
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	
+    <ion-button  type="" style="margin:20px;" onclick="PrintDiv('myDiv')" ><ion-icon name="print" style="font-size:18px;"></ion-icon> Imprimer</ion-button>
+   <div id="myDiv">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		
+		<style type="text/css">
+			.styled-table {
+				border-collapse: collapse;
+				margin: 0px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 400px;
+				color:#414242;
+			}
+			.styled-table thead tr {
+				background-color: #009879;
+				color: #ffffff;
+				text-align: left;
+				border: 1px solid #dddddd;
+			}
+
+			.styled-table tbody tr {
+				border-bottom: 1px solid #dddddd;
+			}
+			.styled-table thead tr th{
+				border-right: 1px solid #dddddd;
+				color:#414242;
+			}
+
+			.styled-table tbody tr:nth-of-type(even) {
+				background-color: #f3f3f3;
+			}
+
+			.styled-table tbody tr:last-of-type {
+				border-bottom: 2px solid #009879;
+			}
+			.styled-table tbody tr.active-row {
+				font-weight: bold;
+				color: #009879;
+			}
+
+
+
+
+		</style>
+
+        <table class="styled-table">
+			<tbody style="background-color:#ffffff;">
+				<tr style="width:600px; border:0px; background-color:#ffffff;">
+					<td style="width:400px;  border:0px; ">----------------------</td>
+					<td style="width:400px;  border:0px; ">----------------------</td>
+				</tr>
+			</tbody>
+		</table>
+        <table class="styled-table">
+			<thead style="display:none1; border: 1px;">
+				<tr style=" background-color:#ffffff; border: 1px;">
+					<th style="width:230px; border: 1px;"></th>
+					<th style="width:480px; border: 1px;"></th>
+				</tr>
+			</thead>
+			<tbody style="background-color:#ffffff;">
+				<tr style="border:0px; background-color:#ffffff;">
+					<td style="border:0px; ">
+						<p style=" margin-bottom:3px;"><strong>Client:</strong></p>
+						<p style="font-size;16px; margin-bottom:3px;"><strong>{{partner}}</strong></p>
+						<p style=" margin-bottom:3px;">{{phone1}}</p>
+						<p style=" margin-bottom:3px;">{{email}}</p>
+						<p style=" margin-bottom:3px;">{{city}}</p>
+						<p style=" margin-bottom:3px;">{{address}}</p>
+					</td>
+					<td style="border:0px; ">
+						<div style="margin-right:30px;" align="center">
+						<p style=" margin-bottom:3px; font-size:24px; color:#;">FACTURE</p>
+						<div style="width:100%; border:1px solid #c0c0c0; padding:15px; background-color:#f8fafa;">
+						<table class="styled-table">
+							<thead style="display:none;">
+								<tr style=" background-color:#ffffff;">
+									<th style="width:190px;"></th>
+									<th style="width:190px;"></th>
+									<th style="width:190px;"></th>
+								</tr>
+							</thead>
+							<tbody style="background-color:#ffffff;">
+								<tr style="border:0px; background-color:#ffffff;">
+									<td style="border:0px; background-color:#ffffff; ">
+										<div style="margin-right:30px;" align="center">
+										<p style=" margin-bottom:3px;"> N° Facture</p>
+										<p style=" margin-bottom:3px;"><strong>{{reference}}</strong></p>
+										</div>
+									</td>
+									<td style="border:0px; background-color:#ffffff;">
+										<div style="margin-right:30px;" align="center">
+										<p style=" margin-bottom:3px;">Date Facture</p>
+									    <p style=" margin-bottom:3px;"><strong>{{addDate| date: 'dd/MM/yyyy'}}</strong></p>
+										</div>
+									</td>
+									<td style="border:0px; background-color:#ffffff;">
+										<div style="margin-right:30px;" align="center">
+										<p style=" margin-bottom:3px;">Net à Payer</p>
+									    <p style=" margin-bottom:3px;"><strong>{{amount}} F</strong></p>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="padding:0px;  margin-top:20px;">
+		<p style=" margin-bottom:3px;"><strong>Objet:</strong></p>
+		<p style=" margin-bottom:3px;">{{title}}</p>
+		</div>
+		<table class=""  style="border: 0px solid #dddddd; margin-top:20px;">
+			<thead>
+				<tr style="border: 1px solid #dddddd; background-color:#ffffff;">
+					<th style="border: 1px solid #dddddd; padding:10px; width:360px; font-size:14px;">Désignation</th>
+					<th style="border: 1px solid #dddddd; padding:10px; width:70px; font-size:14px;">Unité</th>
+					<th style="border: 1px solid #dddddd; padding:10px; width:100px; font-size:14px;">Quantité</th>
+					<th style="border: 1px solid #dddddd; padding:10px; width:100px; font-size:14px;">Prix Unitaire</th>
+					<th style="border: 1px solid #dddddd; padding:10px; width:100px; font-size:14px;">Prix Total</th>
+				</tr>
+			</thead>
+			<tbody style="background-color:#ffffff;">
+				<tr style=" border: 1px solid #dddddd;background-color:#ffffff;"  *ngFor="let result of cartprod; let i = index">
+					<td style="border-right: 1px solid #dddddd; padding:7px;">
+						<p style=" margin-bottom:3px;"><strong>{{ result.label }}</strong></p>
+						<p style=" margin-bottom:3px;">{{ result.description }}</p>
+					</td>
+					<td style="border-right: 1px solid #dddddd; padding-right:7px;" align="center">{{ result.unit }}</td>
+					<td style="border-right: 1px solid #dddddd; padding-right:7px;" align="right">{{ result.quantity }}</td>
+					<td style="border-right: 1px solid #dddddd; padding-right:7px;" align="right">{{ result.price }} F</td>
+					<td style="border-right: 1px solid #dddddd; padding:7px;" align="right">{{ result.total }} F</td>
+				</tr>		
+			</tbody>		
+		</table>		
+		  <table style="margin-top:20px;" >
+			<thead style="display:none1; border: 1px;">
+				<tr style=" background-color:#ffffff; border: 1px;">
+					<th style="width:400px; border: 1px;"></th>
+					<th style="width:320px; border: 1px;"></th>
+				</tr>
+			</thead>
+			<tbody style="background-color:#ffffff;">
+				<tr style="border:0px; background-color:#ffffff;">
+					<td style="border:0px; ">
+						<p style=" margin-bottom:3px;"><strong>Note:</strong></p>
+						<p style="font-size;16px; margin-bottom:3px;"><strong>{{detail}}</strong></p>
+						
+					</td>
+					<td style="border:0px; ">
+						<div style="text-align:right;">
+						<table class="styled-table">
+							<thead style="display:none2; border: 1px solid #dddddd; ">
+								<tr style="border: 1px solid #dddddd;  background-color:#ffffff;border-bottom: 1px solid #dddddd; ">
+									<th style="border: 1px solid #dddddd; padding:10px; width:180px;">Total</th>
+									<th style=" border: 1px solid #dddddd; padding:10px;  width:200px;">
+										<div style="margin-right:30px;" align="right">{{total}} F</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody style="background-color:#ffffff;">
+								<tr style="border:0px; background-color:#ffffff;border-right: 1px solid #dddddd; ">
+									<td style="border: 1px solid #dddddd; padding:10px;  background-color:#ffffff;">
+										<div style="margin-right:30px;" align="left">
+										<p style=" margin-bottom:3px;">Rémise</p>
+										</div>
+									</td>
+									<td style="border: 1px solid #dddddd; padding:10px;  background-color:#ffffff;">
+										<div style="margin-right:30px;" align="right">
+										<p style=" margin-bottom:3px;">{{discount}} F</p>
+										</div>
+									</td>
+								</tr>
+								<tr style="border:0px; background-color:#ffffff;border-right: 1px solid #dddddd; ">
+									<td style="border: 1px solid #dddddd; padding:10px;  background-color:#ffffff;">
+										<div style="margin-right:30px;" align="left">
+										<p style=" margin-bottom:3px;">Montant Taxe</p>
+										</div>
+									</td>
+									<td style="border: 1px solid #dddddd; padding:10px;  background-color:#ffffff;">
+										<div style="margin-right:30px;" align="right">
+										<p style=" margin-bottom:3px;">{{amounttaxe}} F</p>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot style="display:none2;">
+								<tr style=" background-color:#ffffff;">
+									<th style="width:160px; border: 1px solid #dddddd;  padding:10px;  " align="left">Total</th>
+									<th style="width:140px; border: 1px solid #dddddd;  padding:10px;  ">
+										<div style="margin-right:30px;" align="right">{{amount}} F</div>
+									</th>
+								</tr>
+							</tfoot>
+						</table>
+						</div>
+						
+					</td>
+				</tr>
+			</tbody>
+		</table>			
+    </div>
+</ion-content>

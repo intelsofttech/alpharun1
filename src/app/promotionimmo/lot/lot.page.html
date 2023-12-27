@@ -1,0 +1,286 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Ilot {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none1;">
+		  <ion-icon slot="end" style="color:#;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="!addForm">
+      <ion-card  style="padding:20;">
+		  <ion-row>	
+			<ion-col  size="5">
+				lots
+			</ion-col>
+			<ion-col  size="7">
+			   <div align="right">
+					<ion-button   fill="clear" slot="end"    (click)="onNew()"> <ion-icon name="add" style="color:#707071;"></ion-icon> Ajouter</ion-button>
+					<ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list" style="color:#707071;"></ion-icon> </ion-button>
+					<ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps" style="color:#707071;"></ion-icon> </ion-button>
+			   </div>
+			</ion-col>
+		  </ion-row>
+      </ion-card>
+	  
+   	<div  class="row" *ngIf="listmode">
+	<ion-card  style="padding:20px;">
+		<table style="width:100%;"  >
+			<thead>
+				<tr>     
+					<td>Id</td>
+					<td>N°</td>
+					<td>Type de bien</td>
+					<td>Type de logement</td>
+					<td>Programme</td>
+					<td>Prix</td>
+					<td>Dossier</td>
+					<td>Clôture</td>
+					<td>Net à payer</td>
+					<td>Date</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results">
+					<td>{{ result.id }}</td>
+					<td>{{ result.reference }}</td>
+					<td>{{ result.type }}</td>
+					<td>{{ result.logementlib }}</td>
+					<td>{{ result.property }}</td>
+					<td>{{ result.total }}</td>
+					<td>{{ result.dossier }}</td>
+					<td>{{ result.cloture }}</td>
+					<td>{{ result.net }}</td>
+					<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+					<td>
+						<ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>  
+	</ion-card >	
+	</div>
+	<div  class="row" style="padding:0px;" *ngIf="gridmode">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>Lot: {{ result.reference }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type: {{ result.type }} </p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Type logement: {{ result.logementlib }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Prix: {{ result.total }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Dossier: {{ result.dossier }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Clôture: {{ result.cloture }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer {{ result.net }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Ajouté le: {{ result.createdAt| date: 'dd/MM/yyyy' }}</p>
+			</div>
+			<p style="margin:0px;">
+			<ion-button fill="clear" slot="end"    routerLink="/ilot/{{result.id}}/0/{{ result.name }}"  style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		    </ion-card>
+	  
+		</div>
+	</div>
+    </div>
+ 
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+	    <div style="border-bottom:1px solid #c0c0c0;">
+			<ion-row>
+				<ion-col size="1">
+				   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+				</ion-col>
+				<ion-col size="6">
+				   <div style="margin-top:7px; text-transform:upercase;">{{param3}}</div>
+				</ion-col>
+				<ion-col size="5" >
+					
+				</ion-col>
+			</ion-row>
+			
+		</div>
+		  <ion-card-content>
+		    <div class="row" style="margin-bottom:120px;">
+				<div class="col-md-12" style="margin-bottom:0px;">
+					<div align="left">
+						<ion-button   fill="clear" slot="end"   (click)="onTypereference('several')">N° Numérique</ion-button>
+						<ion-button   fill="clear" slot="end"   (click)="onTypereference('one')">N° Alpha numérique</ion-button>
+				   </div>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="reference" formControlName="reference" type="text">
+						  <div slot="label">{{num1}}</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;" *ngIf="!onenum">
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  [(ngModel)]="reference2" formControlName="reference2" type="text">
+						  <div slot="label">{{num2}}</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-select labelPlacement="floating" [(ngModel)]="type" (ionChange)="onTypechange()"  formControlName="type"  interface="popover" >
+							 <ion-select-option  value="Terrain">Terrain</ion-select-option>
+							 <ion-select-option  value="Logement">Logement</ion-select-option>
+							 <div slot="label">Type de promotion</div>
+						</ion-select>
+					</ion-item>
+				</div> 
+				<div class="col-md-12">
+					
+				</div> 
+				
+				<div class="col-md-3" style="margin-bottom:20px;" *ngIf="!typeterrain">
+					<ion-item>
+						<ion-select labelPlacement="floating" id="" [(ngModel)]="logement" formControlName="logement"  interface="popover" >
+							 <ion-select-option  *ngFor="let line of typeslogement; let i = index" value="{{line.id}}">{{line.label}}</ion-select-option>
+							 <div slot="label">Type de logement</div>
+						</ion-select>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;"  *ngIf="!typeterrain">
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" (keyup)="onCalcul()" [(ngModel)]="surface3" formControlName="surface3" type="text">
+						  <div slot="label">Surface habitable (m²)</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-3" style="margin-bottom:20px;"  *ngIf="!typeterrain">
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" (keyup)="onCalcul()" [(ngModel)]="surface4" formControlName="surface4" type="text">
+						  <div slot="label">Surface globale (m²)</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;"  *ngIf="!typeterrain">
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" (keyup)="onCalcul()" [(ngModel)]="montant" formControlName="montant" type="text">
+						  <div slot="label">Prix du bien</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12" style="padding-left:30px;" >
+					<strong>Surface</strong>
+				</div>
+				
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" (keyup)="onCalcul()" [(ngModel)]="surface2" formControlName="surface2" type="text">
+						  <div slot="label">Surface promotion (m²)</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;"  *ngIf="!typeterrain">
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" (keyup)="onCalcul()" [(ngModel)]="surface1" formControlName="surface1" type="text">
+						  <div slot="label">Surface suplém(m²)</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="prixunit" formControlName="prixunit" type="text">
+						  <div slot="label">Prix/m²</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="totalsup" formControlName="totalsup" type="text">
+						  <div slot="label">Prix Total</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-bottom:0px; padding-left:20px;">
+						<p style=" margin-left:7px;"><strong>Promotion</strong><ion-toggle  (ionChange)="onOnsell()"  [(ngModel)]="vente" formControlName="vente"  [checked]="false" > </ion-toggle></p>
+				</div>
+				
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value="" [disabled]="readonly" (keyup)="onCalcul()"  [(ngModel)]="totalsup" formControlName="total" type="text">
+						  <div slot="label">Montant Total</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="cloture" formControlName="cloture" type="text">
+						  <div slot="label">Clôture péripherique</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""  (keyup)="onCalcul()"  [(ngModel)]="dossier" formControlName="dossier" type="text">
+						  <div slot="label">Frais de dossiers</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-3" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""   [(ngModel)]="net" formControlName="net" type="text">
+						  <div slot="label">Net à payer</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;" >
+					<ion-item>
+						<ion-input labelPlacement="floating" value=""   [(ngModel)]="ext1" formControlName="ext1" type="text">
+						  <div slot="label">Url maps</div>
+						</ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-bottom:20px;" *ngIf="ext1!=''">
+					<a href="ext1"  target="_blank" style="margin-left:10px;">Ouvrir le lien</a>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+					<ion-item>
+						<ion-textarea  [autoGrow]="true" labelPlacement="floating" value=""  [(ngModel)]="description" formControlName="description" type="text">
+						  <div slot="label">Autre</div>
+						</ion-textarea>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-3" style="margin-bottom:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		  
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+
+  
+  <div style="margin-bottom:200px;"></div>
+</ion-content>

@@ -1,0 +1,36 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	 <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div  class="row">
+	  <div  class="col-md-6"  *ngFor="let result of results; let j = index">
+		  <ion-card button style="padding:20px;">
+			<p style="margin-bottom:5px;"><strong>{{ result.id }}-{{ result.label }}</strong> </p>
+			<p style="margin-bottom:0px;">Coef: {{ result.coef }} Séance: {{ result.value }}</p>
+			<div  class="row">
+					<div  class="col-sm-12" style="color:blue;">
+						<p style="margin-bottom:0px;"><span  *ngIf="result.partnername!=''">{{ result.partnername }}</span> </p>
+						<p style="margin-bottom:0px;">
+						<ion-button fill="clear" (click)="presentModal(result.id,j)" style="text-transform:none;">Sélectionnez enseignant</ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+						</p>
+					</div>
+				</div>
+		  </ion-card>
+      </div>
+  </div>
+</ion-content>

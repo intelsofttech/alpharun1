@@ -1,0 +1,193 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <button style="padding-top:10px;  background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Produits
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border" style="box-shadow: 0 !important;">
+  <ion-row>
+	<ion-searchbar    (keyup)="applyFilter('event')"></ion-searchbar>
+  </ion-row>
+</ion-header>
+<ion-content [fullscreen]="true">
+  
+
+  <div *ngIf="!addForm">
+   <ion-row  style="margin-top:0px;">
+    <ion-col size="2">
+       <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+    </ion-col>
+    <ion-col size="10">
+       <div align="right">
+	      <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+		  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+    <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td style="width:20%;">Libellé</td>
+			<td>Stock</td>
+			<td>Mini</td>
+			<td>Alert</td>
+			<td>Achat</td>
+			<td>Vente</td>
+			<td>Marge</td>
+			<td>Date</td>
+			<td>Heure</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  (click)="onselect(result.id, result.title)" *ngFor="let result of results; let i = index">
+			<td>{{ result.id }}</td>
+			<td>{{ result.title }}</td>
+			<td>{{ result.stock }}</td>
+			<td>{{ result.stockmini }}</td>
+			<td>{{ result.stockalert }}</td>
+			<td>{{ result.buyingprice }}</td>
+			<td>{{ result.sellingprice }}</td>
+			<td>{{ result.margin }}</td>
+			<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+			<td>{{ result.createdAt| date: 'HH:MM' }}</td>
+			<td>
+			  <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="presentModalMouv(i, result.id, result.title, 'add', result.buyingprice, result.sellingprice)" style="display:none;"> <ion-icon name="add-circle" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="presentModalMouv(i, result.id, result.title, 'move', result.buyingprice, result.sellingprice)" style="display:none;"> <ion-icon name="remove-circle" style="font-size:14px;"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+	  <div *ngIf="gridmode">
+	  <ion-card *ngFor="let result of results; let i = index" >
+		  <div button  style="padding:7px;"  (click)="onselect(result.id, result.title)">
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><strong>{{ i }}-{{ result.title }}</strong></span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Stock:</strong> {{ result.stock }} <strong>Mini: </strong>{{ result.stockmini }} <strong>Alert: </strong>{{ result.stockalert }}</span></p>
+			<p style="margin:0px; font-size:14px;"><span><strong>  Achat: </strong>{{ result.buyingprice }} F<strong>  Vente:</strong> {{ result.sellingprice }} F <strong>  Marge: </strong>{{ result.margin }} F</span></p>
+			<p style="margin:0px;">
+			  <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="presentModalMouv(i, result.id, result.title, 'add', result.buyingprice, result.sellingprice)" style="display:none;"> <ion-icon name="add-circle" style="font-size:14px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="presentModalMouv(i, result.id, result.title, 'move', result.buyingprice, result.sellingprice)" style="display:none;"> <ion-icon name="remove-circle" style="font-size:14px;"></ion-icon> </ion-button>
+		  </p>
+		  </div>
+	  </ion-card>
+	  </div>
+  </div>
+ 
+
+  <form [formGroup]="productForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content style="margin-bottom:60px;">
+		    <div align="left"  style="margin-bottom:20px;"><h3><strong>{{liboperation}}</strong></h3></div>
+			<div class="row">
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="title" formControlName="title" label-placement="floating" required  type="text" placeholder="Désignation"><div slot="label">Désignation</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="code" formControlName="code" label-placement="floating"   type="text" placeholder="Code barre"><div slot="label">Code barre</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="unit" formControlName="unit" label-placement="floating"   type="text" placeholder="Unité"><div slot="label">Unité</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input  (keyup)="onCalculmarge()" [(ngModel)]="buyingprice" formControlName="buyingprice" label-placement="floating"   type="text"  placeholder="Prix d'achat"><div slot="label">Prix d'achat</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input  (keyup)="onCalculmarge()"  [(ngModel)]="sellingprice" formControlName="sellingprice" label-placement="floating"   type="text"  placeholder="Prix de vente"><div slot="label">Prix de vente</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input  (keyup)="onCalculPrixventeMargin()"  [(ngModel)]="margin" formControlName="margin" label-placement="floating"   type="text"  placeholder="Marge"><div slot="label">Marge</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input  (keyup)="onCalculPrixventeTauxMargin()"  [(ngModel)]="tauxmargin" formControlName="tauxmargin" label-placement="floating"   type="text"  placeholder="Taux margin"><div slot="label">Taux margin</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-select formControlName="category"  (ionChange)="triggerEvent()" [(ngModel)]="category" label-placement="floating" interface="popover" placeholder="Catégorie" >
+						 <ion-select-option  *ngFor="let line of listcategories;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+						<div slot="label">Catégorie</div> 
+					</ion-select>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="stockmini" formControlName="stockmini" label-placement="floating"   type="text"  placeholder="Stock minimum"><div slot="label">Stock minimum</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="stockalert" formControlName="stockalert" label-placement="floating"   type="text"  placeholder="Stock d'alerte"><div slot="label">Stock d'alerte</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-textarea [(ngModel)]="resume" formControlName="resume" labelPlacement="floating"  placeholder="Détail"  [autoGrow]="true"><div slot="label">Détail</div></ion-textarea>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-img class="map" src="{{imageurl}}"  (click)="onSelectImage('image')" style="width:100%;height:auto;"></ion-img>
+					<div style="display:none;">	
+						<ion-input [(ngModel)]="image" formControlName="image" label-placement="floating"   type="text"  placeholder="Stock d'alerte"></ion-input>
+					</div>
+				</ion-item>
+				</div>
+			</div>
+			
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			
+			<ion-button  id="open-action-sheet" fill="clear"  style="display:none; text-transform:capitalize;">Ajouter un fichier</ion-button>
+			<ion-action-sheet
+				trigger="open-action-sheet"
+				header="Dépuis"
+				[buttons]="actionSheetButtons"
+				(didDismiss)="setResult($event)">
+			</ion-action-sheet>
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+	  <ion-fab-button style="margin-bottom:30px;" (click)="onNew()"  *ngIf="!addForm">
+		<ion-icon name="add"></ion-icon>
+	  </ion-fab-button>
+	  <ion-fab-button style="margin-bottom:30px;" (click)="onCancelNew()"  *ngIf="addForm">
+		<ion-icon name="close"></ion-icon>
+	  </ion-fab-button>
+  </ion-fab>
+</ion-content>
+

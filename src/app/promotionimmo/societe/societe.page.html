@@ -1,0 +1,194 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+           <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+
+<ion-content [fullscreen]="true" style="background-color:;  padding-bottom:50px;">
+<ion-card *ngIf="!addForm" style="padding:7px;">
+		<div class="row" style="">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-7">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm"  *ngIf="pageForm">
+					<input class=""   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-4" >
+				<div align="right">
+				 <ion-button  fill="clear"  (click)="onNew()"style="color:#707071;">Ajouter</ion-button>
+			    <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+	</ion-card>
+	
+<div *ngIf="!addForm">
+  <div  class="row" style="padding:20px;" *ngIf="listmode">
+		<table style="width:100%;"  >
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>N°</td>
+					<td>Nom</td>
+					<td>Prénom(s)</td>
+					<td>Téléphone</td>
+					<td>Email</td>
+					<td>Adresse</td>
+					<td>Entreprise</td>
+					<td>Ville</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results">
+					<td>{{ result.id }}</td>
+					<td>{{ result.number }}</td>
+					<td>{{ result.firstName }}</td>
+					<td>{{ result.lastName }}</td>
+					<td>{{ result.mobile }}</td>
+					<td>{{ result.emailaddress }}</td>
+					<td>{{ result.address }}</td>
+					<td>{{ result.master }}</td>
+					<td>{{ result.city }}</td>
+					<td>
+						<ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>  
+		
+	</div>
+	<div  class="row"  style="margin-left:2px;" *ngIf="gridmode">
+		<div class="col-md-4" *ngFor="let result of results; let i = index" style="padding-right:0px;">	
+			<ion-card  style="margin:0px; margin-bottom:3px;">
+			  <div button  style="padding:12px;">
+			<div >
+			<p color="primary" style="margin:0px; font-size:14px; color:; margin-bottom:5px;">
+			<span><strong>{{ result.firstName }} {{ result.lastName }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Téléphone: {{ result.mobile }} </span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span> Email: {{ result.emailaddress }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span> Ville: {{ result.city }} </span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span> Adresse: {{ result.address }}</span></p>
+			</div>
+			<p style="margin:0px;">
+			<ion-button fill="clear" slot="end"    routerLink="/typeoperation/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"  style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		  </div>
+		    </ion-card>
+	  
+		</div>
+	</div>
+
+	  
+</div>
+<div ><ion-button id="open-action-sheet" fill="clear" style="text-transform:none;">--</ion-button></div>
+ <ion-action-sheet
+	trigger="open-action-sheet"
+	header="Edition"
+	[buttons]="actionSheetButtons"
+	(didDismiss)="setResult($event)"
+></ion-action-sheet>
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm" style=" margin-bottom:50px;">
+    <ion-card>
+		  <ion-card-content>
+		  
+		    <div align="left" style="margin-bottom:20px;"><h3><strong>{{liboperation}}</strong></h3></div>
+			<div class="row">
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input  [(ngModel)]="firstName" formControlName="firstName" label-placement="floating" required  type="text"  placeholder="Nom">
+				  <div slot="label">Nom</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px; display:none;">
+				<ion-item>
+					<ion-input [(ngModel)]="lastName" formControlName="lastName" label-placement="floating"   type="text" placeholder="Prénoms">
+				  <div slot="label">Prénoms</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="phone" formControlName="phone" label-placement="floating"   type="text" placeholder="Téléphone">
+				  <div slot="label">Téléphone</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="email" formControlName="email" label-placement="floating"   type="email" placeholder="Email">
+				  <div slot="label">Email</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" placeholder="Adresse">
+				  <div slot="label">Adresse</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" placeholder="Ville, commune, quartier">
+				  <div slot="label">Ville, commune, quartier</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="locateurl" formControlName="locateurl" label-placement="floating"   type="text" placeholder="URL Géolocalisation">
+				  <div slot="label">URL Géolocalisation</div>
+				</ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-textarea [(ngModel)]="description" formControlName="description" labelPlacement="floating" placeholder="Détail">
+					  <div slot="label">Détail</div>
+					</ion-textarea>
+				</ion-item>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+				</div>
+				<div class="col-md-2" style="margin-bottom:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+			
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:80px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:80px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

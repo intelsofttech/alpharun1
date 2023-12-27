@@ -1,0 +1,264 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+      <h5  style="font-size:16px; color:#; margin-top:20px;">TACHES ET RESPONSABLES</h5>
+	  <ion-card  *ngIf="showtask1"  routerLink="/project/{{ param1 }}/{{ name1 }}/1" >
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task1 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name1 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask2"  routerLink="/project/{{ param1 }}/{{ name2 }}/2">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task2 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name2 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask3"  routerLink="/project/{{ param1 }}/{{ name3 }}/3">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task3 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name3 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask4"  routerLink="/project/{{ param1 }}/{{ name4 }}/4">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task4 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name4 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask5"  routerLink="/project/{{ param1 }}/{{ name5 }}/5">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task5 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name5 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask6"  routerLink="/project/{{ param1 }}/{{ name6 }}/6">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task6 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name6 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask7"  routerLink="/project/{{ param1}}/{{ name7 }}/7">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task7 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name7 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask8"  routerLink="/project/{{ param1 }}/{{ name8 }}/8">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task8 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name8 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask9"  routerLink="/project/{{ param1 }}/{{ name9 }}/9">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task9 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name9 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+	  <ion-card  *ngIf="showtask10"  routerLink="/project/{{ param1 }}/{{ name10 }}/10">
+			<ion-row >
+				<ion-col size="2">
+				   <ion-img src="assets/icon/user.png" style="width:50px; margin-right:5px; height:auto;"></ion-img>
+				</ion-col> 
+				<ion-col size="10">  
+				   <div button  style="padding:5px;">
+					<p style="margin:0px; font-size:12px; color:#1258da; margin-bottom:5px;"><strong>{{ task10 }}</strong></p>
+					<p style="margin:0px; font-size:11px; margin-bottom:3px;"><span>{{ name10 }}</span></p>
+				  </div>
+				 </ion-col>
+			</ion-row>
+	    </ion-card>
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+		
+		
+    <ion-card style="padding:12px;">
+		    <div align="left"><h5 style="font-size:14px;">{{liboperation}}</h5></div>
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 1</h5>
+				   <input [(ngModel)]="task1" formControlName="task1" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name1" formControlName="name1" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('1')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 2</h5>
+				   <input [(ngModel)]="task2" formControlName="task2" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name2" formControlName="name2" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('2')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 3</h5>
+				   <input [(ngModel)]="task3" formControlName="task3" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name3" formControlName="name3" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('3')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 4</h5>
+				   <input [(ngModel)]="task4" formControlName="task4" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name4" formControlName="name4" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('4')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 5</h5>
+				   <input [(ngModel)]="task5" formControlName="task5" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name5" formControlName="name5" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('5')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		 
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 6</h5>
+				   <input [(ngModel)]="task6" formControlName="task6" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name6" formControlName="name6" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('6')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 7</h5>
+				   <input [(ngModel)]="task7" formControlName="task7" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name7" formControlName="name7" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('7')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 8</h5>
+				   <input [(ngModel)]="task8" formControlName="task8" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name8" formControlName="name8" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('8')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 9</h5>
+				   <input [(ngModel)]="task9" formControlName="task9" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name9" formControlName="name9" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('9')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			
+			<ion-row style="border-bottom:1px solid #c0c0c0; ">
+				<ion-col size="12">  
+					<h5  style="font-size:14px; color:#1258da;">{{respo}} 10</h5>
+				   <input [(ngModel)]="task10" formControlName="task10" type="text" placeholder="Poste" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/> 
+				   <input [(ngModel)]="name10" formControlName="name10" type="text" placeholder="Responsable" style="margin-bottom:7px; padding:7px; border:1px solid #c0c0c0; width:100%;"/>
+				 </ion-col>
+				  <ion-button   fill="clear" (click)="membreModal('10')" style="text-transform:capitalize; color:#505050;"> Sélectionner <ion-icon name="search" style="font-size:18px;"></ion-icon> </ion-button>
+			</ion-row>
+			
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		 
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:70px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="pencil"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:70px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+

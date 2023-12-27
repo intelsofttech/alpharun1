@@ -1,0 +1,70 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-header  class="ion-no-border">
+  <ion-row>
+	<ion-searchbar    (keyup)="applyFilter('event')"></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+	  <ion-card  *ngFor="let result of results"  style="margin-top:0px; margin-bottom:2px; padding:12px;">
+		  <div button>
+			   <p  size="12"  style="margin:0px;">
+				<ion-label style="font-size:14px;"><strong>{{ result.name }}</strong></ion-label>
+			   </p>
+		       <p size="12" style="margin:0px;">
+				<ion-button  fill="clear" slot="end"  routerLink="/project/paramtask/{{ result.id }}/Tâches" > <ion-icon name="calendar" style="color:#909090;"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  routerLink="/paramsdetail/{{ result.id }}/{{ result.name }}" > <ion-icon name="person" style="color:#909090;"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  routerLink="/params/{{ result.id }}/{{ result.name }}"> <ion-icon name="add" style="color:#909090;"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil" style="color:#909090;"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash" style="color:#909090;"></ion-icon> </ion-button>
+			   </p>
+		  </div>
+	  </ion-card>
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			
+			<br />
+			<ion-input label="Désignation" [(ngModel)]="label" formControlName="label" label-placement="floating" required  type="text" fill="solid" placeholder="Désignation"></ion-input>
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:70px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:70px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+

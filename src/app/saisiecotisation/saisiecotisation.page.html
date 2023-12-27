@@ -1,0 +1,82 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="!addForm">
+      <ion-row  style="margin-top:0px;">
+		<ion-col size="2">
+		   
+		</ion-col>
+		<ion-col size="10">
+		   <div align="right">
+			  <ion-button  color="light" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list"></ion-icon> </ion-button>
+			  <ion-button  color="light" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps"></ion-icon> </ion-button>
+		   </div>
+		</ion-col>
+	  </ion-row>
+	<table style="width:100%;"  *ngIf="listmode">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Mle</td>
+				<td>Nom</td>
+				<td>Prénom(s)</td>
+				<td>Date de naiss.</td>
+				<td>Sexe</td>
+				<td>Profession</td>
+				<td>Téléphone</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results">
+				<td  *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.id }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.userName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.firstName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.lastName }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.birthDate| date: 'dd/MM/yyyy' }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.gender }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.profession }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">{{ result.mobile }} - {{ result.group1 }}</td>
+				<td *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">
+					<ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+					<ion-button  fill="clear" slot="end" > <ion-icon name="locate-outline"></ion-icon> </ion-button>
+				</td>
+			</tr>
+		</tbody>
+	</table>  
+	<div  *ngIf="gridmode">  
+      <ion-card *ngFor="let result of results; let i = index" >
+		  <div button  style="padding:7px;" *ngIf="result.group1 == group || result.group2 == group || result.group3 == group  || result.group4 == group  || result.group5 == group ">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;">
+			<span><span>{{ result.firstName }} {{ result.lastName }}</span></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><span>Téléphone:</span> {{ result.phone }} <span>Email: </span>{{ result.email }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><span>Ville: </span>{{ result.city }}<span>Adresse: </span>{{ result.address }}</span></p>
+			</div>
+			<p style="margin:0px;">
+			  <ion-button  fill="clear" slot="end"  routerLink="/membredetail/{{ result.id }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end" > <ion-icon name="locate-outline"></ion-icon> </ion-button>
+		  </p>
+		  </div>
+	    </ion-card>
+	  </div> 
+  </div>
+
+</ion-content>

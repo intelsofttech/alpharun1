@@ -1,0 +1,33 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	 <ion-col size="1" style="padding:0px; font-size:20px;">
+       <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Séélectionner une matière
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div  class="row">
+	  <div  class="col-md-6"  *ngFor="let result of results; let j = index">
+		  <ion-card button style="padding:20px;"  (click)="onselect(result.id)">
+			<p style="margin-bottom:5px;"><strong>{{ result.id }}-{{ result.label }}</strong> </p>
+			<p style="margin-bottom:0px;">Coef: {{ result.coef }} Séance: {{ result.value }}</p>
+			<p style="margin-bottom:0px;"><span  *ngIf="result.partnername!=''">{{ result.partnername }}</span> </p>
+						<p style="margin-bottom:0px;">
+						<ion-button fill="clear" style="text-transform:none;"  (click)="onselect(result.id)">Sélectionner</ion-button>
+						</p>
+		  </ion-card>
+      </div>
+  </div>
+</ion-content>

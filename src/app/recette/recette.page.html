@@ -1,0 +1,120 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Récettes
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+	  <ion-list>
+		  <ion-item button *ngFor="let result of results">
+			<ion-label><p>{{ result.label }}</p></ion-label>
+		  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+		  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </ion-item>
+	  </ion-list>
+  </div>
+
+
+  <form [formGroup]="pageForm"  *ngIf="addForm">
+    <div  *ngIf="!step">
+	<ion-header  class="ion-no-border">
+	  <ion-row>
+		<ion-searchbar   [(ngModel)]="word" formControlName="word"  (keyup)="applyFilter()"></ion-searchbar>
+	  </ion-row>
+	</ion-header>
+	</div>
+  </form>
+	
+ 
+    <div   *ngIf="addForm">
+	
+    <div  *ngIf="!step">
+    <ion-card *ngFor="let result of list; let i = index" >
+		  <div button  style="padding:7px;">
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><strong>{{ result.title }}</strong></span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Stock:</strong> {{ result.stock }} <strong>Mini: </strong>{{ result.stockmini }} <strong>Alert: </strong>{{ result.stockalert }}</span></p>
+			<p style="margin:0px; font-size:14px;"><span><strong>  Achat: </strong>{{ result.buyingprice }} F<strong>  Vente:</strong> {{ result.sellingprice }} F <strong>  Marge: </strong>{{ result.margin }} F</span></p>
+			<p style="margin:0px;">
+			 
+			  <ion-button  fill="clear" slot="end" (click)="onRemoveQte(i, result.id, result.title, result.buyingprice, result.sellingprice)" > <ion-icon name="remove-circle" style="font-size:16px;"></ion-icon> </ion-button>
+			   <input type="number" placeholder="Qte"  (change)="onEnterQty($event, i, result.id, result.title, result.buyingprice, result.sellingprice)" value="{{ result.shop }}" name="qte" style="width:50px; height:30px; border:1px solid #c0c0c0; margin-top:3px;">
+			  <ion-button  fill="clear" slot="end" (click)="onAddQte(i, result.id, result.title, result.buyingprice, result.sellingprice)"> <ion-icon name="add-circle" style="font-size:16px;"></ion-icon> </ion-button>
+			  
+		  </p>
+		  </div>
+	</ion-card>
+	</div>
+	
+	 <form [formGroup]="categForm" (ngSubmit)="onAdd()">
+	 
+		<div  *ngIf="step">
+        <ion-card *ngFor="let line of cartprod; let j = index" >
+		  <div button  style="padding:7px;">
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><strong>{{ line.label }}</strong></span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>{{ line.quantity }} x {{ line.price }} F = {{ line.total }} F</span></p>
+			<p style="margin:0px;">
+			 
+			  <ion-button  fill="clear" slot="end" (click)="onRemoveQteCart(j, line.id, line.label)" > <ion-icon name="remove-circle" style="font-size:16px;"></ion-icon> </ion-button>
+			   <input type="number" placeholder="Qte"  value="{{ line.quantity }}" name="qte" style="width:50px; height:30px; border:1px solid #c0c0c0; margin-top:3px;">
+			  <ion-button  fill="clear" slot="end" (click)="onAddQteCart(j, line.id, line.label)"> <ion-icon name="add-circle" style="font-size:16px;"></ion-icon> </ion-button>
+			  
+		  </p>
+		  </div>
+	    </ion-card>
+	</div>
+	
+    <ion-card  *ngIf="step" style="padding:12px; margin-bottom:80px;">
+			<div style="display:none1;">
+			<ion-select label="Catégorie" formControlName="category"  [(ngModel)]="category" label-placement="floating" interface="popover" placeholder="Catégorie"  fill="solid">
+				 <ion-select-option  *ngFor="let line of listcategories;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+			</ion-select>
+			<br />
+			</div>
+			<ion-input label="Objet" [(ngModel)]="title" formControlName="title" label-placement="floating"   type="text" fill="solid" placeholder="Objet"></ion-input>
+			<br />
+			<ion-input label="Montant" [(ngModel)]="amountTotal" formControlName="amount" label-placement="floating"   type="text" fill="solid" placeholder="Montant"></ion-input>
+			<br />
+			<ion-input label="Client" [(ngModel)]="partner" formControlName="partner" label-placement="floating"  (click)="presentModal()"  type="text" fill="solid" placeholder="Client"></ion-input>
+			<div style="display:none;">
+			<ion-input label="Code" [(ngModel)]="partnercode" formControlName="partnercode" label-placement="floating"   type="text" fill="solid" placeholder="Code"></ion-input>
+			</div>
+			<br />
+			<ion-textarea label="Détail" [(ngModel)]="description" formControlName="description" labelPlacement="floating" fill="solid" placeholder="Détail"></ion-textarea>
+			<br />
+			
+	  </ion-card>
+	  
+	  <ion-button *ngIf="!step" color="primary"   (click)="goNext()" style="color:#000000; position:fixed; bottom:0; width:100%; left:0;">Continuer {{amountTotal}} F</ion-button>
+
+	  <ion-button *ngIf="step" color="primary"  type="submit"  style="margin-bottom:50px; color:#000000; position:fixed; bottom:0; width:100%; left:0;">Valider  {{amountTotal}} F</ion-button>
+	  <ion-button *ngIf="step" fill="clear"  (click)="goPreview()" style="color:#000000; position:fixed; bottom:0; width:100%; left:0;">Précedent</ion-button>
+
+      </form>
+  </div>
+	  
+	  
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:30px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:30px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

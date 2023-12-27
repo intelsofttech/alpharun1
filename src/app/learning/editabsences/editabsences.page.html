@@ -1,0 +1,124 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="pageForm" >
+  <ion-card style="padding:20px;">
+	<div class="row">
+		<div class="col-md-3">
+			<ion-input labelPlacement="floating" value="" type="date"   [(ngModel)]="date1" formControlName="date1"  (ionChange)="onRefresh()"  style="border-bottom:1px solid #c0c0c0;">
+			<div slot="label">Date</div>
+		</ion-input>
+		</div>
+		<div class="col-md-3">
+			<ion-input labelPlacement="floating" value="" type="date"   [(ngModel)]="date2" formControlName="date2"  (ionChange)="onRefresh()"  style="border-bottom:1px solid #c0c0c0;">
+			<div slot="label">Date</div>
+		</ion-input>
+		</div>
+		<div class="col-md-3">
+			<ion-select labelPlacement="floating" (ionChange)="onRefresh()"   [(ngModel)]="heure" formControlName="heure"  interface="popover" >
+					 <ion-select-option selected value="0">Toutes les séances</ion-select-option>
+					 <ion-select-option  *ngFor="let result of horaires"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+				     <div slot="label">Séance</div>
+				</ion-select>
+		</div>
+		<div class="col-md-3">
+			<ion-select labelPlacement="floating" (ionChange)="onRefresh()"   [(ngModel)]="classe" formControlName="classe"  interface="popover" >
+					 <ion-select-option selected value="0">Toutes les classes</ion-select-option>
+					 <ion-select-option  *ngFor="let result of classes"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+				     <div slot="label">Classe</div>
+				</ion-select>
+		</div>
+	</div>
+  </ion-card>
+  </form>
+  <ion-card style="padding:20px;">
+	 <div class="row">
+		<div class="col-md-8">
+			<div>LES ABSENCES</div>
+		</div>
+		<div class="col-md-4">
+			<div align="right">
+			  <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+			  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+		    </div>
+	   </div>
+		<div class="col-md-12"  *ngIf="listmode">
+		   <table class="styled-table" style="padding-left:0px;">
+			<thead>
+				<tr>
+					<th>code</th>
+					<th>Nom</th>
+					<th>Absent le</th>
+					<th>Heure</th>
+					<th>Matière</th>
+					<th>Classe</th>
+					<th>Ajouté le</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results; let i = index">
+					<td>{{ result.id }}</td>
+					<td>{{ result.partnername }}</td>
+					<td>{{ result.addDate| date: 'dd/MM/yyyy' }}</td>
+					<td>{{ result.parameter }}</td>
+					<td>{{ result.material }}</td>
+					<td>{{ result.classlist }}</td>
+					<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}{{ result.createdAt| date: 'HH:MM' }}</td>
+					<td><ion-button   fill="clear" (click)="onDelete(result.id)"> <ion-icon style="color:#707071;" name="trash"></ion-icon> </ion-button></td>
+				</tr>
+			</tbody>
+			<thead>
+				<tr>
+					<th>{{Total}}</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+		</table>				
+		</div>
+		<div class="col-md-12" *ngIf="gridmode">
+		   <div class="row" style="margin-left:;">
+			<div class="col-md-4" *ngFor="let result of results; let i = index"  style="padding:0px;">
+				<ion-card >
+					  <div   style="padding:7px;">
+						<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><strong>{{ i }}-{{ result.partnername }}</strong></span></p>
+						<p style="margin:0px; font-size:12px; color:; margin-bottom:5px;"><span><strong>Absent le: {{ result.addDate| date: 'dd/MM/yyyy' }}</strong></span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Heure: {{ result.parameter }} Matière: {{ result.material }} Classe: {{ result.classlist }}</span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Ajoutée le: {{ result.addDate| date: 'dd/MM/yyyy' }} {{ result.createdAt| date: 'HH:MM' }}</span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">
+						<ion-button   fill="clear" (click)="onDelete(result.id)"> <ion-icon style="color:#707071;" name="trash"></ion-icon> </ion-button>
+						</p>
+					  </div>
+				</ion-card>
+			</div>
+		</div>
+		</div>
+	</div>
+	</ion-card>
+	
+	
+  <div style="margin-bottom:200px;"> </div>
+  
+</ion-content>

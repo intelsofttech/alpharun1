@@ -1,0 +1,370 @@
+<ion-header  >
+<ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  <strong>Informations</strong>
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-card *ngIf="!isEdit" style="margin-top:20px;">
+		<ion-item>
+		  <ion-label>
+			<h5>INFORMATIONS</h5>
+		  </ion-label>
+		</ion-item>
+		<ion-item  style="display:none2;">
+			<ion-label>
+			  <h3>Logo/Image</h3>
+			  <div style="display:none1;">
+				<ion-img class="map" src="{{imgbaseUrl}}" (click)="onSelectImage()" style="width:150px;height:auto;"></ion-img>
+			  </div>
+		    </ion-label>
+		</ion-item>
+		<div class="row">
+			<div class="col-md-6">
+				<ion-item >
+					<ion-label>
+					  <h3>Type de compte</h3>
+					  <p>{{categ}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6" *ngIf="showetabtype">
+				<ion-item>
+					<ion-label>
+					  <h3>Type d'établissement</h3>
+					  <p>{{typelabel}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+					<ion-label>
+					  <h3>Nom</h3>
+					  <p>{{firstName}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Adresse</h3>
+					<p>{{address}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Pays</h3>
+					<p>{{countrylabel}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Ville</h3>
+					<p>{{citylabel}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Téléphone</h3>
+					<p>{{phone}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Email</h3>
+					<p>{{email}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-12">
+				<ion-item>
+				  <ion-label>
+					<h3>Base url 1</h3>
+					<p>{{baseurl}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-12">
+				<ion-item>
+				  <ion-label>
+					<h3>Base url 2</h3>
+					<p>{{baseurl2}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+		</div>
+		
+		<ion-item>
+		  <ion-label>
+			<ion-button  fill="clear"  (click)="onModifyForm()" >Modifier</ion-button>
+		  </ion-label>
+		</ion-item>
+	</ion-card>
+	
+	<ion-card *ngIf="!isEdit" style="margin-top:20px;">
+		<ion-item>
+		  <ion-label>
+			<h5>INFORMATIONS ENTETE</h5>
+		  </ion-label>
+		</ion-item>
+		<div class="row">
+			<div class="col-md-12">
+				<ion-item >
+					<ion-label>
+					  <h3>Services</h3>
+					  <p>{{services}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-12" *ngIf="showetabtype">
+				<ion-item>
+					<ion-label>
+					  <h3>Adresse et localisation</h3>
+					  <p>{{localisation2}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+					<ion-label>
+					  <h3>RCCM</h3>
+					  <p>{{rccm}}</p>
+					</ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Code contribuable</h3>
+					<p>{{comptecontribuable}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-12">
+				<ion-item>
+				  <ion-label>
+					<h3>Contacts</h3>
+					<p>{{contacts}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>N° de compte</h3>
+					<p>{{numcompte}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-6">
+				<ion-item>
+				  <ion-label>
+					<h3>Siège</h3>
+					<p>{{siege}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+			<div class="col-md-12">
+				<ion-item>
+				  <ion-label>
+					<h3>Représentant</h3>
+					<p>{{representant}}</p>
+				  </ion-label>
+				</ion-item>
+			</div>
+		</div>
+		
+		<ion-item>
+		  <ion-label>
+			<ion-button  fill="clear"  (click)="onModifyForm()" >Modifier</ion-button>
+		  </ion-label>
+		</ion-item>
+	</ion-card>
+	<form [formGroup]="infoForm" (ngSubmit)="onUpdate()"  *ngIf="isEdit">
+		<ion-card  style="padding:17px; margin-bottom:0px;">
+			<h5>INFORMATIONS</h5>
+			<div class="row">
+				<div class="col-md-12" style="margin-bottom:15px; display:none;">
+				<ion-item>
+					<ion-select labelPlacement="floating" [(ngModel)]="categ" formControlName="categ" (ionChange)="onSelectType()" fill="outline" interface="popover">
+					 <ion-select-option value="eglise">Eglise ou mission</ion-select-option>
+					 <ion-select-option value="entreprise">Entreprise ou organisation</ion-select-option>
+					 <ion-select-option value="metier">Homme de metier</ion-select-option>
+					 <ion-select-option value="emploi">Emploi</ion-select-option>
+					 <ion-select-option value="emploi">Stage</ion-select-option>
+					 <ion-select-option value="scolaire">Encadrement scolaire</ion-select-option>
+					 <ion-select-option value="academique">Encadrement supérieur</ion-select-option>
+					 <div slot="label">Type de compte</div>
+					</ion-select>
+				</ion-item>						
+				</div>
+				<div class="col-md-12" style="margin-bottom:15px;  display:none;" >
+				<ion-item>
+					<ion-input label="Type d'établissement"  [(ngModel)]="typelabel" formControlName="typelabel" label-placement="floating"  (click)="presentModalSector()" type="text" fill="outline" placeholder="{{_libtype}}"></ion-input>
+					<div style="display:none;">
+						<ion-input label="Type d'établissement"  [(ngModel)]="type" formControlName="type" label-placement="floating"   type="text" fill="outline" placeholder="{{_libtype}}"><div slot="label">Type</div></ion-input>
+					</div>
+				</ion-item>							
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+										
+					<ion-input [(ngModel)]="firstName" formControlName="firstName" label-placement="floating"  type="text" placeholder="Nom"><div slot="label">Nom</div></ion-input>
+				</ion-item>						
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" placeholder="Adresse"><div slot="label">Adresse</div></ion-input>
+				</ion-item>	
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="countrylabel" formControlName="countrylabel" label-placement="floating"  (click)="presentModalCountry()"  type="text" placeholder="Pays"><div slot="label">Pays</div></ion-input>
+					<div style="display:none;">
+						<ion-input label="Pays"  [(ngModel)]="country" formControlName="country" label-placement="floating"   type="text" placeholder="Pays"></ion-input>
+					</div>
+				</ion-item>		
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="phone" formControlName="phone" label-placement="floating" type="text" placeholder="Téléphone"><div slot="label">Téléphone</div></ion-input>
+				</ion-item>	
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="email" formControlName="email" label-placement="floating" type="text" placeholder="Email"><div slot="label">Email</div></ion-input>
+				</ion-item>	
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="citylabel" formControlName="citylabel" label-placement="floating"    type="text" placeholder="Ville"><div slot="label">Ville</div></ion-input>
+					<div style="display:none;">
+						<ion-input label="Ville"  [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" placeholder="Ville"></ion-input>
+					</div>
+				</ion-item>	
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="baseurl" formControlName="baseurl" label-placement="floating"    type="text" placeholder="Base url 1"><div slot="label">Base url 1</div></ion-input>
+				</ion-item>	
+				</div>
+				<div class="col-md-6" style="margin-bottom:15px;">
+				<ion-item>
+					<ion-input [(ngModel)]="baseurl2" formControlName="baseurl2" label-placement="floating"    type="text" placeholder="Base url 2"><div slot="label">Base url 2</div></ion-input>
+				</ion-item>	
+				</div>
+				<div class="col-md-12" style="margin-bottom:15px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+					<br />
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		</ion-card>
+			
+			
+		<ion-card style="margin-top:20px;">
+			<ion-item>
+			  <ion-label>
+				<h5>INFORMATIONS ENTETE</h5>
+			  </ion-label>
+			</ion-item>
+			<div class="row">
+				<div class="col-md-12">
+					<ion-item >
+						<ion-input [(ngModel)]="services" formControlName="services" label-placement="floating" type="text" placeholder="Services"><div slot="label">Services</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12" *ngIf="showetabtype">
+					<ion-item>
+						<ion-input [(ngModel)]="localisation2" formControlName="localisation2" label-placement="floating" type="text" placeholder="Adresse et localisation"><div slot="label">Adresse et localisation</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6">
+					<ion-item>
+						<ion-input [(ngModel)]="rccm" formControlName="rccm" label-placement="floating" type="text" placeholder="RCCM"><div slot="label">RCCM</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6">
+					<ion-item>
+						<ion-input [(ngModel)]="comptecontribuable" formControlName="comptecontribuable" label-placement="floating" type="text" placeholder="Code contribuable"><div slot="label">Code contribuable</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12">
+					<ion-item>
+						<ion-input [(ngModel)]="contacts" formControlName="contacts" label-placement="floating" type="text" placeholder="Contacts"><div slot="label">Contacts</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6">
+					<ion-item>
+						<ion-input [(ngModel)]="numcompte" formControlName="numcompte" label-placement="floating" type="text" placeholder="N° de compte"><div slot="N° de compte">Email</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-6">
+					<ion-item>
+						<ion-input [(ngModel)]="siege" formControlName="siege" label-placement="floating" type="text" placeholder="Siège"><div slot="label">Siège</div></ion-input>
+					</ion-item>
+				</div>
+				<div class="col-md-12">
+					<ion-item>
+						<ion-input [(ngModel)]="representant" formControlName="representant" label-placement="floating" type="text" placeholder="Email"><div slot="label">Représentant</div></ion-input>
+					</ion-item>
+				</div>
+				
+				<div class="col-md-12" style="margin-bottom:15px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+					<br />
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+			
+		</ion-card>
+	
+	</form>
+
+	<form [formGroup]="infoForm" (ngSubmit)="onUpdate()"  *ngIf="isEditEmail">
+		<ion-card  style="padding:17px; margin-bottom:0px;">
+			<h5>Changer l'adresse E-mail</h5>
+			<div class="row">
+				<div class="col-md-6" style="margin-bottom:15px;">
+					<ion-input label="Email" [(ngModel)]="email" formControlName="email" label-placement="floating"  type="text" fill="outline" placeholder="Email"></ion-input>
+				</div>
+				<div class="col-md-12" style="margin-bottom:15px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+					<br />
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+				</div>
+			</div>
+		</ion-card>
+	</form>
+	
+	  <ion-button  id="open-action-sheet" fill="clear"  style="display:none; text-transform:capitalize;">Ajouter un fichier</ion-button>
+			<ion-action-sheet
+				trigger="open-action-sheet"
+				header="Dépuis"
+				[buttons]="actionSheetButtons"
+				(didDismiss)="setResult($event)">
+			</ion-action-sheet>
+			
+<div style="margin-bottom:200px;"> </div>
+  
+</ion-content>

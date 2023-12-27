@@ -1,0 +1,29 @@
+<ion-header  >
+  <ion-grid style="background-color:#ffffff; color:# padding:5px;">
+   <ion-row  style="background-color:#ffffff; color:#; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   L'évangile
+		</ion-title>
+    </ion-col>
+    <ion-col size="2">
+       <ion-button fill="clear" style="color:#ffffff;"  routerLink="/login">
+	   <ion-icon name="person" style="font-size:18 px;color:#ffffff; margin-right:5px;"></ion-icon>
+	   </ion-button>
+    </ion-col>
+    </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Tab 2</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <app-explore-container name="Tab 2 page"></app-explore-container>
+</ion-content>

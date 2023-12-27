@@ -1,0 +1,150 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border">
+  <ion-row>
+	<ion-searchbar    (keyup)="applyFilter('event')"></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+   <ion-row  style="margin-top:0px;">
+    <ion-col size="4" >
+       
+    </ion-col>
+    <ion-col size="8">
+       <div align="right">
+	      <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+		  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+   <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td>Nom</td>
+			<td>Prénom</td>
+			<td>Téléphone</td>
+			<td>Email</td>
+			<td>Ville</td>
+			<td>Adresse </td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.firstName }}</td>
+			<td>{{ result.lastName }}</td>
+			<td>{{ result.mobile }}</td>
+			<td>{{ result.emailaddress }}</td>
+			<td>{{ result.city }}</td>
+			<td>{{ result.address }}</td>
+			<td> <ion-button  fill="clear" slot="end"   routerLink="/enseignantmatiere/{{ result.walletId }}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="list"></ion-icon> </ion-button></td>
+			<td>
+				<ion-button  fill="clear" slot="end"  routerLink="/editemploienseignone/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="calendar"></ion-icon> </ion-button>
+			</td>
+			<td>
+				 <ion-button  fill="clear" slot="end"  routerLink="/editpresence/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="calendar"  color="success" ></ion-icon> </ion-button>
+			</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  routerLink="/saisiepresenceens/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="time" color="success"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+   
+   <div  *ngIf="gridmode">
+      <ion-card *ngFor="let result of results; let i = index" >
+		  <div button  style="padding:7px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;">
+			<span><strong>{{ result.firstName }} {{ result.lastName }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Téléphone:</strong> {{ result.mobile }} <strong>  Email: </strong>{{ result.emailaddress }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Ville: </strong>{{ result.city }}<strong>  Adresse: </strong>{{ result.address }}</span></p>
+			</div>
+			<p style="margin:0px;">
+			  <ion-button  fill="clear" slot="end"  routerLink="/editemploienseignone/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="calendar"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  routerLink="/editpresence/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="calendar"  color="success" ></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  routerLink="/saisiepresenceens/{{result.id}}/{{param3}}/{{ result.firstName }} {{ result.lastName }}"> <ion-icon name="time" color="success"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  color="grid"  routerLink="/editpresenceens/{{ result.id }}"> <ion-icon name="list" color="success"></ion-icon> </ion-button>
+		  </p>
+		  </div>
+	  </ion-card>
+    </div>
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card>
+		<ion-card-content>
+		  <div align="left"><h3><strong>{{liboperation}}</strong></h3></div>
+		  <div class="row">
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-input label="Nom" [(ngModel)]="firstName" formControlName="firstName" label-placement="floating" required  type="text" fill="outline" placeholder="Nom"></ion-input>
+			</div>
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-input label="Prénom" [(ngModel)]="lastName" formControlName="lastName" label-placement="floating"   type="text" fill="outline" placeholder="Facultatif"></ion-input>
+			</div>
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-input label="Téléphone" [(ngModel)]="phone" formControlName="phone" label-placement="floating"   type="text" fill="outline" placeholder="Téléphone"></ion-input>
+			</div>
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-input label="Email" [(ngModel)]="email" formControlName="email" label-placement="floating"   type="email" fill="outline" placeholder="Email"></ion-input>
+			</div>
+			<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-input label="Adresse" [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" fill="outline" placeholder="Adresse"></ion-input>
+			</div>
+			<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-input label="Ville, commune, quartier" [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" fill="outline" placeholder="Ville, commune, quartier"></ion-input>
+			</div>
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-input label="URL Géolocalisation" [(ngModel)]="locateurl" formControlName="locateurl" label-placement="floating"   type="text" fill="outline" placeholder="URL Géolocalisation"></ion-input>
+			</div>
+			<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-textarea label="Détail" [(ngModel)]="description" formControlName="description" labelPlacement="floating" fill="outline" placeholder="Détail"></ion-textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2" style="margin-bottom:20px;">
+				<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">En cours ...</ion-button>
+			</div>
+			<div class="col-md-2" style="margin-bottom:20px;">
+				<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+			</div>
+		</div>
+	  </ion-card-content>
+	</ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:80px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:80px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

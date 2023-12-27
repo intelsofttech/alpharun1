@@ -1,0 +1,111 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+        <button style="padding-top:10px;  background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px; color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border">
+  <ion-row>
+	<ion-searchbar    (keyup)="applyFilter('event')"></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+      <ion-card *ngFor="let result of results; let i = index" >
+		  <div button  style="padding:7px;"  (click)="onselect(result.id, result.firstName+' '+result.lastName)">
+			<div >
+			<p style="margin:0px; font-size:14px; color:; margin-bottom:5px;">
+			<span><strong>{{ result.firstName }} {{ result.lastName }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Téléphone: {{ result.mobile }} Email: {{ result.emailaddress }}</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Ville: {{ result.city }}Adresse: {{ result.address }}</span></p>
+			</div>
+		  </div>
+	  </ion-card>
+	  
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			<div class="row">
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="firstName" formControlName="firstName" label-placement="floating" required  type="text" placeholder="Nom"><div slot="label">Nom</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="lastName" formControlName="lastName" label-placement="floating"   type="text" placeholder="Prénom Facultatif"><div slot="label">Prénom Facultatif</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="phone" formControlName="phone" label-placement="floating"   type="text" placeholder="Téléphone"><div slot="label">Téléphone</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="email" formControlName="email" label-placement="floating"   type="email" placeholder="Email"><div slot="label">Email</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="address" formControlName="address" label-placement="floating"   type="text" placeholder="Adresse"><div slot="label">Adresse</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="city" formControlName="city" label-placement="floating"   type="text" placeholder="Ville, commune, quartier"><div slot="label">Ville, commune, quartier</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-input [(ngModel)]="locateurl" formControlName="locateurl" label-placement="floating"   type="text" placeholder="URL Géolocalisation"><div slot="label">URL Géolocalisation</div></ion-input>
+				</ion-item>
+				</div>
+				<div class="col-md-12" style="margin-bottom:20px;">
+				<ion-item>
+					<ion-textarea [(ngModel)]="description" formControlName="description" labelPlacement="floating" placeholder="Détail"><div slot="label">Détail</div></ion-textarea>
+				</ion-item>
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					
+				</div>
+				<div class="col-md-6" style="margin-bottom:20px;">
+					
+				</div>
+			</div>
+			
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:30px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:30px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

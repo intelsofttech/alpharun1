@@ -1,0 +1,61 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+        <button style="padding-top:10px;background-color:{{backcolor1}}; "  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px; color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Ajout de ligne
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div style="padding:20px;">
+			 <ion-row  style="margin-top:0px;">
+			    
+				<div class="col-md-12" style="margin-bottom:0px;">
+					<div ><ion-button (click)="ProductModal()" fill="clear" style="text-transform:none;">Sélectionnez produit</ion-button></div>
+				</div>
+				<ion-col size="12">
+				<ion-item>
+				   <ion-input id="design" label-placement="floating"   type="text" placeholder="Désignation"><div slot="label">Désignation</div></ion-input>
+				</ion-item>
+				</ion-col>
+			</ion-row>
+			 <ion-row  style="margin-top:20px;">
+				<ion-col size="3">
+				<ion-item>
+					<ion-input	id="unity" label-placement="floating"   type="text" placeholder="Unité"><div slot="label">Unité</div></ion-input>
+				</ion-item>
+				</ion-col>
+				<ion-col size="4">
+				<ion-item>
+					<ion-input id="qty" label-placement="floating"   type="text" placeholder="Qté"><div slot="label">Qté</div></ion-input>
+				</ion-item>
+				</ion-col>
+				<ion-col size="5">
+				<ion-item>
+				   <ion-input id="prixu" label-placement="floating"   type="text" placeholder="Prix Unit."><div slot="label">Prix Unit.</div></ion-input>
+				</ion-item>
+				</ion-col>
+				<ion-col size="12">
+				<ion-item>
+					<ion-textarea  id="detail" labelPlacement="floating" placeholder="Détail"><div slot="label">Détail</div></ion-textarea>
+				</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="2">
+				   <ion-button  (click)="onAddLineToCart()">Ajouter</ion-button>
+				</ion-col>
+			</ion-row>
+			
+		</div>
+		
+</ion-content>

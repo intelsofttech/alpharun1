@@ -1,0 +1,103 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Caisses
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-header  class="ion-no-border">
+  <ion-row>
+	<ion-searchbar    (keyup)="applyFilter('event')"></ion-searchbar>
+  </ion-row>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+      <ion-card *ngFor="let result of results; let i = index" >
+		  <div button  style="padding:7px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;">
+			<span><strong>[{{ result.codecashdesk }}] {{ result.cashdesk }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Caissier:</strong> {{ result.cashiername }} </span></p>
+			
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Solde:</strong> {{ result.balance }} </span></p>
+			</div>
+			<p style="margin:0px;">
+			  <ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+		  </p>
+		  </div>
+	  </ion-card>
+	  
+  </div>
+
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()" *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			<br />
+			<ion-input label="Code" [(ngModel)]="codecashdesk" formControlName="codecashdesk" label-placement="floating" required  type="text" fill="outline" placeholder="Code"></ion-input>
+			<br />
+			<ion-input label="Caisse" [(ngModel)]="cashdesk" formControlName="cashdesk" label-placement="floating"  required  type="text" fill="outline" placeholder="Caisse"></ion-input>
+			<br />
+			<ion-input label="Compte comptable" [(ngModel)]="account" formControlName="account" label-placement="floating"   type="text" fill="outline" placeholder="Compte comptable"></ion-input>
+			<br />
+			<div style="display:none;">
+			<ion-input label="Caissier/ière" [(ngModel)]="cashiername" formControlName="cashiername" label-placement="floating"   type="text" fill="outline" placeholder="Caissier/ière"></ion-input>
+			<br />
+			<ion-input label="Caissier/ière"label-placement="floating"   type="email" fill="outline" placeholder="Caissier/ière"></ion-input>
+			<br />
+			</div>
+			
+			<ion-select label="Utilisateur"  (ionChange)="triggerEvent()" formControlName="cashier" [(ngModel)]="cashier" label-placement="floating" interface="popover" placeholder="Utilisateur"  fill="outline">
+				 <ion-select-option value="{{idsuper}}"  >Admin</ion-select-option>
+				 <ion-select-option  *ngFor="let user of users;" value="{{user.id}}"  >{{user.firstName}} {{user.lastName}}</ion-select-option>
+			</ion-select>
+			<div style="display:none;">
+			<ion-select label="Décaissements" formControlName="disbursementallow" [(ngModel)]="disbursementallow" label-placement="floating" interface="popover" placeholder="Décaissements"  fill="outline">
+				 <ion-select-option value="Aucun"  >Aucun</ion-select-option>
+				 <ion-select-option value="Esp"  >Espèce</ion-select-option>
+				 <ion-select-option value="MMoney" >Mobile Money</ion-select-option>
+				 <ion-select-option value="Banq"  >Banque</ion-select-option>
+				 <ion-select-option value="Banq+MMoney"  >Banque + Mobile Money</ion-select-option>
+				 <ion-select-option value="Esp+MMoney"  >Espèce + Mobile Money</ion-select-option>
+				 <ion-select-option value="Esp+MMoney+Banq"  >Espèce + Mobile Money + Banque</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-select label="Encaissements" formControlName="collectionallow" [(ngModel)]="collectionallow" label-placement="floating" interface="popover" placeholder="Encaissements"  fill="outline">
+				 <ion-select-option value="Aucun"  >Aucun</ion-select-option>
+				 <ion-select-option value="Esp"  >Espèce</ion-select-option>
+				 <ion-select-option value="MMoney" >Mobile Money</ion-select-option>
+				 <ion-select-option value="Banq"  >Banque</ion-select-option>
+				 <ion-select-option value="Banq+MMoney"  >Banque + Mobile Money</ion-select-option>
+				 <ion-select-option value="Esp+MMoney"  >Espèce + Mobile Money</ion-select-option>
+				 <ion-select-option value="Esp+MMoney+Banq"  >Espèce + Mobile Money + Banque</ion-select-option>
+			</ion-select>
+			</div>
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" [edge]="true">
+  <ion-fab-button style="margin-bottom:80px;" (click)="onNew()"  *ngIf="!addForm">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-button style="margin-bottom:80px;" (click)="onCancelNew()"  *ngIf="addForm">
+    <ion-icon name="close"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>

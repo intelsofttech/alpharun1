@@ -1,0 +1,59 @@
+								
+								<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		
+								<div>
+									<div>
+									  <p style=" margin-bottom:3px;"> N° Facture</p>
+									  <p style=" margin-bottom:3px;"><strong>5855225</strong></p>
+									</div>
+									<div>
+									   <p style=" margin-bottom:3px;">Date Facture</p>
+									  <p style=" margin-bottom:3px;"><strong>12/10/2023</strong></p>
+									</div>
+									<div>
+									   <p style=" margin-bottom:3px;">Net à Payer</p>
+									  <p style=" margin-bottom:3px;"><strong>200 000 F</strong></p>
+									</div>
+								</div>
+								
+								
+								<style type="text/css">
+			.styled-table {
+				border-collapse: collapse;
+				margin: 0px 0;
+				font-size: 0.9em;
+				font-family: sans-serif;
+				min-width: 400px;
+				color:#414242;
+			}
+			.styled-table thead tr {
+				background-color: #009879;
+				color: #ffffff;
+				text-align: left;
+				border: 1px solid #dddddd;
+			}
+
+			.styled-table tbody tr {
+				border-bottom: 1px solid #dddddd;
+			}
+			.styled-table thead tr th{
+				border-right: 1px solid #dddddd;
+				color:#414242;
+			}
+
+			.styled-table tbody tr:nth-of-type(even) {
+				background-color: #f3f3f3;
+			}
+
+			.styled-table tbody tr:last-of-type {
+				border-bottom: 2px solid #009879;
+			}
+			.styled-table tbody tr.active-row {
+				font-weight: bold;
+				color: #009879;
+			}
+
+
+
+
+		</style>

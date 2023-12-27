@@ -1,0 +1,179 @@
+<ion-app>
+<ion-content [fullscreen]="true" style="height:100%; padding:0px; background-color:;">
+<div class="" style="padding:0px; background-color:;">
+
+<div class="row">
+	<div class="col-md-4">
+
+	</div>
+	<div class="col-md-4">
+		<form   *ngIf="_loginPage">
+  
+		<ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center"  style="margin-top:40px; margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Connexion</ion-card-title>
+				<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+			</div> 
+			
+		  </ion-card-header>
+
+		  <ion-card-content>
+		   
+			<ion-input label="Telephone ou Email" id="username" label-placement="floating" required  type="text" fill="outline" placeholder="Telephone ou Email"></ion-input>
+
+			<br />
+			<ion-input label="Mot de passe" id="password" label-placement="floating" required type="password" fill="outline" placeholder="Mot de passe"></ion-input>
+			
+			<br />
+			<ion-button fill="clear" (click)="changePage('forget')">Mot de passe oublié?</ion-button>
+			<br />
+			<ion-button  *ngIf="isEmpty" (click)="onLogin()" type="button" expand="block">Connexion</ion-button>
+			<ion-button  *ngIf="!isEmpty" type="button" expand="block">Connexion en cour ...</ion-button>
+			<br />
+			<ion-button fill="outline" expand="block"  (click)="changePage('register')">Créer mon compte</ion-button>
+			
+		  </ion-card-content>
+		  </ion-card>
+		</form>
+		  
+		<form   *ngIf="_createsuccessfull">
+  
+		<ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center"  style="margin-top:40px; margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Création de compte terminé</ion-card-title>
+			</div> 
+			
+		  </ion-card-header>
+
+		  <ion-card-content style="margin-bottom:30px;">
+		   
+				<p style="padding:30px;">Votre compte a été créé avec succès. veuillez vous connecter pour continuer</p>
+			
+			<ion-button  *ngIf="isEmpty"  (click)="changePage('login')" type="button" expand="block">Connexion</ion-button>
+			<br />
+		  </ion-card-content>
+		  </ion-card>
+		</form>
+		  
+		  
+		  <form  (ngSubmit)="onForget()" *ngIf="_forgetPage">
+
+		  <ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Mot de passe oublié</ion-card-title>
+				<ion-card-subtitle>{{Message}}</ion-card-subtitle>
+			</div>
+			
+		  </ion-card-header>
+
+		  <ion-card-content>
+		   
+			<ion-input label="Telephone ou Email" id="_user_name" label-placement="floating" required  type="text" fill="outline" placeholder="Telephone ou Email"></ion-input>
+
+			<br />
+			<ion-button  type="submit" expand="block">Réinitialiser</ion-button>
+			<br />
+			<ion-button fill="outline" expand="block"  (click)="changePage('login')">Connexion</ion-button>
+			
+		  </ion-card-content>
+		  </ion-card>
+		  </form>
+		  
+		  
+		   
+		  
+		 <form  (ngSubmit)="onRegister()" *ngIf="_registerPage">
+
+		  <ion-card>
+		  <ion-card-header>
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Création de compte</ion-card-title>
+				<ion-card-subtitle color="danger">{{Message}}</ion-card-subtitle>
+			</div>
+			
+		  </ion-card-header>
+		  <ion-card-content>
+			
+			<ion-input label="Nom complet" id="_firstName" label-placement="floating"  type="text" fill="outline" placeholder="Nom complet"></ion-input>
+			<br />
+			<ion-input label="Téléphone" id="_phone" label-placement="floating"  type="text" fill="outline" placeholder="Téléphone"></ion-input>
+			<br />
+			<ion-input label="Ville, commune" id="_city" label-placement="floating"  type="text" fill="outline" placeholder="Ville, commune"></ion-input>
+			<br />
+			<ion-input label="Pays" id="_countrylabel" label-placement="floating"  (click)="presentModalCountry()" type="text" fill="outline" placeholder="Pays"></ion-input>
+			<div style="display:none;">
+			<ion-input label="Pays"  id="_country" label-placement="floating"   type="text" fill="outline" placeholder="Pays"></ion-input>
+			</div>
+			<br />
+			<ion-input label="Email" id="_email" label-placement="floating"  type="text" fill="outline" placeholder="Email"></ion-input>
+			<br />
+			<ion-input label="Mot de passe" id="_password" label-placement="floating" type="password" fill="outline" placeholder="Mot de passe"></ion-input>
+			<br />
+			<ion-input label="Confirmerot de passe" id="_password2" label-placement="floating" type="password" fill="outline" placeholder="Confirmerot de passe"></ion-input>
+			<br />
+			
+			<ion-button  *ngIf="isEmpty2" (click)="onRegister()" type="button" expand="block">Connexion</ion-button>
+			<ion-button  *ngIf="!isEmpty2" type="button" expand="block">Connexion en cour ...</ion-button>
+			<br />
+			<br />
+			<ion-button fill="outline" expand="block" (click)="changePage('login')">Connexion</ion-button>
+			
+		  </ion-card-content>
+		  </ion-card>
+		  </form>
+
+
+		 <div  *ngIf="_accounts">
+		 <ion-card >
+		  <ion-card-header  style=" margin-top:30px;">
+		  
+		   <div align="center" style="margin-bottom:20px;">
+		        <ion-img class="map" src="assets/images/logo.png" style="width:150px;height:auto;"></ion-img>
+				<ion-card-title>Sélectionner un compte</ion-card-title>
+			</div>
+			
+		  </ion-card-header>
+		  <ion-card-content>
+			   <ion-list>
+				  <ion-item button (click)="goMyAccount()" >
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>Mon compte</p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+				  <ion-item button  *ngFor="let result of list1; let i = index" (click)="goSelectAccount(result.numb, result.locate)">
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>{{result.ifu}} </p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+				  <ion-item button  *ngFor="let result of list2; let i = index" (click)="goSelectAccount(result.numb, result.locate)">
+					<ion-icon slot="start"  name="settings"></ion-icon>
+					<ion-label><p>{{result.ifu}}</p></ion-label>
+					<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+				  </ion-item>
+			  </ion-list>
+
+			
+		  </ion-card-content>
+		  </ion-card>
+		  </div>
+ 
+        
+	</div>
+	<div class="col-md-12"  *ngIf="_homePage">
+		<ion-router-outlet style="margin-top:0px; margin-left:;"></ion-router-outlet>
+	</div>
+</div>
+</div>
+</ion-content>
+</ion-app>

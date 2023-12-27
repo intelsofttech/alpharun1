@@ -1,0 +1,36 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+        <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <p style=" margin-left:15px; margin-top:35px;"><strong style=" "  style="color:#000000;">Sélectionnez</strong></p>
+											<div style=" margin-top:20px;">
+												<ion-item href="#"  routerLink="/partnerbill/1/COUNTED/0/Recettes et ventes/{{param1}}">
+												  <ion-label style=" color:;">Recettes et ventes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partnerbill/1/DEVIS/3/Dévis/{{param1}}">
+												  <ion-label style=" color:;">Dévis</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partnerbill/1/PROFORMA/4/Proformas/{{param1}}">
+												  <ion-label style=" color:;">Proformas</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partnerbill/2/COUNTED/2/Charges et commandes/{{param1}}">
+												  <ion-label style=" color:;">Charges et commandes</ion-label>
+												</ion-item>
+												<ion-item href="#"  routerLink="/partnerbill/2/BON-COMMANDE/3/Bons de commandes/{{param1}}">
+												  <ion-label style=" color:;">Bons de commandes</ion-label>
+												</ion-item>
+											</div>
+											
+</ion-content>

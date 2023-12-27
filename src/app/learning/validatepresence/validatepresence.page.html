@@ -1,0 +1,51 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+        <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Validation de présence
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <div style="padding:15px;">
+				<p style="margin-bottom:0px;font-size:14px; color:#;">Date</p>
+				<p style="margin-bottom:5px;font-size:14px; color:{{backcolor1}}; border-bottom:1px solid #f8f9f9;">{{addDate| date: 'dd/MM/yyyy'}}</p>
+				
+				<p style="margin-bottom:0px;font-size:14px; color:#;">Heure</p>
+				<p style="margin-bottom:5px;font-size:14px; color:{{backcolor1}}; border-bottom:1px solid #f8f9f9;">{{heure}}</p>
+				
+				<p style="margin-bottom:0px;font-size:14px; color:#;">Matière</p>
+				<p style="margin-bottom:5px;font-size:14px; color:{{backcolor1}}; border-bottom:1px solid #f8f9f9;">{{material}}</p>
+				
+				<p style="margin-bottom:0px;font-size:14px; color:#;">Classe</p>
+				<p style="margin-bottom:5px;font-size:14px; color:{{backcolor1}}; border-bottom:1px solid #f8f9f9;">{{classlist}}</p>
+				
+				<div class="row">
+					<div class="col-md-2">
+						<ion-button type="button" color="primary"  (click)="onAddpresence()" *ngIf="!isSend"expand="block">Valider</ion-button>
+						<ion-button type="button" *ngIf="isSend" expand="block">En cours ...</ion-button>
+					</div>
+					<div class="col-md-2">
+						<ion-button type="button"  (click)="closemodal('0', '0')"  fill="clear" expand="block">Annuler</ion-button>
+					</div>
+					<div class="col-md-6">
+				
+					</div>
+				</div>
+			</div>
+			 
+  </ion-card>
+</ion-content>

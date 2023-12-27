@@ -1,0 +1,78 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+          <button style="padding-top:10px; background-color:{{backcolor1}};"  (click)="closemodal('0','0')">
+            <ion-icon name="arrow-back" style="font-size:25px;color:{{textcolor}};"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Sélectionner une chambre
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+  
+  <ion-row  style="margin-top:20px;">
+    <ion-col size="8">
+       <ion-select label="Sélectionnez le type" id="bedroomcateg" (ionChange)="onListbyType()"   label-placement="floating" interface="popover" placeholder="Sélectionnez le type"  fill="outline">
+		<ion-select-option  *ngFor="let line of types;" value="{{line.id}}"  >{{line.name}} {{line.priceNight}} F</ion-select-option>
+	   </ion-select>
+    </ion-col>
+    <ion-col size="4">
+       <div align="right">
+	      <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list" style="color:#707071;"></ion-icon> </ion-button>
+		  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps" style="color:#707071;"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+  
+ <div style="padding:10px;" >
+ 
+		 <table style="width:100%;"  *ngIf="listmode">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td style="width:50%;">Libellé</td>
+					<td>Prix Nuité</td>
+					<td>Demi Tarif</td>
+					<td>Prix Heure</td>
+					<td></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results">
+					<td>{{ result.id }}</td>
+					<td>{{ result.name }}</td>
+					<td>{{ priceNight }}</td>
+					<td>{{ minPrice }}</td>
+					<td>{{ priceHour }}</td>
+					<td>
+						<ion-button  fill="clear" slot="end"   (click)="onAddLineToCart(result.id,result.name,result.bedroomcategcode)">Sélectionner</ion-button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	  <div  *ngIf="gridmode" style="margin-bottom:80px;">
+		  <ion-card  *ngFor="let result of results" style="padding:15px;">
+			<p  style="margin:2px;"><strong>{{ result.name }}</strong> </p>
+			
+			<p style="margin:2px;"> <span style="font-size:14px;">   Prix nuité: {{ priceNight }}  Demi Tarif: {{ minPrice }} Prix Heure: {{ priceHour }}</span></p>
+		  
+		  <p style="margin:2px;"><ion-button  fill="clear" slot="end"   (click)="onAddLineToCart(result.id,result.name,result.bedroomcategcode)">Sélectionner</ion-button></p>
+		  </ion-card>
+	  </div>
+  </div>
+
+</ion-content>

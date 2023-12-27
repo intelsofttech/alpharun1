@@ -1,0 +1,73 @@
+<ion-header  >
+  <ion-grid style="background-color:#1258da; color:#ffffff padding:5px;">
+   <ion-row  style="background-color:#1258da; color:#ffffff; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+	   Crédit d’appel et DATA
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <div  style="background-color:#1a78f7; width:100%; height:80px; padding:20px;">
+	<ion-row>
+		<ion-col size="5">
+			<p style="font-size:16px; margin-top:7px; color:#ffffff;"><strong  *ngIf="showsolde">Solde {{solde}} F</strong><strong  *ngIf="!showsolde">Solde ******** XOF</strong></p>
+		</ion-col>
+		<ion-col size="1">
+		<ion-button fill="clear" (click)="Refresh()"><ion-icon aria-hidden="true" style="color:#ffffff;" name="eye"></ion-icon></ion-button>
+		
+		</ion-col>
+	</ion-row>
+ </div>
+ 	  <div style="padding:20px;">AIRTIME ET DATA INTERNET</div>
+	  
+	  <ion-row> 
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Facture/Pass internet/Pass internet">
+			  <ion-card-content  style="margin:2px;" >
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/orange.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Pass-internet</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Facture/Pack internet/Pack internet">
+			  <ion-card-content  style="margin:2px;" >
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/mtn.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Pack-internet</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Facture/Izy internet/Izy internet">
+			  <ion-card-content  style="margin:2px;" >
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/moovafrica.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Izy internet</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Airtime/Airtime/Airtime">
+			  <ion-card-content  style="margin:2px;" >
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/phone.png" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Airtime</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+ 
+</ion-content>

@@ -1,0 +1,171 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Paiement
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  	<form [formGroup]="categForm" (ngSubmit)="onAddPayment()"  *ngIf="operform">
+	
+		<div  class="row" style="padding:0px; margin-top:30px;" *ngIf="showmessage">
+		
+			<div class="col-md-12" style="padding:0px;" >	
+				<div style="padding:20px;padding-bottom:0px;"><strong>AJOUT PAIEMENT</strong></div>
+				<ion-card  style="margin:0px; border:1px solid #c0c0c0; margin-left:12px; margin-top:12px;">
+				
+				<div style="border-bottom:1px solid #c0c0c0; display:none;">
+					<ion-row>
+						<ion-col size="6">
+						   <div style="margin-left:10px; margin-top:7px; text-transform:upercase;">PAIEMENT</div>
+						</ion-col>
+						<ion-col size="3" >
+							
+						</ion-col>
+						<ion-col size="3">
+							<ion-button  fill="clear" > <ion-icon style="color:#;" name="wallet"></ion-icon></ion-button>
+							
+						</ion-col>
+					</ion-row>
+				</div>
+				<div style="padding:15px;" class="row">
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-select labelPlacement="floating" interface="popover"  [(ngModel)]="method" formControlName="method" >
+								 <ion-select-option value="CASH">Espèce</ion-select-option>
+								 <ion-select-option value="MOBILE MONEY">Mobile Money</ion-select-option>
+								 <ion-select-option value="WAVE MOBILE">Wave Mobile</ion-select-option>
+								 <ion-select-option value="VERSEMENT">Versement</ion-select-option>
+								 <ion-select-option value="CHEQUE">Chèque</ion-select-option>
+								 <ion-select-option value="CARTE">Carte bancaire</ion-select-option>
+								 <ion-select-option value="VIREMENT">Virement</ion-select-option>
+								 <ion-select-option value="TRANSFERT">Transfert</ion-select-option>
+								 <div slot="label">Mode de paiement</div>
+							</ion-select>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="amount" formControlName="amount" type="text">
+							  <div slot="label">Montant</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""  [(ngModel)]="name" formControlName="name" type="text">
+							  <div slot="label">Nom</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value=""   [(ngModel)]="phone" formControlName="phone" type="text">
+							  <div slot="label">Téléphone</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" [(ngModel)]="reference" formControlName="reference" type="text">
+							  <div slot="label">Référence</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" required [(ngModel)]="addDate" formControlName="addDate" type="date">
+							  <div slot="label">Date</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					<div class="col-md-6" style="margin-bottom:20px;">
+						<ion-item>
+							<ion-input labelPlacement="floating" value="" [(ngModel)]="establishment" formControlName="establishment" type="text">
+							  <div slot="label">Etablissement</div>
+							</ion-input>
+						</ion-item>
+					</div>
+					
+					
+				</div>
+				</ion-card>
+		  
+			</div>
+		
+			<div class="col-md-3" style="margin-bottom:50px;margin-top:20px;">
+					<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+					<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			</div>
+			
+			<div class="col-md-2" style="margin-bottom:50px;margin-top:20px;">
+					<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+			</div>	
+		</div>
+		<div style="margin-bottom:70px;">
+         </div>
+	</form>
+	 <div   *ngIf="!operform">
+	    <ion-card >
+			<div style="border-bottom:1px solid #c0c0c0;">
+				<div class="row" style="padding:7px;">
+					<div class="col-md-1">
+					   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+					</div>
+					<div class="col-md-7">
+					   <div style="margin-top:10px; text-transform:upercase;">
+						PAIEMENT
+					   </div>
+					</div>
+					<div class="col-md-4" >
+						<div align="right">
+						 <ion-button  fill="clear"  (click)="onAdd()"style="color:#707071;">Ajouter</ion-button>
+						<ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+						<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+	    </ion-card>
+	   
+	<div class="row">  
+		<div class="col-md-12"  *ngFor="let line of list; let i = index" >  
+			 <ion-card style=" ">
+				<div style="padding:10px; border-bottom:1px solid #c0c0c0;">
+					<div class="row">  
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>Montant: </strong>{{ line.amount }}F</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>N° {{ line.id }}  Mode: </strong>{{ line.method }}</p>
+						</div> 
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>Réference: </strong>{{ line.reference }}</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong> Pour : </strong>{{ line.name }}</p>
+						</div>
+						<div class="col-md-4">
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>  Date: </strong>{{ line.createdAt| date: 'dd/MM/yyyy' }}</p>
+							<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><strong>  Heure:</strong> {{ line.createdAt| date: 'HH:MM' }}</p>
+						</div>
+					</div>
+				</div>
+			</ion-card>
+		</div>		
+	 </div>
+	 <h5  style="font-size:14px; margin-left:15px; color:#474847;"><strong>TOTAL: {{amountTotal}}F</strong></h5>	
+	 </div>
+	 
+	 
+  <div style="margin-bottom:200px;"></div>
+</ion-content>

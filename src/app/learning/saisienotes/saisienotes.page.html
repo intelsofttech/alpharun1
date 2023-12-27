@@ -1,0 +1,84 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+
+<ion-content [fullscreen]="true">
+
+<form [formGroup]="pageForm" >
+  <ion-card style="padding:20px;">
+	<div class="row">
+		<div class="col-md-4">
+			<ion-item>
+			<ion-select labelPlacement="floating" (ionChange)="onRefresh()"   [(ngModel)]="periode" formControlName="periode"  interface="popover" >
+					 <ion-select-option  *ngFor="let result of periodes"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+				     <div slot="label">Période</div>
+				</ion-select>
+			</ion-item>	
+		</div>
+		<div class="col-md-4">
+			<ion-item>
+			<ion-select labelPlacement="floating" (ionChange)="onRefresh()"   [(ngModel)]="matiere" formControlName="matiere"  interface="popover" >
+					 <ion-select-option  *ngFor="let result of matieres"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+				     <div slot="label">Matière</div>
+				</ion-select>
+			</ion-item>	
+		</div>
+		<div class="col-md-4">
+			<ion-item>
+			<ion-select labelPlacement="floating" (ionChange)="onRefresh()"   [(ngModel)]="note" formControlName="note"  interface="popover" >
+					 <ion-select-option  *ngFor="let line of notes"  value="{{ line.id }}" >{{ line.label }}</ion-select-option>
+				     <div slot="label">Note</div>
+				</ion-select>
+			</ion-item>	
+		</div>
+	</div>
+  </ion-card>
+</form>
+  
+   <ion-card style="padding:15px;">
+	<table style="width:100%;" >
+		<thead>
+			<tr>
+				<td style="width:210px;">Nom</td>
+				<td style="width:80px;">{{libnote}}/{{maxnote}}</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of list; let i = index">
+				<td  style="padding:0px;padding-left:10px;">
+				<p style="margin-bottom:0px;">{{ result.firstName }} {{ result.firstName }}</p>
+				<p style="margin-bottom:0px; font-size:; color:green; ">{{ result.userName }}</p>
+				</td>
+				<td style="padding:0px;padding-left:10px;">
+					<ion-input labelPlacement="floating" value="{{result.post}}" minlength="20" maxlength="{{maxnote}}" value=""  (keyup)="onUpdateNote(result.auto, result.id, $event, result.computer, i)" >
+					  <div slot="label">Note</div>
+					</ion-input>
+				</td>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>  
+	
+   </ion-card>
+   
+   
+  <div style="margin-bottom:200px;">
+  </div>
+  
+  
+</ion-content>

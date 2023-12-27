@@ -1,0 +1,42 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <button style="padding-top:10px; background-color:#187ad1;"  (click)="closemodal()">
+            <ion-icon name="arrow-back" style="font-size:25px;color:#ffffff;"  showWhen="android,windows"></ion-icon>
+          </button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		    {{title}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="postForm" (ngSubmit)="onAdd()" >
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			<br />
+			<ion-input label="Libellé" [(ngModel)]="libelle" formControlName="libelle" label-placement="floating"   type="text" fill="solid" placeholder="Libellé"></ion-input>
+			<br />
+			<ion-input label="Quantité" (keyup)="onCalcul()"  [(ngModel)]="qte" id="qte" formControlName="qte" label-placement="floating"   type="text" fill="solid" placeholder="Quantité"></ion-input>
+			<br />
+			<ion-input label="Prix" (keyup)="onCalcul()"  [(ngModel)]="prix" id="prix" formControlName="prix" label-placement="floating"   type="text" fill="solid" placeholder="Prix"></ion-input>
+			<br />
+			<ion-input label="Total" [(ngModel)]="total" id="total" readonly formControlName="total" label-placement="floating"   type="text" fill="solid" placeholder="Total"></ion-input>
+			<br />
+			<ion-input label="Marge" [(ngModel)]="margin" id="margin" readonly formControlName="margin" label-placement="floating"   type="text" fill="solid" placeholder="Marge"></ion-input>
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear"  expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+  
+</ion-content>

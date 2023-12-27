@@ -1,0 +1,136 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Détail
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-card>
+		<div style="padding:10px; border-bottom:1px solid #c0c0c0;">
+		<ion-row>
+			<ion-col  size="6">
+			
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ title }}" readonly type="text">
+					<div slot="label">Objet</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ amount }}" readonly  type="text">
+					<div slot="label">Montant</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ addDate| date: 'dd/MM/yyyy' }}" readonly  type="text">
+					<div slot="label">Date</div>
+					</ion-input>
+				</ion-item>
+				
+			</ion-col>
+			<ion-col  size="6">
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ createdAt| date: 'dd/MM/yyyy' }} {{ createdAt| date: 'HH:MM' }} " readonly type="text">
+					<div slot="label">Date Heure Ajout</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ reference }}" readonly  type="text">
+					<div slot="label">Réference</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ eventDate| date: 'dd/MM/yyyy' }}" readonly  type="text">
+					<div slot="label">Echéance</div>
+					</ion-input>
+				</ion-item>
+				
+			</ion-col>
+			<ion-col  size="12">
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ projet }}" readonly  type="text">
+					<div slot="label">Projet</div>
+					</ion-input>
+				</ion-item>
+			</ion-col>
+	    </ion-row>
+		<ion-row>
+			<ion-col  size="12" style="text-transform:uppercase; margin-left:15px;">
+				<strong>{{categpart}}</strong>
+			</ion-col>
+		</ion-row>
+		<ion-row>
+			
+			<ion-col  size="6">
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ partner }}" readonly  type="text">
+					<div slot="label">Nom</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ phone1 }}" readonly  type="text">
+					<div slot="label">Téléphone</div>
+					</ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col  size="6">
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ email }}" readonly  type="text">
+					<div slot="label">Email</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ city }}" readonly  type="text">
+					<div slot="label">Ville</div>
+					</ion-input>
+				</ion-item>
+			</ion-col>
+			
+			<ion-col  size="12">
+				<ion-item>
+					<ion-input labelPlacement="floating" value="{{ address }}" readonly  type="text">
+					<div slot="label">Adresse</div>
+					</ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-textarea labelPlacement="floating" value="{{ detail }}" readonly  type="text">
+					<div slot="label">Détail</div>
+					</ion-textarea>
+				</ion-item>
+			</ion-col>
+	    </ion-row>
+				
+			
+			
+		</div>
+	</ion-card>
+	<h5  style="font-size:14px; margin-left:15px; color:#474847;">PRODUITS</h5>
+    <ion-card >
+		<div  *ngFor="let result of cartprod; let i = index" style="border-bottom:1px solid #c0c0c0;">
+		  <div button  style="padding:10px;">
+			<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><span><strong>{{ result.label }}</strong> </span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span><strong>Quantité:</strong> {{ result.quantity }} <strong>Prix: </strong>{{ result.price }} <strong>Prix Total: </strong>{{ result.total }} <strong>Marge: </strong>{{ result.margin }}</span></p>
+		  </div>
+		</div>
+	</ion-card>
+	<h5  style="font-size:14px; margin-left:15px; color:#474847;">PAIEMENTS</h5>
+    <ion-card style=" margin-bottom:80px;">
+		<div  *ngFor="let line of list; let i = index" style="padding:10px; border-bottom:1px solid #c0c0c0;">
+			<p style="margin:0px; font-size:14px; color:#; margin-bottom:2px;"><span><strong>N° {{ line.id }} Montant: </strong>{{ line.amount }}F<strong>   Mode: </strong>{{ line.method }}</span></p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><strong>Réference: </strong>{{ line.reference }} <strong> Pour : </strong>{{ line.name }}</span></p>
+				<p style="margin:0px;  margin-bottom:2px;font-size:14px;"><span><strong>  Date: </strong>{{ line.createdAt| date: 'dd/MM/yyyy' }}<strong>  Heure:</strong> {{ line.createdAt| date: 'HH:MM' }} </span></p>
+		</div>
+	</ion-card>
+	<h5  style="font-size:14px; margin-left:15px; color:#474847;"><strong>TOTAL: {{amountTotal}}F</strong></h5>
+</ion-content>

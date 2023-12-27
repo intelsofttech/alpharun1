@@ -1,0 +1,45 @@
+<ion-header>
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Mon compte
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-list>
+		  <ion-item button routerLink="/information">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Mes informations</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/motdepasse">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Changer mot de passe</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button  routerLink="/users/user/Utilisateurs">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Utilisateurs</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/caisse">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Caisses</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/partner/banque/Banque et Mobile Money">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Banque et Mobile Money</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+	  </ion-list>
+</ion-content>
+

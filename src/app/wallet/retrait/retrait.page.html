@@ -1,0 +1,118 @@
+<ion-header  >
+  <ion-grid style="background-color:#1258da; color:#ffffff padding:5px;">
+   <ion-row  style="background-color:#1258da; color:#ffffff; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Encaisser de l’argent
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div  style="background-color:#1a78f7; width:100%; height:80px; padding:20px;">
+	<ion-row>
+		<ion-col size="5">
+			<p style="font-size:16px; margin-top:7px; color:#ffffff;"><strong  *ngIf="showsolde">Solde {{solde}} F</strong><strong  *ngIf="!showsolde">Solde ******** XOF</strong></p>
+		</ion-col>
+		<ion-col size="1">
+		<ion-button fill="clear" (click)="Refresh()"><ion-icon aria-hidden="true" style="color:#ffffff;" name="eye"></ion-icon></ion-button>
+		
+		</ion-col>
+	</ion-row>
+ </div>
+ <div>
+	<ion-card class="showdownclass" style="margin:px; display:none;">
+		<ion-card-content  style="margin:2px;" >
+			<ion-row>
+				<ion-col size="12">
+					<p style="font-size:12px; color:;"><strong>Edition des opérations</strong></p>
+				</ion-col>
+				<ion-col size="5">
+					<input type="date" style="background-color:#ffffff;padding:7px; border:1pw sold #c0c0c0;" /> 
+				</ion-col>
+				<ion-col size="5">
+					<input type="date" style="background-color:#ffffff;padding:7px; border:1pw sold #c0c0c0;" /> 
+				</ion-col>
+				<ion-col size="2">
+					<button class="btn btn-default" style="background-color:#ffffff; color:#3f4142;"> <ion-icon aria-hidden="true" name="search"></ion-icon></button>
+				</ion-col>
+			</ion-row>
+		</ion-card-content>
+	</ion-card>
+ </div>
+ <div>
+ 
+       <div  style="padding:20px;">RETRAITS</div>
+	  <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Retrait/Orange Money/Rétrait Orange Money">
+			  <ion-card-content  style="margin:2px;" >
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/orange.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Orange</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/addoperationapi/Retrait/MTN Mobile Money/Rétrait MTN Mobile Money">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/mtn.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">MTN</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/addoperationapi/Retrait/Moov Money/Rétrait Moov Money">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/moovafrica.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Moov</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  <ion-row>
+	   <ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"   routerLink="/addoperationapi/Retrait/Wave/Rétrait Wave">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/wave.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Wave</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col> 
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/addoperationapi/Retrait/Carte Visa UBA/Rétrait Carte Visa Prépayée">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/visa.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Visa UBA</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+		<ion-col size="4">
+			<ion-card class="showdownclass" style="margin:2px;"  routerLink="/addoperationapi/Retrait/Carte Mastercard/Rétrait Carte Mastercard">
+			  <ion-card-content>
+			   <div align="center" style="margin-bottom:0px;">
+					<ion-img src="assets/images/mastercard.jpg" style="width:70px; height:auto;"></ion-img>
+				</div>
+			   <div align="center" style="margin-bottom:; font-size:11px;">Mastercard</div>
+			  </ion-card-content>
+			</ion-card>
+		</ion-col>
+	  </ion-row>
+	  
+
+ </div>
+</ion-content>

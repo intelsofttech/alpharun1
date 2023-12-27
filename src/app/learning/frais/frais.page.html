@@ -1,0 +1,133 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		  Frais de scolarité
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <form [formGroup]="pageForm"  style="margin-top:20px;margin-left:20px;">
+		<div class="row">
+			<div class="col-md-6" style="margin-bottom:20px; display:none">
+				<ion-select label="Sélectionnez la filière" (ionChange)="onListLevel()" [(ngModel)]="filiere" formControlName="filiere"  label-placement="floating"   interface="popover" placeholder="Sélectionnez la filière"  fill="outline">
+					<ion-select-option  *ngFor="let line of parents;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+				</ion-select>
+			</div>
+			<div class="col-md-6" style="margin-bottom:20px;">
+				<ion-select label="Tous les niveaux" (ionChange)="onList()" [(ngModel)]="level" formControlName="level"  label-placement="floating"   interface="popover" placeholder="Tous les niveaux"  fill="outline">
+					<ion-select-option  value="0">Sélectionner un niveau</ion-select-option>
+					<ion-select-option  *ngFor="let line of niveaux;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+				</ion-select>
+			</div>
+		</div>
+			
+   </form>
+  
+ <div style="padding-left:20px;"  *ngIf="!addForm">
+<ion-row  style="margin-top:0px;">
+    <ion-col size="2">
+       <ion-button *ngIf="addbutton" fill="clear" (click)="onNew()"  style="color:#707071;">Ajouter</ion-button>
+    </ion-col>
+    <ion-col size="10">
+       <div align="right">
+	      <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+		  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+ <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td >Libellé</td>
+			<td>Montant</td>
+			<td>Echéance</td>
+			<td>Réductible</td>
+			<td>Obligatoire</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.label }}</td>
+			<td>{{ result.amount }} F</td>
+			<td>{{ result.datepay1| date: 'dd/MM/yyyy' }}</td>
+			<td>{{ result.reduction }}</td>
+			<td>{{ result.obligatory }}</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	  <div  *ngIf="gridmode">
+		  <ion-card button *ngFor="let result of results" style="padding:20px;">
+			<p style="margin-bottom:3px;"><strong>{{ result.label }}</strong> </p>
+			<p style="margin-bottom:3px;">Montant: <strong>{{ result.amount }} F</strong> Echéance: <strong>{{ result.datepay1| date: 'dd/MM/yyyy' }}</strong></p>
+			<p style="margin-bottom:0px;">Réductible: <strong>{{ result.reduction }}</strong> Obligatoire à l'inscription:<strong>{{ result.obligatory }}</strong></p>
+		    <p style="margin-bottom:0px;"> 
+			<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)" > <ion-icon name="pencil"></ion-icon> </ion-button>
+		    <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</p> 
+		  </ion-card>
+	  </div>
+  </div>
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="left"><h3><strong>{{liboperation}}</strong></h3></div>
+			<div class="row">
+				<div class="col-md-12" style="margin-bottom:20px; display:none">
+					<ion-input label="label" [(ngModel)]="label" formControlName="label" label-placement="floating" required  type="text" fill="outline" placeholder=""></ion-input>
+			    </div>
+				<div class="col-md-8" style="margin-bottom:20px;">
+					<ion-select label="Sélectionnez le frais"  [(ngModel)]="idfee" formControlName="idfee"  label-placement="floating" (ionChange)="onGetfee()"  interface="popover" placeholder="Sélectionnez le frais"  fill="outline">
+						<ion-select-option  *ngFor="let line of typesfrais;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+					</ion-select>
+			    </div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Montant" [(ngModel)]="amount" formControlName="amount" label-placement="floating"   type="number" fill="outline" placeholder="Montant"></ion-input>
+			    </div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-input label="Echéance" [(ngModel)]="datepay1" formControlName="datepay1" label-placement="floating"   type="date" fill="outline" placeholder="Echéance"></ion-input>
+			    </div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-select label="Réductible"  [(ngModel)]="reduction" formControlName="reduction"  label-placement="floating"  interface="popover" placeholder="Réductible"  fill="outline">
+						<ion-select-option  value="Non">Non</ion-select-option>
+						<ion-select-option  value="Oui">Oui</ion-select-option>
+					</ion-select>
+			    </div>
+				<div class="col-md-4" style="margin-bottom:20px;">
+					<ion-select label="Obligatoire"  [(ngModel)]="obligatory" formControlName="obligatory"  label-placement="floating"  interface="popover" placeholder="Obligatoire"  fill="outline">
+						<ion-select-option  value="Non">Non</ion-select-option>
+						<ion-select-option  value="Oui">Oui</ion-select-option>
+					</ion-select>
+			    </div>
+			</div>
+			
+			<br />
+			
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+</ion-content>

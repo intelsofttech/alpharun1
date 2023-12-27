@@ -1,0 +1,96 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="pageForm" >
+  <ion-card style="padding:20px;">
+	<div class="row">
+		<div class="col-md-3">
+			<ion-select labelPlacement="floating" (ionChange)="onList()"   [(ngModel)]="classe" formControlName="classe"  interface="popover" >
+					 <ion-select-option selected value="0">Toutes les classes</ion-select-option>
+					 <ion-select-option  *ngFor="let result of classes"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+				     <div slot="label">Classe</div>
+				</ion-select>
+		</div>
+		<div class="col-md-6">
+		
+		</div>
+		<div class="col-md-3" align="right">
+			<ion-button fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list" style="color:#707071;"></ion-icon> </ion-button>
+			  <ion-button fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps" style="color:#707071;"></ion-icon> </ion-button>
+		</div>
+	</div>
+  </ion-card>
+  </form>
+  <ion-card style="padding:20px;"  *ngIf="listmode">
+	<table style="width:100%;">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Mle</td>
+				<td>Nom</td>
+				<td>Prénom(s)</td>
+				<td>Date de naiss.</td>
+				<td>Sexe</td>
+				<td>Commune</td>
+				<td>Téléphone</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results">
+				<td>{{ result.id }}</td>
+				<td>{{ result.userName }}</td>
+				<td>{{ result.firstName }}</td>
+				<td>{{ result.lastName }}</td>
+				<td>{{ result.birthDate| date: 'dd/MM/yyyy' }}</td>
+				<td>{{ result.gender }}</td>
+				<td>{{ result.commune }}</td>
+				<td>{{ result.mobile }}</td>
+				<td>
+					
+				</td>
+			</tr>
+		</tbody>
+	</table>  
+	
+	</ion-card>
+<div  *ngIf="gridmode">  
+	   <div class="row">
+			<div class="col-md-4" *ngFor="let result of results; let i = index" >
+				<ion-card style="padding:20px;">
+				  <p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:0px;">
+						<span><span>{{ result.firstName }} {{ result.lastName }}</span></span>
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:0px;"><span>Id:</span> {{ result.id }} <span> Mle:</span> {{ result.userName }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:0px;"><span>Téléphone:</span> {{ result.mobile }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:0px;"><span>Email: </span>{{ result.emailaddress }}</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:0px;"><span><span>Commune: </span>{{ result.commune }}</span></p>
+						
+						<p style="margin:0px;">
+						  <ion-button  fill="clear" slot="end"  routerLink="/editabsences/{{ result.id }}/8/{{ result.firstName }} {{ result.lastName }}" > <ion-icon name="time" style=" font-size:16px; " ></ion-icon> </ion-button>
+						  <ion-button  fill="clear" slot="end"  > <ion-icon name="document" style=" font-size:16px; "></ion-icon> </ion-button>
+						  <ion-button  fill="clear" slot="end" > <ion-icon name="chatbox-ellipses" style=" font-size:16px; "></ion-icon> </ion-button>
+						</p>
+				</ion-card>	
+			</div>
+		</div>
+		
+	  </div> 	
+</ion-content>

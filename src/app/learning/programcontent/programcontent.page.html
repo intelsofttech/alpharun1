@@ -1,0 +1,120 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param4}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+  <ion-row  style="margin-top:20px;">
+    <ion-col size="4">
+       <ion-button  fill="clear" (click)="onNew()"  style="color:#707071;">Ajouter</ion-button>
+    </ion-col>
+    <ion-col size="8">
+       <div align="right">
+	      <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+		  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+  
+ <div style="padding:10px;"  *ngIf="!addForm">
+ 
+ <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td style="width:50%;">Libellé</td>
+			<td>Code</td>
+			<td>Date</td>
+			<td>Heure</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.label }}</td>
+			<td>{{ result.parent }}</td>
+			<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+			<td>{{ result.createdAt| date: 'HH:MM' }}</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	  <ion-list  *ngIf="gridmode">
+	  
+		  
+		<div class="row">
+			<div class="col-md-4" *ngFor="let result of results">
+				<ion-card style="padding:12px;">
+					<p style="margin-bottom:5px;"><strong>{{ result.label }}</strong></p> 
+					<p style="margin-bottom:5px;">  {{ result.resume }}</p>
+					<p style="margin-bottom:px;">  
+						<ion-button  fill="clear" slot="end"  routerLink="/contentdetail/{{ result.id }}/{{ result.label }}" > <ion-icon name="enter" style="font-size:18px;"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)" > <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+						<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash" style="font-size:18px;"></ion-icon> </ion-button>
+					</p>
+				  </ion-card>
+			</div>
+		</div>
+	  </ion-list>
+  </div>
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			
+			<br />
+			<ion-input label="Titre" [(ngModel)]="label" formControlName="label" label-placement="floating" required  type="text" fill="outline" placeholder="Titre"></ion-input>
+			<br />
+			<ion-button fill="clear"  (click)="onSelectImage('image')" style="width:150px; text-transform:none;" expand="block">Ajouter un fichier</ion-button>
+			<div style="display:none1;">
+			<ion-input label="Fichier" readonly [(ngModel)]="filename" formControlName="filename" label-placement="floating"   type="text" fill="outline" placeholder="Fichier"></ion-input>
+			</div>
+			<br />
+			<ion-input label="Iframe url" [(ngModel)]="iframe" formControlName="iframe" label-placement="floating"   type="text" fill="outline" placeholder="Iframe url"></ion-input>
+			<br />
+			<ion-textarea label="Résumé" [autoGrow]="true" [(ngModel)]="resume" formControlName="resume" labelPlacement="floating" fill="outline" placeholder="Résumé"></ion-textarea>
+			<br />
+			<ion-textarea label="Contenu" [autoGrow]="true" [(ngModel)]="description" formControlName="description" labelPlacement="floating" fill="outline" placeholder="Contenu"></ion-textarea>
+			<br />
+			
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+			
+			
+			
+			
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+<ion-button  id="open-action-sheet" fill="clear"  style="display:none; text-transform:capitalize;">Ajouter un fichier</ion-button>
+			<ion-action-sheet
+				trigger="open-action-sheet"
+				header="Dépuis"
+				[buttons]="actionSheetButtons"
+				(didDismiss)="setResult($event)">
+			</ion-action-sheet>
+</ion-content>

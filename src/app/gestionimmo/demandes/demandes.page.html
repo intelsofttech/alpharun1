@@ -1,0 +1,50 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Demandes
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+	
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+				  
+  	 <div  class="row">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card>
+			  <div button  style="padding:7px;">
+				<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:2px;"><span>Objet : {{ result.type }}</span></p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;">
+				<span>Type de bien : {{result.category}}</span> </p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Type de maison : </span>{{ result.option1 }}</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Nombre de pièces : </span>{{ result.option2 }} pièces</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Personne : </span>{{ result.nom }}</p>
+				<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span>Téléphone : </span>{{ result.phone }}</p>
+				
+				
+				<p style="margin:0px;">
+				  <ion-button fill="clear" slot="end"  routerLink="/demandesdetail/{{ result.id }}/1/{{ result.nom }}" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  
+				  <ion-button  (click)="onGetStatment(result.id)" fill="clear" slot="end" > <ion-icon name="return-up-forward"></ion-icon> </ion-button>
+				  <ion-button  style="display:none1;" fill="clear" slot="end"  routerLink="/demandesdetail/{{ result.id }}/2/{{ result.nom }}" style="display:none1;"> <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end" style="display:none1;"  (click)="onDelete(result.id)"> <ion-icon name="trash" style="font-size:18px;"></ion-icon> </ion-button>
+				  
+				  </p>
+			  </div>
+		    </ion-card>
+	  
+		</div>
+	</div>
+	
+<div style="margin-bottom:300px;">
+</div>
+</ion-content>

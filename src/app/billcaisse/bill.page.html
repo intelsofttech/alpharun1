@@ -1,0 +1,172 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}s
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-header  class="ion-no-border" *ngIf="search">
+  <ion-card>
+  <ion-row>
+	<ion-col  size="6">
+       <ion-input label="Du" label-placement="floating"   type="date" fill="solid" placeholder="Du"></ion-input>
+    </ion-col>
+	<ion-col  size="6">
+       <ion-input label="Au" label-placement="floating"   type="date" fill="solid" placeholder="Au"></ion-input>
+    </ion-col>
+  </ion-row>
+  </ion-card>
+</ion-header>
+<ion-content [fullscreen]="true">
+ <div *ngIf="!addForm">
+    <ion-card *ngIf="showsearchForm"  style="padding:12px; margin-bottom:0px;">
+		<form [formGroup]="pageForm">
+		<div style="display:none1;">
+			
+			<ion-row >
+				<ion-col size="12">
+				   <span>Récherche</span>
+				</ion-col>
+				<ion-col size="12">
+				   <ion-select label="Catégorie" label-placement="floating"  [(ngModel)]="_categ" formControlName="_categ"  interface="popover" placeholder="Catégorie"  fill="outline">
+						<ion-select-option  value="0"  >Toutes les catégories</ion-select-option>
+						<ion-select-option  *ngFor="let line of listcategories;" value="{{line.id}}"  >{{line.label}}</ion-select-option>
+					</ion-select>
+				</ion-col>
+				<ion-col size="6">
+				   <ion-input label="Du" label-placement="floating"  [(ngModel)]="_date1" formControlName="_date1"  interface="popover"  fill="outline" type="date" placeholder="Du"></ion-input>
+				</ion-col>
+				<ion-col  size="6">
+				   <ion-input label="Au" label-placement="floating"   [(ngModel)]="_date2" formControlName="_date2" interface="popover"  fill="outline" type="date" placeholder="Du"></ion-input>
+				</ion-col>
+			</ion-row>
+	        <ion-button expand="block"  (click)="onBillList()">Afficher</ion-button>
+		</div>
+		</form>
+	</ion-card>
+	<ion-row  style="margin-top:20px;">
+		
+		<ion-col size="8">
+		<strong>BONS APPROUVES POUR DECAISSEMENT</strong>
+		</ion-col>
+		<ion-col size="4">
+		   <div align="right">
+			  <ion-button  fill="clear"  (click)="onChangemode('list')"> <ion-icon name="list"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" (click)="onChangemode('grid')"> <ion-icon name="apps"></ion-icon> </ion-button>
+		   </div>
+		</ion-col>
+	</ion-row>
+	  <ion-button  color="default"  style="color:#000000; position:fixed; bottom:0; width:100%; left:0;">Total {{amountBill}} F</ion-button>
+     
+	 <table style="width:100%;"  *ngIf="listmode">
+		<thead>
+			<tr>
+				<td>Id</td>
+				<td>Libellé</td>
+				<td>Montant</td>
+				<td>{{montencaisse}}</td>
+				<td>Reste</td>
+				<td>Réference</td>
+				<td>Statut</td>
+				<td>{{categpart}}</td>
+				<td>Date</td>
+				<td>Heure</td>
+				<td>Echéance</td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr  *ngFor="let result of results; let i = index">
+				<td >{{ result.id }}</td>
+				<td>{{ result.title }}</td>
+				<td>{{ result.amount }}F</td>
+				<td>{{ result.payamount }}</td>
+				<td>{{ result.stayamount }}</td>
+				<td>{{ result.reference }}</td>
+				<td>
+					<ion-badge color="warning" *ngIf="result.statut=='En attente'">En attente</ion-badge>
+					<ion-badge color="secondary" *ngIf="result.statut=='Transmis'">Transmis</ion-badge>
+					<ion-badge color="tertiary" *ngIf="result.statut=='Validé'">Validé</ion-badge> 
+					<ion-badge color="success" *ngIf="result.statut=='Approuvé'">Approuvé</ion-badge> 
+					<ion-badge color="danger" *ngIf="result.statut=='Réjeté'">Réjeté</ion-badge>
+					<ion-badge color="tertiary" *ngIf="result.statut=='Décaissé'">Décaissé</ion-badge> 
+				</td>
+				<td>{{ result.partner }}</td>
+				<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+				<td>{{ result.createdAt| date: 'HH:MM' }}</td>
+				<td>{{ result.eventDate| date: 'dd/MM/yyyy' }}</td>
+				<td>
+				   <ion-button fill="clear" slot="end"  routerLink="/billdetail/{{ result.uui }}/{{ result.code }}/{{ result.id }}" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  *ngIf="cashdesk!=''" fill="clear" slot="end"  (click)="operationModal(result.id, result.code)" style="display:none1;"> <ion-icon name="wallet" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Validé')" style="display:none;text-transform: capitalize;"> <ion-icon name="checkmark-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button  fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Réjeté')" style="display:none;text-transform: capitalize;"> <ion-icon name="close-circle" style="font-size:18px;"></ion-icon> </ion-button>
+				  <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)" style="display:none;"> <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>{{amountBill}} F</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</tfoot>
+	</table>
+
+
+
+	<div  *ngIf="gridmode">
+	<div *ngFor="let result of results; let i = index">
+	<ion-card >
+		  <div button  style="padding:7px;">
+			<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:2px;"><span><span>{{ result.id }} | {{ result.title }}</span></span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Montant:</span> {{ result.amount }}  F <span> {{montencaisse}}:</span>  {{ result.payamount }}  F <span> Reste:</span>  {{ result.stayamount }}  F</span></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:2px;"><span><span>Réference: </span>{{ result.reference }} <span> {{categpart}}: </span>{{ result.partner }}</span></p>
+			<p style="margin:0px;  margin-bottom:2px;font-size:14px;"><span><span>  Date: </span>{{ result.addDate| date: 'dd/MM/yyyy' }}<span>  Echéance:</span> {{ result.eventDate| date: 'dd/MM/yyyy' }} </span></p>
+			<p  style="margin:0px; font-size:12px; margin-bottom:0px;">
+				<ion-badge color="warning" *ngIf="result.statut=='En attente'">En attente</ion-badge>
+					<ion-badge color="secondary" *ngIf="result.statut=='Transmis'">Transmis</ion-badge>
+					<ion-badge color="tertiary" *ngIf="result.statut=='Validé'">Validé</ion-badge> 
+					<ion-badge color="success" *ngIf="result.statut=='Approuvé'">Approuvé</ion-badge> 
+					<ion-badge color="danger" *ngIf="result.statut=='Réjeté'">Réjeté</ion-badge>
+				<ion-badge color="tertiary" *ngIf="result.statut=='Décaissé'">Décaissé</ion-badge> 
+				</p>
+			<p style="margin:0px;">
+			  <ion-button fill="clear" slot="end"  routerLink="/billdetail/{{ result.uui }}/{{ result.code }}/{{ result.id }}" style="display:none1;text-transform: capitalize;"> <ion-icon name="list-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  *ngIf="cashdesk!=''" fill="clear" slot="end"  (click)="operationModal(result.id, result.code)" style="display:none1;"> <ion-icon name="wallet" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Validé')" style="display:none;text-transform: capitalize;"> <ion-icon name="checkmark-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button  fill="clear" slot="end"  (click)="onUpdateStatus(i, result.id, 'Réjeté')" style="display:none;text-transform: capitalize;"> <ion-icon name="close-circle" style="font-size:18px;"></ion-icon> </ion-button>
+			  <ion-button   fill="clear" slot="end"  (click)="onGet(result.id)" style="display:none;"> <ion-icon name="pencil" style="font-size:18px;"></ion-icon> </ion-button>
+			  </p>
+		  </div>
+	  </ion-card>
+	  </div>
+	  
+	  <div  style="margin-bottom:80px;">
+	  </div>
+	   <ion-button  color="default"  style="color:#000000; position:fixed; bottom:0; width:100%; left:0;">Total {{amountBill}} F</ion-button>
+     </div>
+  </div>
+
+
+ 
+	
+</ion-content>

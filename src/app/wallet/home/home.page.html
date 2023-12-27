@@ -1,0 +1,55 @@
+<ion-header  >
+  <ion-grid style="background-color:#1258da; color:#ffffff padding:5px;">
+   <ion-row  style="background-color:#1258da; color:#ffffff; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Services financiers digitaux
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div  style="background-color:#1a78f7; width:100%; height:80px; padding:20px;">
+	<ion-row>
+		<ion-col size="5">
+			<p style="font-size:16px; margin-top:7px; color:#ffffff;"><strong  *ngIf="showsolde">Solde {{solde}} F</strong><strong  *ngIf="!showsolde">Solde ******** XOF</strong></p>
+		</ion-col>
+		<ion-col size="1">
+		<ion-button fill="clear" (click)="Refresh()"><ion-icon aria-hidden="true" style="color:#ffffff;" name="eye"></ion-icon></ion-button>
+		
+		</ion-col>
+	</ion-row>
+ </div>
+   <div style=" margin-top:20px;">
+	<ion-item href="#"   routerLink="/retrait">
+		<ion-icon slot="start"  name="arrow-down-circle"></ion-icon>
+		<ion-label style=" color:#505152;">Encaisser de l’argent</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+	<ion-item href="#"   routerLink="/depot">
+		<ion-icon slot="start"  name="arrow-up-circle"></ion-icon>
+		<ion-label style=" color:#505152;">Envoyer de l’argent</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+	<ion-item href="#"   routerLink="/facture">
+		<ion-icon slot="start"  name="albums"></ion-icon>
+		<ion-label style=" color:#505152;">Paiement de facture</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+	<ion-item href="#"   routerLink="/data">
+		<ion-icon slot="start"  name="earth"></ion-icon>
+		<ion-label style=" color:#505152;">Crédit d’appel et DATA</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+	<ion-item href="#"   routerLink="/colis">
+		<ion-icon slot="start"  name="cart"></ion-icon>
+		<ion-label style=" color:#505152;">Transfert de colis</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+</div>
+</ion-content>

@@ -1,0 +1,125 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param3}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+      
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ 
+<form [formGroup]="pageForm" > 
+  <ion-card style="padding:15px;">
+  <div class="row">
+	<div class="col-md-1">
+       <ion-button  (click)="onRefresh('prev')" fill="clear" slot="end"  style="margin-top:20px;"> <ion-icon name="chevron-back" color="success"></ion-icon> </ion-button>
+	</div>
+	<div class="col-md-3">
+       <ion-input labelPlacement="floating" value="" type="date" readonly  [(ngModel)]="date" formControlName="date"   style="border-bottom:1px solid #c0c0c0;">
+			<div slot="label">Du</div>
+		</ion-input>
+	</div>
+	<div class="col-md-3">
+       <ion-input labelPlacement="floating" value="" type="date"  readonly [(ngModel)]="date2" formControlName="date2"   style="border-bottom:1px solid #c0c0c0;">
+			<div slot="label">Au</div>
+		</ion-input>
+	</div>
+	<div class="col-md-1">
+        <ion-button  (click)="onRefresh('next')" fill="clear" slot="end" style="margin-top:20px;"> <ion-icon name="chevron-forward" color="success"></ion-icon> </ion-button>
+	</div>
+  </div>
+  <table class="styled-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th >Lun {{date01| date: 'dd/MM/yyyy'}}</th>
+            <th >Mar {{date02| date: 'dd/MM/yyyy'}}</th>
+            <th >Mer {{date03| date: 'dd/MM/yyyy'}}</th>
+            <th >Jeu {{date04| date: 'dd/MM/yyyy'}}</th>
+            <th >Ven {{date05| date: 'dd/MM/yyyy'}}</th>
+            <th >Sam {{date06| date: 'dd/MM/yyyy'}}</th>
+            <th >Dim {{date07| date: 'dd/MM/yyyy'}}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr  *ngFor="let result of horaires; let i = index">
+            <td>{{ result.horaire }}</td>
+            <td >
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.col1}}</p>
+				<p  *ngIf="result.col1!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval1}} </p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col1!=null && result.present1!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col1!=null && result.present1==null " >
+				<a href="javascript:void(0);"  *ngIf="date01 < daydate || date01 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a>
+				</p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.col2}}</p>
+				<p  *ngIf="result.col2!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval2}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col2!=null && result.present2!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col2!=null && result.present2==null " >
+				<a href="javascript:void(0);"  *ngIf="date02 < daydate || date02 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.col3}}</p>
+				<p  *ngIf="result.col3!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval3}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col3!=null && result.present3!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col3!=null && result.present3==null " >
+				<a href="javascript:void(0);"   *ngIf="date03 < daydate || date03 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.col4}}</p>
+				<p  *ngIf="result.col4!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval4}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col4!=null && result.present4!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col4!=null && result.present4==null " >
+				<a href="javascript:void(0);"   *ngIf="date04 < daydate || date04 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.col5}}</p>
+				<p  *ngIf="result.col5!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval5}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col5!=null && result.present5!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col5!=null && result.present5==null " >
+				<a href="javascript:void(0);"   *ngIf="date05 < daydate || date05 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.col6}}</p>
+				<p  *ngIf="result.col6!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval6}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col6!=null && result.present6!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col6!=null && result.present6==null " >
+				<a href="javascript:void(0);"   *ngIf="date06 < daydate || date06 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td >
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.col7}}</p>
+				<p  *ngIf="result.col7!=null " style="font-size:11px; margin-bottom:0px;">{{result.colval7}}</p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col7!=null && result.present7!=null "><ion-badge color="success"  style="font-size:11px; ">Présent(e)</ion-badge></p>
+				<p style="margin-bottom:0px;"  *ngIf="result.col7!=null && result.present7==null " >
+				<a href="javascript:void(0);"   *ngIf="date07 < daydate || date07 == daydate"><ion-badge color="warning"  style="font-size:11px; color:#020202;">Absent(e)</ion-badge></a></p>
+				
+			</td>
+            <td>
+				
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+  </ion-card>
+  </form>
+
+</ion-content>

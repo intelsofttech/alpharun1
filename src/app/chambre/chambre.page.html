@@ -1,0 +1,93 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       <ion-button fill="clear" (click)="onNew()" style="display:none;">
+		  <ion-icon slot="end" style="color:#ffff;" name="add"></ion-icon>
+		</ion-button>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+  <ion-row  style="margin-top:20px;">
+    <ion-col size="2">
+       <ion-button color="light"  (click)="onNew()">Ajouter</ion-button>
+    </ion-col>
+    <ion-col size="10">
+       <div align="right">
+	      <ion-button  color="light" slot="end"   (click)="onChangemode('list')"> <ion-icon name="list"></ion-icon> </ion-button>
+		  <ion-button  color="light" slot="end"  (click)="onChangemode('grid')"> <ion-icon name="apps"></ion-icon> </ion-button>
+	   </div>
+    </ion-col>
+  </ion-row>
+  
+  
+ <div style="padding:10px;"  *ngIf="!addForm">
+ 
+ <table style="width:100%;"  *ngIf="listmode">
+	<thead>
+		<tr>
+			<td>Id</td>
+			<td style="width:50%;">Libellé</td>
+			<td>Date</td>
+			<td>Heure</td>
+			<td></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr  *ngFor="let result of results">
+			<td>{{ result.id }}</td>
+			<td>{{ result.name }}</td>
+			<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}</td>
+			<td>{{ result.createdAt| date: 'HH:MM' }}</td>
+			<td>
+				<ion-button  fill="clear" slot="end"  (click)="onGet(result.id)"> <ion-icon name="pencil"></ion-icon> </ion-button>
+				<ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+	  <div  *ngIf="gridmode" style="margin-bottom:80px;">
+		  <ion-card  *ngFor="let result of results" style="padding:15px;">
+			<p  style="margin:2px;"><strong>{{ result.name }}</strong> </p>
+			<p style="margin:2px;"> <span style="font-size:14px;">   Date: {{ result.createdAt| date: 'dd/MM/yyyy' }} Heure: {{ result.createdAt| date: 'HH:MM' }}</span></p>
+		  
+		  <p style="margin:2px;"><ion-button  fill="clear" slot="end"  (click)="onGet(result.id)" > <ion-icon name="pencil"></ion-icon> </ion-button>
+		  <ion-button  fill="clear" slot="end"  (click)="onDelete(result.id)"> <ion-icon name="trash"></ion-icon> </ion-button></p>
+		  </ion-card>
+	  </div>
+  </div>
+
+  <form [formGroup]="categForm" (ngSubmit)="onAdd()"  *ngIf="addForm">
+    <ion-card>
+		  <ion-card-content>
+		    <div align="center"><h3><strong>{{liboperation}}</strong></h3></div>
+			
+			<br />
+			<ion-input label="Désignation" [(ngModel)]="name" formControlName="name" label-placement="floating" required  type="text" fill="outline" placeholder="Désignation"></ion-input>
+			<br />
+			<ion-select label="Type" formControlName="bedroomcateg"  [(ngModel)]="bedroomcateg" label-placement="floating" interface="popover" placeholder="Type"  fill="outline">
+				 <ion-select-option  *ngFor="let line of types;" value="{{line.id}}"  >{{line.name}}</ion-select-option>
+			</ion-select>
+			<br />
+			<ion-button  *ngIf="!isSend" type="submit" expand="block">Valider</ion-button>
+			<ion-button  *ngIf="isSend"  expand="block">Validation en cours ...</ion-button>
+			
+			<br />
+			<ion-button fill="clear" (click)="onCancelNew()" expand="block">Annuler</ion-button>
+		  </ion-card-content>
+	  </ion-card>
+  </form>
+
+</ion-content>

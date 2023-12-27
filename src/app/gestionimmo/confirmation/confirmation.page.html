@@ -1,0 +1,104 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+       
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+<ion-content >
+
+<ion-content [fullscreen]="true">
+
+	<div style="border-bottom:1px solid #c0c0c0;">
+		<div class="row" style="padding:7px;">
+			<div class="col-md-1">
+			   <ion-icon style="margin:12px; color:#707071; font-size:18px;" name="settings"></ion-icon>
+			</div>
+			<div class="col-md-8">
+			   <div style="margin-top:10px; text-transform:upercase;">
+				<form [formGroup]="pageForm" >
+					<input class=""   [(ngModel)]="word" formControlName="word" placeholder="RECHERCHE" style="padding:5px; width:100%; border:1px solid #e6e8e8;"/>
+			   </form>
+			   </div>
+			</div>
+			<div class="col-md-3" >
+				<div align="right">
+				 <ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+			</div>
+	    </div>
+		
+	</div>
+	
+  <ion-card>
+   <div  class="row" style="padding:20px;" *ngIf="listmode">
+		<table style="width:100%;"  >
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Type</td>
+					<td>Numéro</td>
+					<td>Loyer</td>
+					<td>Charge</td>
+					<td>Net à payer</td>
+					<td>Propriété</td>
+					<td>Prospect</td>
+					<td>Téléphone</td>
+					<td>Date</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results">
+					<td>{{ result.id }}</td>
+					<td>{{ result.typelib }}</td>
+					<td>{{ result.ref }}</td>
+					<td>{{ result.price }}</td>
+					<td>{{ result.charge }}</td>
+					<td>{{ result.amount }}</td>
+					<td>{{ result.property }}</td>
+					<td>{{ result.selectedname }}</td>
+					<td>{{ result.selectedphone }}</td>
+					<td>{{ result.date| date: 'dd/MM/yyyy' }}</td>
+				</tr>
+			</tbody>
+		</table>  
+		
+	</div>
+	<div  class="row" style="padding:0px;" *ngIf="gridmode">
+		<div class="col-md-4" *ngFor="let result of results; let i = index">	
+			<ion-card  style="border:1px solid #c0c0c0;padding:15px;">
+			<div >
+			<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+			<span><strong>{{ result.typelib }} N° : {{ result.ref }}</strong></span>
+			</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;"></p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Loyer: {{ result.price }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Charge: {{ result.charge }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Net à payer: {{ result.amount }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Propriété: {{ result.property }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Prospect: {{ result.selectedname }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Téléphone: {{ result.selectedphone }}</p>
+			<p style="margin:0px; font-size:14px; margin-bottom:5px;">Date: {{ result.createdAt| date: 'dd/MM/yyyy' }}
+			 
+			</p>
+			</div>
+		    </ion-card>
+	  
+		</div>
+	</div>
+  </ion-card>
+  
+  
+  <div style="margin-bottom:200px;"></div>
+</ion-content>

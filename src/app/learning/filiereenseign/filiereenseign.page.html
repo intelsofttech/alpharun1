@@ -1,0 +1,28 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Sélectionnez la filière
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="row" style="margin-top:20px;">
+    <div class="col-md-4"  *ngFor="let result of results">
+     <ion-item href="#"   routerLink="/emploienseign/enseignant/Enseignants/{{result.id}}">
+		<ion-icon slot="start"  name="arrow-down-circle"></ion-icon>
+		<ion-label style=" color:#505152;">{{result.label}}</ion-label>
+		<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+	</ion-item>
+    </div>
+  </div>
+</ion-content>

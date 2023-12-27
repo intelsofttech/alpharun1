@@ -1,0 +1,54 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Configuration
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-list>
+		  <ion-item button routerLink="/categorie/group/Départements et Groupes">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Départements/Groupes</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/categorie/recette/Comptes des récettes">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Comptes des récettes</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/categorie/depense/Comptes des charges">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Comptes des charges</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/categorie/produit/Catégories produits">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Catégories produits</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/product">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Produits</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/partner/client/Clients">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Clients</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+		  <ion-item button routerLink="/partner/fournisseur/Fournisseurs">
+		    <ion-icon slot="start"  name="settings"></ion-icon>
+			<ion-label><p>Fournisseur</p></ion-label>
+		    <ion-icon slot="end"  name="chevron-forward"></ion-icon>
+		  </ion-item>
+	  </ion-list>
+</ion-content>

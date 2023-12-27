@@ -1,0 +1,49 @@
+<ion-header  >
+  <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+	 <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col size="9" style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+    <ion-col  size="1">
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="row" style="margin-top:20px;">
+			<div class="col-md-4">
+			 <ion-item href="#"   routerLink="/program/{{param1}}/1/Cours {{param2}}">
+				<ion-icon slot="start"  name="enter"></ion-icon>
+				<ion-label style=" color:#505152;">Cours</ion-label>
+				<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+			</ion-item>
+			</div>
+			<div class="col-md-4">
+			 <ion-item href="#"   routerLink="/program/{{param1}}/2/Excercices {{param2}}">
+				<ion-icon slot="start"  name="enter"></ion-icon>
+				<ion-label style=" color:#505152;">Excercices</ion-label>
+				<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+			</ion-item>
+			</div>
+			<div class="col-md-4">
+			 <ion-item href="#"   routerLink="/program/{{param1}}/3/Devoirs {{param2}}">
+				<ion-icon slot="start"  name="enter"></ion-icon>
+				<ion-label style=" color:#505152;">Devoirs</ion-label>
+				<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+			</ion-item>
+			</div>
+			<div class="col-md-4">
+			 <ion-item href="#"   routerLink="/program/{{param1}}/1/Examens {{param2}}">
+				<ion-icon slot="start"  name="enter"></ion-icon>
+				<ion-label style=" color:#505152;">Examens</ion-label>
+				<ion-icon slot="end"  name="chevron-forward"></ion-icon>
+			</ion-item>
+			</div>
+			</div>
+</ion-content>

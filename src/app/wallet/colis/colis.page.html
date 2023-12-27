@@ -1,0 +1,37 @@
+<ion-header  >
+  <ion-grid style="background-color:#1258da; color:#ffffff padding:5px;">
+   <ion-row  style="background-color:#1258da; color:#ffffff; margin-top:30px;">
+    <ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   Transfert de colis
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+ <div  style="background-color:#1a78f7; width:100%; height:90px; padding:20px;">
+    <p style="font-size:16px; color:#ffffff;"><strong>0 Colis à livrer</strong></p>
+ </div>
+ <div style=" margin-top:20px;">
+	<ion-item href="#"  routerLink="/adspage/locate/Mes lieux de livraison">
+		<ion-label style=" color:#505152;">Mes lieux de livraison</ion-label>
+	</ion-item>
+	<ion-item href="#"  routerLink="/adspage/delivery/Mes lieux de livraison">
+		<ion-label style=" color:#505152;">Mes offres de livraison</ion-label>
+	</ion-item>
+	<ion-item  >
+		<ion-label style=" color:#505152;">Mes Démandes de livraison aux livreurs</ion-label>
+	</ion-item>
+ </div>
+ <div style=" margin-top:40px;">
+	<ion-item >
+		<ion-label style=" color:#505152;">Récherche livreurs</ion-label>
+	</ion-item>
+ </div>
+											
+</ion-content>

@@ -1,0 +1,225 @@
+<ion-header  >
+ <ion-grid style="background-color:{{backcolor1}}; color:{{textcolor}}; padding:5px; ">
+   <ion-row  style="background-color:{{backcolor1}}; color:{{textcolor}}; margin-top:30px;">
+		<ion-col size="1" style="padding:0px; font-size:20px;">
+       <ion-back-button ></ion-back-button>
+    </ion-col>
+    <ion-col style="padding:10px; padding-left:0px;">
+       <ion-title style="font-size:16px;margin-top:3px;">
+		   {{param2}}
+		</ion-title>
+    </ion-col>
+  </ion-row>
+ </ion-grid>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+   <ion-segment [(ngModel)]="segment">
+			<ion-segment-button value="note">
+			  Notes
+			</ion-segment-button>
+			<ion-segment-button value="absence">
+			  Absences
+			</ion-segment-button>
+			<ion-segment-button value="frais">
+			  Frais
+			</ion-segment-button>
+		  </ion-segment>
+  <div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'frais'">
+      <ion-card-header>
+        FRAIS DE SCOLARITE
+      </ion-card-header>
+      <ion-card-content>
+        Your user info content here
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card *ngSwitchCase="'note'">
+      <ion-card-content>
+		<form [formGroup]="pageForm" >
+        <div class="row">
+			<div class="col-md-4">
+				<ion-item>
+				<ion-select labelPlacement="floating" (ionChange)="onListnotes()" [(ngModel)]="periode" formControlName="periode"  interface="popover" >
+						 <ion-select-option  *ngFor="let result of periodes"  value="{{ result.id }}" >{{ result.label }}</ion-select-option>
+						 <div slot="label">Période</div>
+					</ion-select>
+				</ion-item>	
+			</div>
+			<div class="col-md-4">
+				
+			</div>
+			<div class="col-md-4">
+				<div align="right">
+					 <ion-button  fill="clear"  style="color:#707071;"><ion-icon style="color:#707071;" name="refresh"></ion-icon> </ion-button>
+					<ion-button   fill="clear"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+					<ion-button   fill="clear" (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+					</div>
+			</div>
+			
+			<div class="col-md-12">
+				<div  class="row" style="padding:0px; " *ngIf="gridmode">
+					<div class="col-md-4" style="padding:0px; margin-left:12px;" *ngFor="let result of notes; let i = index">	
+						<ion-card  style="margin:0px; border:1px solid #c0c0c0;padding:15px;">
+						<div >
+						<p style="margin:0px; font-size:14px; color:#f78812; margin-bottom:5px;">
+						<span><strong>{{ result.matierelib }}</strong></span>
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;" *ngFor="let line1 of cnotes">
+								<span  *ngIf="line1.statut=='1'">{{line1.label}}/{{line1.onvalue}} : {{ result.note1 }}</span>
+								<span  *ngIf="line1.statut=='2'">{{line1.label}}/{{line1.onvalue}} : {{ result.note2 }}</span>
+								<span  *ngIf="line1.statut=='3'">{{line1.label}}/{{line1.onvalue}} : {{ result.note3 }}</span>
+								<span  *ngIf="line1.statut=='4'">{{line1.label}}/{{line1.onvalue}} : {{ result.note4 }}</span>
+						</p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span> Moyenne: {{ result.moyenne }} Rang: {{ result.rang }} Coef: {{ result.coef }}</span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span> Mini: {{ result.maxi }} Maxi: {{ result.maxi }}</span></p>
+						</div>
+						</ion-card>
+					</div>
+				</div>
+				<table style="width:100%;"  *ngIf="listmode">
+					<thead>
+						<tr>
+							<td style="width:200px;">Matière</td>
+							<td style=""  *ngFor="let line of cnotes">
+							<p style="margin-bottom:0px;">{{line.label}}/{{line.onvalue}}</p>
+							<p style="margin-bottom:0px;">Coef:{{line.coef}}</p></td>
+							<td>Moyenne</td>
+							<td>Coef</td>
+							<td>Rang</td>
+							<td>Mini</td>
+							<td>Maxi</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  *ngFor="let result of notes">
+							<td  style="padding:0px;padding:10px;">
+							<p style="margin-bottom:0px;">{{ result.matierelib }}</p>
+							</td>
+							
+							<td style="padding:0px;padding-left:10px;" *ngFor="let line1 of cnotes">
+								<span  *ngIf="line1.statut=='1'">{{ result.note1 }}</span>
+								<span  *ngIf="line1.statut=='2'">{{ result.note2 }}</span>
+								<span  *ngIf="line1.statut=='3'">{{ result.note3 }}</span>
+								<span  *ngIf="line1.statut=='4'">{{ result.note4 }}</span>
+							</td>
+							<td style="padding:0px;padding-left:10px;">
+								{{ result.moyenne }}
+							</td>
+							<td style="padding:0px;padding-left:10px;">
+								{{ result.coef }}
+							</td>
+							<td style="padding:0px;padding-left:10px;">
+								{{ result.rang }}
+							</td>
+							<td style="padding:0px;padding-left:10px;">
+								{{ result.mini }}
+							</td>
+							<td style="padding:0px;padding-left:10px;">
+								{{ result.maxi }}
+							</td>
+						</tr>
+					</tbody>
+				</table>  
+	
+			</div>
+		</div>
+		</form>
+		
+		
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'absence'">
+     
+      <ion-card-content>
+		<form [formGroup]="absenceForm" >
+        <div class="row">
+			<div class="col-md-3">
+				<ion-input labelPlacement="floating" value="" type="date"   [(ngModel)]="date1" formControlName="date1"  (ionChange)="onRefresh()"  style="border-bottom:1px solid #c0c0c0;">
+				<div slot="label">Date</div>
+			</ion-input>
+			</div>
+			<div class="col-md-3">
+				<ion-input labelPlacement="floating" value="" type="date"   [(ngModel)]="date2" formControlName="date2"  (ionChange)="onRefresh()"  style="border-bottom:1px solid #c0c0c0;">
+				<div slot="label">Date</div>
+			</ion-input>
+			</div>
+			<div class="col-md-2">
+			
+			</div>
+			<div class="col-md-4">
+				<div align="right">
+				  <ion-button   fill="clear" slot="end"   (click)="onChangemode('list')"> <ion-icon style="color:#707071;" name="list"></ion-icon> </ion-button>
+				  <ion-button   fill="clear" slot="end"  (click)="onChangemode('grid')"> <ion-icon style="color:#707071;" name="apps"></ion-icon> </ion-button>
+				</div>
+		    </div>
+		   
+		</div>
+		</form>
+		
+			<div class="col-md-12"  *ngIf="listmode">
+		   <table class="styled-table" style="padding-left:0px;">
+			<thead>
+				<tr>
+					<th>code</th>
+					<th>Absent le</th>
+					<th>Heure</th>
+					<th>Matière</th>
+					<th>Classe</th>
+					<th>Ajouté le</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr  *ngFor="let result of results; let i = index">
+					<td>{{ result.id }}</td>
+					<td>{{ result.addDate| date: 'dd/MM/yyyy' }}</td>
+					<td>{{ result.parameter }}</td>
+					<td>{{ result.material }}</td>
+					<td>{{ result.classlist }}</td>
+					<td>{{ result.createdAt| date: 'dd/MM/yyyy' }}{{ result.createdAt| date: 'HH:MM' }}</td>
+					<td><ion-button   fill="clear" (click)="onDelete(result.id)"> <ion-icon style="color:#707071;" name="trash"></ion-icon> </ion-button></td>
+				</tr>
+			</tbody>
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+		</table>				
+		</div>
+		<div class="col-md-12" *ngIf="gridmode">
+		   <div class="row" style="margin-left:;">
+			<div class="col-md-4" *ngFor="let result of results; let i = index"  style="padding:0px;">
+				<ion-card >
+					  <div   style="padding:7px;">
+						<p style="margin:0px; font-size:14px; color:#1258da; margin-bottom:5px;"><span><strong>{{ i }}-{{ result.partnername }}</strong></span></p>
+						<p style="margin:0px; font-size:12px; color:; margin-bottom:5px;"><span><strong>Absent le: {{ result.addDate| date: 'dd/MM/yyyy' }}</strong></span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Heure: {{ result.parameter }} Matière: {{ result.material }} Classe: {{ result.classlist }}</span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;"><span>Ajoutée le: {{ result.addDate| date: 'dd/MM/yyyy' }} {{ result.createdAt| date: 'HH:MM' }}</span></p>
+						<p style="margin:0px; font-size:14px; margin-bottom:5px;">
+						<ion-button   fill="clear" (click)="onDelete(result.id)"> <ion-icon style="color:#707071;" name="trash"></ion-icon> </ion-button>
+						</p>
+					  </div>
+				</ion-card>
+			</div>
+		</div>
+		</div>
+	
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div style="margin-bottom:200px;"> </div>
+  
+  
+</ion-content>
